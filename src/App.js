@@ -1,35 +1,31 @@
-import './App.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Home from './pages/Home';
-import ProductPage from './pages/ProductPage';
-import CheckoutPage from './pages/CheckoutPage';
-import CategoryPage from './pages/CategoryPage';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import ProductPage from "./pages/ProductPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
-  
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home/>
+            <Home />
           </Route>
           <Route path="/product/:productId">
-            <ProductPage/>
+            <ProductPage />
           </Route>
           <Route path="/checkout">
-            <CheckoutPage/>
+            <CheckoutPage />
           </Route>
           <Route path="/category">
-            <CategoryPage/>
+            <CategoryPage />
           </Route>
           <Route>
-            <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">404 Not Found!</div>
+            <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">
+              404 Not Found!
+            </div>
           </Route>
         </Switch>
       </Router>

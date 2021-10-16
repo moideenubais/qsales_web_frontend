@@ -1,0 +1,14 @@
+<svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16.123"
+                height="16.123"
+                viewBox="0 0 16.123 16.123"
+              >
+                <path
+                  id="Icon_material-person"
+                  data-name="Icon material-person"
+                  d="M14.062,14.062a4.031,4.031,0,1,0-4.031-4.031A4.03,4.03,0,0,0,14.062,14.062Zm0,2.015C11.371,16.077,6,17.427,6,20.108v2.015H22.123V20.108C22.123,17.427,16.752,16.077,14.062,16.077Z"
+                  transform="translate(-6 -6)"
+                  fill="#fff"
+                />
+              </svg>

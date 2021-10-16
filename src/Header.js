@@ -1,153 +1,469 @@
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginUser, resetPassword } from "./redux/actions/auth";
+import { createData } from "./redux/actions";
+import { useState } from "react";
+import { ActionTypes } from "./redux/contants/action-types";
+import { useEffect } from "react";
 
-
+const passwordRegex =
+  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
+  const { errors: userErrors } = props;
 
-    const [showModal,setShowModal] = React.useState(false);
-    const [isSignIn,setIsSignIn] = React.useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [forgotPwd, setForgotPwd] = useState(false);
 
-    const toggleModel = () =>{
-        setIsSignIn(value => !value);
+  const isEmptyObj = (v) => {
+    return typeof value === "object" && Object.keys(v).length === 0;
+  };
+
+  const validatePasswords = ({ password, confirm_password }, setError) => {
+    if (!new RegExp(passwordRegex).test(password)) {
+      setError("password", {
+        type: "manual",
+        message:
+          "Password should be of 8 character with atleast one uppercase and lowercase letter, number and special character",
+      });
+      return false;
     }
 
-    console.log(isSignIn)
+    if (confirm_password && password !== confirm_password) {
+      setError("confirm_password", {
+        type: "manual",
+        message: "Password does not match",
+      });
+      return false;
+    }
+    return true;
+  };
 
-// SIGN IN COMPONENT   
-const SignIn = () =>{
-    const { register, handleSubmit,reset , formState: { errors } } = useForm();
-    const onSignInSubmit = SignInData => console.log(SignInData);
-    console.log(errors);
+  // FORGOT PASSWORD COMPONENT
+  const ForgotPasswordComponent = () => {
+    const {
+      register,
+      handleSubmit,
+      reset,
+      formState: { errors },
+      setError,
+    } = useForm();
 
-    return(
-<div className="shadow-lg col-12 bg-transparent-full">
-                        <div className="signIn-model col-3 p-4 bg-white rounded shadow-lg border">
+    const onForgotSubmit = (SignInData) => {
+      props.resetPassword(SignInData).then(() => {
+        setIsSignIn(true);
+        setForgotPwd(false);
+      });
+    };
 
-                        <div className="my-2 d-flex flex-row justify-content-between">
-                            <div className="">
-                            <h6 className="mb-2">Welcome Back!</h6>
-                            <h5 className="fw-bold">Sign in to your qsales account</h5>
-                            </div>
-                            <button type="button" className="bg-white border-0 fs-4 p-0 m-0 animate-close" onClick={()=>{setShowModal(false)}}>&#10005;</button>
-                        </div>
-                        <form onSubmit={handleSubmit(onSignInSubmit)} className="d-flex flex-column my-3">
-                        <div className="form-group d-flex flex-column my-2">
-                            <label className="small mb-1">Email</label>
-                            <input className="qs-input p-2 rounded"type="email" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />
-                        </div>
-                        <div className="form-group d-flex flex-column my-2">
-                            <label className="small mb-1">Password</label>
-                            <input className="qs-input p-2 rounded"  type="password" placeholder="Password" {...register("Password", {})} />
-                        </div>
-                        <div className="d-flex flex-row align-items-center">
-                        <button type="submit" className="w-25 btn btn-qs-primary mt-2 p-2 me-5">Sign in</button>
-                        <Link className="text-decoration-none">
-                            <a className="small text-center text-decoration-none fw-normal">Forgot your Password ?</a>
-                        </Link>
-                        </div>
-                        </form>
-                        <hr className="text-secondary my-2"/>
-                            <div className="">
-                                <p className="small m-0 p-0">Dont have an account ? <span className="primary-color fw-normal cp"  onClick={()=>{setIsSignIn(false); reset({Email: "",Password:""})}}>Sign up</span></p>
-                            </div>
-                        </div>
-            </div>
-    )
-}
+    useEffect(() => {
+      if (!userErrors?.msg) return;
+      setError("email", { type: "manual", message: userErrors.msg });
+    }, [setError]);
 
-
-// SIGN UP COMPONENT   
-const SignUp = () =>{
-    const { register, handleSubmit,reset , formState: { errors } } = useForm();
-    const onSignUpSubmit = SignUpData => console.log(SignUpData);
-    console.log(errors);
-
-    return(
-<div className="shadow-lg col-12 bg-transparent-full">
-                        <div className="signIn-model col-3 p-4 bg-white rounded shadow-lg border">
-
-                        <div className="my-2 d-flex flex-row justify-content-between">
-                            <div className="">
-                            <h6 className="mb-2">Welcome Back!</h6>
-                            <h5 className="fw-bold">Create an qsales account</h5>
-                            </div>
-                            <button type="button" className="bg-white border-0 fs-4 p-0 m-0 animate-close" onClick={()=>{setShowModal(false)}}>&#10005;</button>
-                        </div>
-                        <form onSubmit={handleSubmit(onSignUpSubmit)} className="d-flex flex-column my-3">
-                        <div className="form-group d-flex flex-column my-2">
-                            <label for="formGroupExampleInput" className="small mb-1">Email</label>
-                            <input className="qs-input p-2 rounded" id="formGroupExampleInput" type="email" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />
-                        </div>
-                        <div className="form-group d-flex flex-column my-2">
-                            <label for="formGroupExampleInput" className="small mb-1">Password</label>
-                            <input className="qs-input p-2 rounded"  id="formGroupExampleInput" type="password" placeholder="Password" {...register("Password", {})} />
-                        </div>
-                        <div className="form-group d-flex flex-column my-2">
-                            <label for="formGroupExampleInput" className="small mb-1">Confirm Password</label>
-                            <input className="qs-input p-2 rounded"  id="formGroupExampleInput" type="password" placeholder="Password" {...register("ConfirmPassword", {})} />
-                        </div>
-                        <div className="d-flex flex-row align-items-center">
-                        <button type="submit" className="w-25 btn btn-qs-primary mt-2 p-2 me-5">Sign Up</button>
-
-                        </div>
-                        </form>
-                        <hr className="text-secondary my-2"/>
-                            <div className="">
-                                <p className="small m-0 p-0"> Already have an account ? <span className="primary-color fw-normal cp" onClick={()=>{setIsSignIn(true); reset({Email: "",Password:"",ConfirmPassword:""})}}>Sign In</span></p>
-                            </div>
-                        </div>
-            </div>
-    )
-}
-
-const ShowSignIn=()=>{
-    return(
-        isSignIn ? <SignIn/>: <SignUp/>
-    )
-}
     return (
-        <React.Fragment>
-            <header className="col-12 col-md-12 col-lg-12 border bg-primary">
-                <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row">
-                    <div className="col-2 d-flex flex-row align-items-center justify-content-start">
-                        {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
-                        <img src="../assets/images/4.png" height="70px" width="70px" className="position-absolute"/>
-                    </div>
-                    <div className="col-md-5 col-lg-5 p-0 d-flex flex-row align-items-center justify-content-center">
-                        <input type="text" placeholder="What are you looking for ?" className="search border px-2 py-1 rounded w-100" />
-                    </div>
-                    <div className="col d-flex flex-row align-items-center justify-content-center">
-                        <p className="text-white small p-0 m-0">العربية</p>
-                    </div>
-                    <div className="col-3 col-md-3 col-lg-3 d-flex flex-row align-items-center justify-content-center p-0">
-                        <div className="d-flex flex-row align-items-center px-3 border-right">
-                            <p className="text-white small p-0 m-0 mr-2 me-2" onClick={()=>{setShowModal(true)}}>Sign In </p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16.123" height="16.123" viewBox="0 0 16.123 16.123">
-                                <path id="Icon_material-person" data-name="Icon material-person" d="M14.062,14.062a4.031,4.031,0,1,0-4.031-4.031A4.03,4.03,0,0,0,14.062,14.062Zm0,2.015C11.371,16.077,6,17.427,6,20.108v2.015H22.123V20.108C22.123,17.427,16.752,16.077,14.062,16.077Z" transform="translate(-6 -6)" fill="#fff"/>
-                            </svg>
-                        </div>
-                        <div className="d-flex flex-row align-items-center px-3">
-                            <p className="text-white small p-0 m-0 mr-2 me-2">Cart</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18.066" height="17.313" viewBox="0 0 18.066 17.313">
-                            <g id="Icon_feather-shopping-cart" data-name="Icon feather-shopping-cart" transform="translate(-0.75 -0.75)">
-                                <path id="Path_4" data-name="Path 4" d="M13.506,30.753A.753.753,0,1,1,12.753,30,.753.753,0,0,1,13.506,30.753Z" transform="translate(-5.229 -14.193)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-                                <path id="Path_5" data-name="Path 5" d="M30.006,30.753A.753.753,0,1,1,29.253,30,.753.753,0,0,1,30.006,30.753Z" transform="translate(-13.446 -14.193)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-                                <path id="Path_6" data-name="Path 6" d="M1.5,1.5H4.512L6.53,11.583A1.506,1.506,0,0,0,8.036,12.8h7.319a1.506,1.506,0,0,0,1.506-1.212l1.2-6.318H5.265" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-                            </g>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </header>
-  
-        {/* SIGN IN MODULE */}
+      <div className="shadow-lg col-12 bg-transparent-full">
+        <div className="signIn-model col-3 p-4 bg-white rounded shadow-lg border">
+          <div className="my-2 d-flex flex-row justify-content-between">
+            <div className="">
+              <h6 className="mb-2">Forgot Password</h6>
+              <h5 className="fw-bold">
+                Enter your email to recover your password. You will receive an
+                email with instructions.
+              </h5>
+            </div>
+            <button
+              type="button"
+              className="bg-white border-0 fs-4 p-0 m-0 animate-close"
+              onClick={() => {
+                setShowModal(false);
+                setForgotPwd(false);
+              }}
+            >
+              &#10005;
+            </button>
+          </div>
+          <form
+            onSubmit={handleSubmit(onForgotSubmit)}
+            className="d-flex flex-column my-3"
+          >
+            <div className="form-group d-flex flex-column my-2">
+              <label className="small mb-1">Email</label>
+              <input
+                className="qs-input p-2 rounded"
+                type="email"
+                placeholder="Email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: /^\S+@\S+$/i,
+                })}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+            </div>
+            <div className="d-flex flex-row align-items-center">
+              <button
+                type="submit"
+                className="w-25 btn btn-qs-primary mt-2 p-2 me-5"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+          <hr className="text-secondary my-2" />
+          <div className="">
+            <p className="small m-0 p-0">
+              Already have an account ?{" "}
+              <span
+                className="primary-color fw-normal cp"
+                onClick={() => {
+                  setIsSignIn(true);
+                  setForgotPwd(false);
+                  reset({ email: "", password: "", confirm_password: "" });
+                }}
+              >
+                Sign in
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
-                    {showModal ? isSignIn ? <SignIn/>:<SignUp/> :("")}
-        </React.Fragment>
-    )
+  // SIGN IN COMPONENT
+  const SignIn = () => {
+    const {
+      register,
+      handleSubmit,
+      reset,
+      formState: { errors },
+      setError,
+    } = useForm();
+
+    const onSignInSubmit = (SignInData) => {
+      if (isEmptyObj(errors)) return;
+
+      const isValid = validatePasswords(
+        { password: SignInData.password },
+        setError
+      );
+      if (!isValid) return;
+
+      props.loginUser(SignInData).then(() => {
+        setShowModal(false);
+      });
+    };
+
+    useEffect(() => {
+      if (!userErrors?.msg) return;
+      setError("email", { type: "manual", message: userErrors.msg });
+    }, [setError]);
+
+    return (
+      <div className="shadow-lg col-12 bg-transparent-full">
+        <div className="signIn-model col-3 p-4 bg-white rounded shadow-lg border">
+          <div className="my-2 d-flex flex-row justify-content-between">
+            <div className="">
+              <h6 className="mb-2">Welcome Back!</h6>
+              <h5 className="fw-bold">Sign in to your qsales account</h5>
+            </div>
+            <button
+              type="button"
+              className="bg-white border-0 fs-4 p-0 m-0 animate-close"
+              onClick={() => {
+                setShowModal(false);
+              }}
+            >
+              &#10005;
+            </button>
+          </div>
+          <form
+            onSubmit={handleSubmit(onSignInSubmit)}
+            className="d-flex flex-column my-3"
+          >
+            <div className="form-group d-flex flex-column my-2">
+              <label className="small mb-1">Email</label>
+              <input
+                className="qs-input p-2 rounded"
+                type="email"
+                placeholder="Email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: /^\S+@\S+$/i,
+                })}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+            </div>
+            <div className="form-group d-flex flex-column my-2">
+              <label className="small mb-1">Password</label>
+              <input
+                className="qs-input p-2 rounded"
+                type="password"
+                placeholder="Password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+              />
+              {errors.password && <p>{errors.password.message}</p>}
+            </div>
+            <div className="d-flex flex-row align-items-center">
+              <button
+                type="submit"
+                className="w-25 btn btn-qs-primary mt-2 p-2 me-5"
+              >
+                Sign in
+              </button>
+              <Link
+                className="text-decoration-none"
+                onClick={() => setForgotPwd(true)}
+              >
+                <a className="small text-center text-decoration-none fw-normal">
+                  Forgot your Password ?
+                </a>
+              </Link>
+            </div>
+          </form>
+          <hr className="text-secondary my-2" />
+          <div className="">
+            <p className="small m-0 p-0">
+              Dont have an account ?{" "}
+              <span
+                className="primary-color fw-normal cp"
+                onClick={() => {
+                  setIsSignIn(false);
+                  setForgotPwd(false);
+                  reset({ email: "", password: "" });
+                }}
+              >
+                Sign up
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // SIGN UP COMPONENT
+  const SignUp = () => {
+    const {
+      register,
+      handleSubmit,
+      reset,
+      setError,
+      formState: { errors },
+    } = useForm();
+
+    useEffect(() => {
+      if (!userErrors?.msg) return;
+      setError("email", { type: "manual", message: userErrors.msg });
+    }, [setError]);
+
+    const onSignUpSubmit = (SignUpData) => {
+      if (isEmptyObj(errors)) return;
+
+      const { password, confirm_password } = SignUpData;
+
+      const isValid = validatePasswords(
+        { password, confirm_password },
+        setError
+      );
+      if (!isValid) return;
+
+      props
+        .createData(ActionTypes.CREATE_USER, "/user?user_type=user", {
+          ...SignUpData,
+          user_type: "user",
+        })
+        .then((result) => {
+          if (isEmptyObj(result?.error)) return;
+          setIsSignIn(true);
+        });
+    };
+
+    return (
+      <div className="shadow-lg col-12 bg-transparent-full">
+        <div className="signIn-model col-3 p-4 bg-white rounded shadow-lg border">
+          <div className="my-2 d-flex flex-row justify-content-between">
+            <div className="">
+              <h6 className="mb-2">Welcome Back!</h6>
+              <h5 className="fw-bold">Create an qsales account</h5>
+            </div>
+            <button
+              type="button"
+              className="bg-white border-0 fs-4 p-0 m-0 animate-close"
+              onClick={() => {
+                setShowModal(false);
+              }}
+            >
+              &#10005;
+            </button>
+          </div>
+          <form
+            onSubmit={handleSubmit(onSignUpSubmit)}
+            className="d-flex flex-column my-3"
+          >
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+                Name
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="text"
+                placeholder="Name"
+                {...register("name", { required: "Name is required" })}
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+            </div>
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+                Email
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="email"
+                placeholder="Email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: /^\S+@\S+$/i,
+                })}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+            </div>
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+                Password
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="password"
+                placeholder="Password"
+                {...register("password", { required: "Password is required" })}
+              />
+              {errors.password && <p>{errors.password.message}</p>}
+            </div>
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+                Confirm Password
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="password"
+                placeholder="Password"
+                {...register("confirm_password", {
+                  required: "Confirm password is required",
+                })}
+              />
+              {errors.confirm_password && (
+                <p>{errors.confirm_password.message}</p>
+              )}
+            </div>
+            <div className="d-flex flex-row align-items-center">
+              <button
+                type="submit"
+                className="w-25 btn btn-qs-primary mt-2 p-2 me-5"
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+          <hr className="text-secondary my-2" />
+          <div className="">
+            <p className="small m-0 p-0">
+              {" "}
+              Already have an account ?{" "}
+              <span
+                className="primary-color fw-normal cp"
+                onClick={() => {
+                  setIsSignIn(true);
+                  reset({ email: "", password: "", confirm_password: "" });
+                }}
+              >
+                Sign In
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <header className="col-12 col-md-12 col-lg-12 border bg-primary">
+        <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row">
+          <div className="col-2 d-flex flex-row align-items-center justify-content-start">
+            {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
+            <img
+              src="../assets/images/4.png"
+              height="70px"
+              width="70px"
+              className="position-absolute"
+              alt="images"
+            />
+          </div>
+          <div className="col-md-5 col-lg-5 p-0 d-flex flex-row align-items-center justify-content-center">
+            <input
+              type="text"
+              placeholder="What are you looking for ?"
+              className="search border px-2 py-1 rounded w-100"
+            />
+          </div>
+          <div className="col d-flex flex-row align-items-center justify-content-center">
+            <p className="text-white small p-0 m-0">العربية</p>
+          </div>
+          <div className="col-3 col-md-3 col-lg-3 d-flex flex-row align-items-center justify-content-center p-0">
+            <div className="d-flex flex-row align-items-center px-3 border-right">
+              <p
+                className="text-white small p-0 m-0 mr-2 me-2"
+                onClick={() => {
+                  setShowModal(true);
+                }}
+              >
+                Sign In
+              </p>
+              <img src="../assets/images/user.svg" alt="userIcon" />
+            </div>
+            <div className="d-flex flex-row align-items-center px-3">
+              <p className="text-white small p-0 m-0 mr-2 me-2">Cart</p>
+              <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* SIGN IN MODULE */}
+
+      <Toaster />
+
+      {showModal ? isSignIn && !forgotPwd ? <SignIn /> : <SignUp /> : ""}
+      {showModal && forgotPwd ? <ForgotPasswordComponent /> : ""}
+    </>
+  );
 }
 
+/**
+ * map State To Props
+ * @constant
+ * @param {*} state state
+ */
+const mapStateToProps = (state) => ({
+  ...state.authReducer,
+});
 
-export default Header;
+/**
+ * Export
+ */
+export default connect(mapStateToProps, {
+  loginUser,
+  resetPassword,
+  createData,
+})(Header);

@@ -1,41 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Product from "./Product";
 import Carousel from "react-elastic-carousel";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { connect } from "react-redux";
+import { getData } from "../../redux/actions";
+import { ActionTypes } from "../../redux/contants/action-types";
 
 function ProductsContainer(props) {
-  // console.log(props.datas)
-  const [Data, setData] = React.useState(null);
-  console.log(Data);
-  const [products, setProducts] = useState(null);
+  const { getData: propsGetData, productReducer, datas } = props;
 
   useEffect(() => {
-    const getCategories = async () => {
-      axios
-        .get(
-          `http://ec2-3-133-125-119.us-east-2.compute.amazonaws.com/api/product`,
-          {
-            params: { cateogry_id: props.datas._id, user_type: "user" },
-          }
-        )
-        .then((response) => {
-          if (response.data.products) setProducts(response.data.products);
-          else setProducts(null);
-          console.log(response.data);
-        })
-        .catch((err) => console.log(err));
-      //   return datas;
-    };
-
-    getCategories();
-  }, []);
-
-  React.useEffect(() => {
-    setData(props.datas);
-  }, [props.datas]);
-
-  const { title } = props;
+    propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
+      cateogry_id: datas._id,
+      user_type: "user",
+    });
+  }, [propsGetData, datas]);
 
   const breakPoints = [
     { width: 1, itemsToShow: 2 },
@@ -54,41 +33,41 @@ function ProductsContainer(props) {
           <div className="p-4 bg-white">
             {/* Title of Product Container */}
             <div className="py-4">
-              <h4 className="p-0 m-0">{props.datas.i18nResourceBundle.name}</h4>
+              <h4 className="p-0 m-0">{datas.i18nResourceBundle.name}</h4>
             </div>
             {/* List of product */}
             <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap">
               <Carousel breakPoints={breakPoints}>
-                {products &&
-                  products.map((items, index) => {
-                    const {
-                      i18nResourceBundle,
-                      ratings,
-                      description,
-                      price,
-                      productImage,
-                      _id,
-                    } = items;
-                    return (
-                      <Link
-                        key={_id}
-                        className="text-decoration-none"
-                        to={{
-                          pathname: `product/${_id}`,
-                          query: { id: _id },
-                        }}
-                      >
-                        <Product
-                          key={index}
-                          productName={i18nResourceBundle.name}
-                          ratings={ratings}
-                          description={description}
-                          productImage={items.product_image_small_url}
-                          price={price}
-                        />
-                      </Link>
-                    );
-                  })}
+                {productReducer?.data?.products
+                  ? productReducer.data.products.map((items, index) => {
+                      const {
+                        i18nResourceBundle,
+                        ratings,
+                        description,
+                        price,
+                        _id,
+                      } = items;
+                      return (
+                        <Link
+                          key={_id}
+                          className="text-decoration-none"
+                          to={{
+                            pathname: `product/${_id}`,
+                            query: { id: _id },
+                          }}
+                        >
+                          <Product
+                            key={index}
+                            productName={i18nResourceBundle.name}
+                            ratings={ratings}
+                            description={description}
+                            productImage={items.product_image_small_url}
+                            price={price}
+                          />
+                        </Link>
+                      );
+                    })
+                  : []}
               </Carousel>
             </div>
           </div>
@@ -98,4 +77,10 @@ function ProductsContainer(props) {
   );
 }
 
-export default ProductsContainer;
+const mapStateToProps = (state) => ({
+  productReducer: state.getAllProductsReducer,
+});
+
+export default connect(mapStateToProps, {
+  getData,
+})(ProductsContainer);
