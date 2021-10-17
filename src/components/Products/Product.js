@@ -19,7 +19,12 @@ function Product(props) {
           className="img-fluid product-image"
         />
         <div className="pt-3 product-description">
-          <h6 className="p-0 m-0 mb-1 text-dark">{productName}</h6>
+          <h6
+            className="p-0 m-0 mb-1 text-dark "
+            style={{ width: "150px", textOverflow: "ellipsis" }}
+          >
+            {productName}
+          </h6>
           <p className="p-0 m-0 text-secondary fs-12">{description}</p>
         </div>
         <div className="d-flex flex-column">
