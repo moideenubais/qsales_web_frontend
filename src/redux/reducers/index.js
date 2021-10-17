@@ -7,8 +7,11 @@ import { authReducer } from "./authReducer";
 const reducers = combineReducers({
   authReducer,
   getAllCategoriesReducer: commonReducer(ActionTypes.GET_CATEGORY),
+  getCategoryDetailsReducer: commonReducer(ActionTypes.GET_CATEGORY_DETAILS),
   getAllProductsReducer: commonReducer(ActionTypes.GET_PRODUCTS),
   getProductsReducer: commonReducer(ActionTypes.GET_PRODUCT_DETAILS),
+  getAdsReducer: commonReducer(ActionTypes.GET_ADS),
+  getReviewReducer: commonReducer(ActionTypes.GET_REVIEW)
 
   // product:selectedProductReducer,
 });

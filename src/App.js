@@ -19,7 +19,7 @@ function App() {
           <Route path="/checkout">
             <CheckoutPage />
           </Route>
-          <Route path="/category">
+          <Route path="/category/:categoryId">
             <CategoryPage />
           </Route>
           <Route>
