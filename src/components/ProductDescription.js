@@ -25,14 +25,15 @@ function ProductDescription(props) {
     description,
   } = productDetailsReducer?.data || {};
 
-  const { name: title } = resourceBundle?.[0] || {};
+  const { name: title, _id: resourceId } = resourceBundle?.[0] || {};
   const { unit_price, quantity } = prices?.[0] || {};
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_PRODUCT_DETAILS, `/product/${productId}`);
-  }, [propsGetData, productId]);
+  }, [productId, propsGetData]);
 
   const {
     register,
@@ -46,16 +47,15 @@ function ProductDescription(props) {
     setRatingValue(newRating);
   };
 
-  // const handleSelect = (selectedIndex, e) => {
-  //   setIndex(selectedIndex);
-  // };
+  const addToCart = () => {
+    console.log({ selectedQuantity, productId, resourceId });
+  };
 
   return (
     <>
       {productDetailsReducer?.data && (
         <>
           <div className="col-12 d-flex flex-row py-5">
-            {console.log(productDetailsReducer)}
             {/* Product Image */}
             <div className="col-4 p-0 m-0 h-100">
               <ReactImageMagnify
@@ -128,7 +128,7 @@ function ProductDescription(props) {
                 <p className="small m-0 mt-2">
                   <span className="fw-normal text-dark">Size :</span>
                   <span className="fw-normal text-black-50 ms-2">
-                    attribute_value_object
+                    {attribute_value_object}
                   </span>
                 </p>
               )}
@@ -144,12 +144,13 @@ function ProductDescription(props) {
                   <select
                     className="py-1 px-3 form-select"
                     aria-label="Default select example"
+                    onChange={(e) => setSelectedQuantity(e.target.value)}
+                    value={selectedQuantity}
                   >
                     {quantity > 0 && (
                       <>
-                        <option selected>1</option>
-                        {[...Array(parseInt(quantity - 1)).keys()].map((v) => (
-                          <option value={v + 2}>{v + 2}</option>
+                        {[...Array(parseInt(quantity)).keys()].map((v) => (
+                          <option value={v + 1}>{v + 1}</option>
                         ))}
                       </>
                     )}
@@ -170,7 +171,8 @@ function ProductDescription(props) {
               <div className="d-flex flex-row ">
                 <button
                   className="btn btn-qs-primary w-100 p-2 small "
-                  type="submit"
+                  type="button"
+                  onClick={addToCart}
                 >
                   Add To Cart
                 </button>

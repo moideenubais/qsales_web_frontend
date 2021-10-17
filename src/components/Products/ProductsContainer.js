@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Product from "./Product";
 import Carousel from "react-elastic-carousel";
 import { Link } from "react-router-dom";
@@ -7,22 +7,23 @@ import { getData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
 
 function ProductsContainer(props) {
-  const { getData: propsGetData, productReducer, datas } = props;
+  const { getData: propsGetData, datas } = props;
 
-  const { products } = productReducer?.data || {};
+  const [productsData, setproductsData] = useState([]);
 
   useEffect(() => {
-    if (!datas.id) {
-      propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
-        [datas.type]: true,
-        user_type: "user",
-      });
-    } else {
-      propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
-        cateogry_id: datas._id,
-        user_type: "user",
-      });
+    if (!datas) return;
+
+    const query = { user_type: "user", cateogry_id: datas._id };
+    if (!datas._id) {
+      query[datas.type] = true;
+      delete datas.cateogry_id;
     }
+
+    propsGetData(ActionTypes.GET_PRODUCTS, "/product", query).then((res) => {
+      if (res.error) return;
+      setproductsData(res.payload.data.products);
+    });
   }, [propsGetData, datas]);
 
   const breakPoints = [
@@ -36,7 +37,7 @@ function ProductsContainer(props) {
 
   return (
     <>
-      {products ? (
+      {productsData ? (
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">
           <div className="col-12 col-sm-12 col-md-9 col-lg-9 mx-auto pt-4 ">
             {/* Product Container */}
@@ -48,7 +49,7 @@ function ProductsContainer(props) {
               {/* List of product */}
               <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap">
                 <Carousel breakPoints={breakPoints}>
-                  {products.map(
+                  {productsData.map(
                     (
                       {
                         i18nResourceBundle,

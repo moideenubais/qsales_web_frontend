@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, resetPassword } from "./redux/actions/auth";
 import { createData } from "./redux/actions";
@@ -13,7 +14,7 @@ const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
-  const { errors: userErrors } = props;
+  const { errors: userErrors, history } = props;
 
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
@@ -430,6 +431,7 @@ function Header(props) {
             <div className="d-flex flex-row align-items-center px-3 border-right">
               <p
                 className="text-white small p-0 m-0 mr-2 me-2"
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   setShowModal(true);
                 }}
@@ -439,7 +441,15 @@ function Header(props) {
               <img src="../assets/images/user.svg" alt="userIcon" />
             </div>
             <div className="d-flex flex-row align-items-center px-3">
-              <p className="text-white small p-0 m-0 mr-2 me-2">Cart</p>
+              <p
+                className="text-white small p-0 m-0 mr-2 me-2"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  history.push("/checkout");
+                }}
+              >
+                Cart
+              </p>
               <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
             </div>
           </div>
@@ -468,8 +478,10 @@ const mapStateToProps = (state) => ({
 /**
  * Export
  */
-export default connect(mapStateToProps, {
-  loginUser,
-  resetPassword,
-  createData,
-})(Header);
+export default withRouter(
+  connect(mapStateToProps, {
+    loginUser,
+    resetPassword,
+    createData,
+  })(Header)
+);

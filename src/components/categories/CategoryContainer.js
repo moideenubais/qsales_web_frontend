@@ -57,7 +57,7 @@ function CategoryContainer(props) {
                     <Link
                       className="text-decoration-none"
                       to={{
-                        pathname: `product/${productName}`,
+                        pathname: `/product/${id}`,
                         query: { id: id },
                       }}
                     >

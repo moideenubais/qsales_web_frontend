@@ -51,15 +51,27 @@ const middlewareConfig = {
   },
 };
 
-const inititalState = {};
+const saveToLocalStorage = (state) => {
+  const serializedState = JSON.stringify(state);
+  localStorage.setItem("state", serializedState);
+};
+
+const loadFromLocalStorage = () => {
+  const serializedState = localStorage.getItem("state");
+  if (serializedState === null) return {};
+  return JSON.parse(serializedState);
+};
+
+const presistedState = loadFromLocalStorage();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
-  inititalState,
+  presistedState,
   composeEnhancers(
     applyMiddleware(thunk, axiosMiddleware(client, middlewareConfig))
   )
 );
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 export default store;

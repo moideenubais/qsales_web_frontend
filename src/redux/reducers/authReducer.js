@@ -22,7 +22,7 @@ export const authReducer = (state = initialState, action) => {
     case ActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        isAuthenticated: !!action.payload?.data,
+        isAuthenticated: !!action.payload?._id,
         user: action.payload,
       };
     case ActionTypes.GET_AUTH_ERRORS:
