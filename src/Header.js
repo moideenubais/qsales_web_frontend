@@ -401,14 +401,20 @@ function Header(props) {
       <header className="col-12 col-md-12 col-lg-12 border bg-primary">
         <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row">
           <div className="col-2 d-flex flex-row align-items-center justify-content-start">
-            {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
-            <img
-              src="../assets/images/4.png"
-              height="70px"
-              width="70px"
-              className="position-absolute"
-              alt="images"
-            />
+            <Link
+              className="text-decoration-none"
+              style={{ top: "0px", position: "absolute" }}
+              to={{ pathname: `/` }}
+            >
+              {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
+              <img
+                src="../assets/images/4.png"
+                height="70px"
+                width="70px"
+                className="position-absolute"
+                alt="images"
+              />
+            </Link>
           </div>
           <div className="col-md-5 col-lg-5 p-0 d-flex flex-row align-items-center justify-content-center">
             <input

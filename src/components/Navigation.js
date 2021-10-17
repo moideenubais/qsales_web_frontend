@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Navigation(props) {
   const { categoryReducer } = props;
@@ -10,15 +11,22 @@ function Navigation(props) {
       <div className="col-lg-12 col-md-12 col-sm-12 bg-light">
         <div className="col-lg-9 col-md-9 col-sm-12 mx-auto d-flex align-items-center flex-row justify-content-start">
           <div className="nav-list p-3 small ">
-            <h6
-              className="small nav-link dropdown-toggle"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              //   aria-haspopup="true"
-              //   aria-expanded="false"
+            <Link
+              className="text-decoration-none"
+              style={{ color: "#8f1d3f" }}
+              to={{ pathname: `/` }}
             >
-              All Categories
-            </h6>
+              <h6
+                className="small nav-link dropdown-toggle"
+                id="navbarDropdownMenuLink"
+                data-toggle="dropdown"
+                //   aria-haspopup="true"
+                //   aria-expanded="false"
+              >
+                All Categories
+              </h6>
+            </Link>
+
             <div className="dropdown-menu">
               <select
                 className="py-1 px-3 form-select"
@@ -33,9 +41,17 @@ function Navigation(props) {
             </div>
           </div>
           {categories.map((cat) => (
-            <div className="nav-list p-3 small">
-              <h6 className="small">{cat.i18nResourceBundle.name}</h6>
-            </div>
+            <Link
+              className="text-decoration-none"
+              style={{ color: "#8f1d3f" }}
+              to={{
+                pathname: `/category/${cat._id}`,
+              }}
+            >
+              <div className="nav-list p-3 small">
+                <h6 className="small">{cat.i18nResourceBundle.name}</h6>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
