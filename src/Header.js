@@ -13,6 +13,30 @@ import { useEffect } from "react";
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
+const isEmptyObj = (v) => {
+  return typeof value === "object" && Object.keys(v).length === 0;
+};
+
+const validatePasswords = ({ password, confirm_password }, setError) => {
+  if (!new RegExp(passwordRegex).test(password)) {
+    setError("password", {
+      type: "manual",
+      message:
+        "Password should be of 8 character with atleast one uppercase and lowercase letter, number and special character",
+    });
+    return false;
+  }
+
+  if (confirm_password && password !== confirm_password) {
+    setError("confirm_password", {
+      type: "manual",
+      message: "Password does not match",
+    });
+    return false;
+  }
+  return true;
+};
+
 function Header(props) {
   const { errors: userErrors, history } = props;
 
@@ -20,28 +44,8 @@ function Header(props) {
   const [isSignIn, setIsSignIn] = useState(true);
   const [forgotPwd, setForgotPwd] = useState(false);
 
-  const isEmptyObj = (v) => {
-    return typeof value === "object" && Object.keys(v).length === 0;
-  };
-
-  const validatePasswords = ({ password, confirm_password }, setError) => {
-    if (!new RegExp(passwordRegex).test(password)) {
-      setError("password", {
-        type: "manual",
-        message:
-          "Password should be of 8 character with atleast one uppercase and lowercase letter, number and special character",
-      });
-      return false;
-    }
-
-    if (confirm_password && password !== confirm_password) {
-      setError("confirm_password", {
-        type: "manual",
-        message: "Password does not match",
-      });
-      return false;
-    }
-    return true;
+  const handleSearch = ({ target }) => {
+    const searchValue = target.value;
   };
 
   // FORGOT PASSWORD COMPONENT
@@ -422,6 +426,7 @@ function Header(props) {
               type="text"
               placeholder="What are you looking for ?"
               className="search border px-2 py-1 rounded w-100"
+              onChange={handleSearch}
             />
           </div>
           <div className="col d-flex flex-row align-items-center justify-content-center">

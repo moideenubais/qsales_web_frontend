@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import Select from "react-select";
 
 function CategoryContainer(props) {
-  const { products } = props;
+  const { products, categoryData } = props;
+  const { resourceBundle } = categoryData || {};
+
+  const { name: title } = resourceBundle?.[0] || {};
+
   const {
     register,
     handleSubmit,
@@ -37,7 +41,7 @@ function CategoryContainer(props) {
             </div>
 
             <div className="py-4">
-              <h4 className="p-0 m-0">{"title"}</h4>
+              <h4 className="p-0 m-0">{title}</h4>
             </div>
             {/* List of product */}
             <div className="d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
@@ -49,7 +53,7 @@ function CategoryContainer(props) {
                     description,
                     prices,
                     product_image_small_url,
-                    id,
+                    _id,
                   },
                   index
                 ) => {
@@ -57,8 +61,8 @@ function CategoryContainer(props) {
                     <Link
                       className="text-decoration-none"
                       to={{
-                        pathname: `/product/${id}`,
-                        query: { id: id },
+                        pathname: `/product/${_id}`,
+                        query: { id: _id },
                       }}
                     >
                       <Product

@@ -5,7 +5,12 @@ import { getData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
 
 function CategoryListHolder(props) {
-  const { getData: propsGetData, productReducer, categoryId } = props;
+  const {
+    getData: propsGetData,
+    productReducer,
+    categoryId,
+    cateogryReducer,
+  } = props;
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY_DETAILS, `/category/${categoryId}`);
@@ -16,16 +21,11 @@ function CategoryListHolder(props) {
   }, [propsGetData, categoryId]);
 
   return (
-    <>
-      {[0].map(() => {
-        return (
-          <CategoryContainer
-            key={categoryId}
-            products={productReducer?.data?.products || []}
-          />
-        );
-      })}
-    </>
+    <CategoryContainer
+      key={categoryId}
+      products={productReducer?.data?.products || []}
+      categoryData={cateogryReducer?.data || {}}
+    />
   );
 }
 

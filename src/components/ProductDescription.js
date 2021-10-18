@@ -9,6 +9,8 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
+import { saveCartToLocalStorage } from "../heper";
+import toast from "react-hot-toast";
 
 function ProductDescription(props) {
   const { productId } = useParams();
@@ -19,13 +21,19 @@ function ProductDescription(props) {
     product_image_small_url,
     product_image_big_url,
     resourceBundle,
+    brand,
     rating,
     prices,
     attribute_value_object,
-    description,
+    color_array,
   } = productDetailsReducer?.data || {};
 
-  const { name: title, _id: resourceId } = resourceBundle?.[0] || {};
+  const {
+    name: title,
+    _id: resourceId,
+    description,
+    modal_name,
+  } = resourceBundle?.[0] || {};
   const { unit_price, quantity } = prices?.[0] || {};
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
@@ -48,7 +56,12 @@ function ProductDescription(props) {
   };
 
   const addToCart = () => {
-    console.log({ selectedQuantity, productId, resourceId });
+    saveCartToLocalStorage({
+      product_id: productId,
+      varient_id: resourceId,
+      quantity: selectedQuantity,
+    });
+    toast.success("Added To Cart");
   };
 
   return (
@@ -106,11 +119,13 @@ function ProductDescription(props) {
               <h5>{title} </h5>
               <p className="small m-0 mt-3">
                 <span className="fw-normal text-dark">Brand :</span>
-                <span className="fw-normal text-black-50 ms-2">Clickon</span>
+                <span className="fw-normal text-black-50 ms-2">{brand}</span>
               </p>
               <p className="small m-0 mt-2">
-                <span className="fw-normal text-dark">Model Number :</span>
-                <span className="fw-normal text-black-50 ms-2">JJ-85004</span>
+                <span className="fw-normal text-dark">Model Name :</span>
+                <span className="fw-normal text-black-50 ms-2">
+                  {modal_name}
+                </span>
               </p>
               <div className="d-flex flex-row align-items-center mt-1 ">
                 <p className="small fw-normal text-dark me-2">Ratings :</p>
@@ -127,6 +142,15 @@ function ProductDescription(props) {
               {attribute_value_object && (
                 <p className="small m-0 mt-2">
                   <span className="fw-normal text-dark">Size :</span>
+                  <span className="fw-normal text-black-50 ms-2">
+                    {attribute_value_object}
+                  </span>
+                </p>
+              )}
+
+              {color_array && (
+                <p className="small m-0 mt-2">
+                  <span className="fw-normal text-dark">Color :</span>
                   <span className="fw-normal text-black-50 ms-2">
                     {attribute_value_object}
                   </span>
