@@ -15,7 +15,7 @@ function CategoryListHolder(props) {
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY_DETAILS, `/category/${categoryId}`);
     propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
-      cateogry_id: categoryId,
+      category_id: categoryId,
       user_type: "user",
     });
   }, [propsGetData, categoryId]);

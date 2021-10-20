@@ -14,10 +14,10 @@ function ProductsContainer(props) {
   useEffect(() => {
     if (!datas) return;
 
-    const query = { user_type: "user", cateogry_id: datas._id };
+    const query = { user_type: "user", category_id: datas._id };
     if (!datas._id) {
       query[datas.type] = true;
-      delete datas.cateogry_id;
+      delete datas.category_id;
     }
 
     propsGetData(ActionTypes.GET_PRODUCTS, "/product", query).then((res) => {

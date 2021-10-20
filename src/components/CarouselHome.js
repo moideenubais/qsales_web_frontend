@@ -16,13 +16,11 @@ function CarouselHome(props) {
     <div className="col-lg-12 col-md-12 col-sm-12">
       <div className="col-12 col-md-9 col-lg-9 mx-auto">
         <Carousel itemsToShow={1} enableAutoPlay={true}>
-          {adsReducer?.data?.ads?.map((ad) => (
-            <img
-              src={`${imageBaseUrl}${ad.ad_url}`}
-              className="w-100"
-              alt={ad.name}
-            />
-          ))}
+          {adsReducer?.data?.ads
+            ?.filter((ad) => ad.ad_type === "top")[0]
+            .ad_url?.map((ad) => (
+              <img src={`${imageBaseUrl}${ad}`} className="w-100" alt={ad} />
+            ))}
         </Carousel>
       </div>
     </div>

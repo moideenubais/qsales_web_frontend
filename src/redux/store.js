@@ -25,7 +25,8 @@ const middlewareConfig = {
     request: [
       {
         async success(func, req) {
-          req.headers["x-auth-token"] = localStorage.getItem("jwtToken");
+          if (localStorage.getItem("jwtToken"))
+            req.headers["x-auth-token"] = localStorage.getItem("jwtToken");
           console.log("interceptors request", req); // contains information about request object
           return req;
         },
