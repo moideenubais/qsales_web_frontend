@@ -1,57 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "../Products/Product";
-import { useForm } from "react-hook-form";
 import Select from "react-select";
 
 function CategoryContainer(props) {
-  const { products, categoryData } = props;
+  const { products, info, categoryData, handleOnFilterChange } = props;
   const { resourceBundle } = categoryData || {};
+
+  const [filterData, setFilterData] = useState({});
 
   const { name: title } = resourceBundle?.[0] || {};
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
+  const handleOnChange = (name, value) => {
+    const updatedFilterData = { ...filterData, [name]: value };
+    setFilterData(updatedFilterData);
+    handleOnFilterChange(updatedFilterData);
+  };
+
 
   const options = [
-    { value: "High to Low", label: "High to Low" },
-    { value: "Low to High", label: "Low to High" },
+    { value: "highToLow", label: "High to Low" },
+    { value: "lowToHigh", label: "Low to High" },
   ];
 
   return (
     <>
       <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-        <div className="col-12 col-sm-12 col-md-12 col-lg-9 mx-auto pt-4 ">
+        <div className="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 ">
           {/* Product Container */}
-          <div className="p-4 bg-white">
+          <div className="border d-flex flex-row justify-content-between">
+            <h4 className="p-0 m-0">{title}</h4>
+            <p className="p-0 m-0">{`${info?.totalNumber} Results for ${title}`}</p>
+            <Select
+              placeholder="Sort By"
+              className="col-2"
+              name="sortBy"
+              options={options}
+              onChange={(data) => handleOnChange("sortBy", data?.value)}
+              value={filterData.sortBy}
+            />
+          </div>
+          <div className="p-4 border p-2 d-flex flex-row">
             {/* Title of Product Container */}
-            <div className="border p-3">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Select
-                  options={options}
-                  {...register("sort by", { required: true })}
-                />
-                <input type="submit" />
-              </form>
-            </div>
 
-            <div className="py-4">
-              <h4 className="p-0 m-0">{title}</h4>
-            </div>
             {/* List of product */}
-            <div className="d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
+            <div className="col-8 bg-white d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
               {products.map(
                 (
                   {
-                    productName,
+                    name,
                     rating,
                     description,
-                    prices,
+                    price,
                     product_image_small_url,
                     _id,
                   },
@@ -67,11 +67,11 @@ function CategoryContainer(props) {
                     >
                       <Product
                         key={index}
-                        productName={productName}
+                        productName={name}
                         rating={rating}
                         description={description}
                         productImage={product_image_small_url}
-                        price={prices?.[0]?.unit_price}
+                        price={price?.unit_price}
                       />
                     </Link>
                   );

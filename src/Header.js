@@ -38,7 +38,7 @@ const validatePasswords = ({ password, confirm_password }, setError) => {
 };
 
 function Header(props) {
-  const { errors: userErrors, history } = props;
+  const { errors: userErrors, history, user } = props;
 
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
@@ -282,7 +282,6 @@ function Header(props) {
       props
         .createData(ActionTypes.CREATE_USER, "/user?user_type=user", {
           ...SignUpData,
-          user_type: "user",
         })
         .then((result) => {
           if (isEmptyObj(result?.error)) return;
@@ -456,6 +455,7 @@ function Header(props) {
                 Cart
               </p>
               <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
+              {(user?.cart || []).length}
             </div>
           </div>
         </div>

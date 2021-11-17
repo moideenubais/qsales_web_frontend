@@ -11,7 +11,10 @@ export function getData(type, url, params) {
     payload: {
       request: {
         url,
-        params,
+        params: {
+          ...params,
+          user_type: "user",
+        },
       },
     },
   };
@@ -34,7 +37,10 @@ export function createData(type, url, data, params = {}) {
         method: "post",
         data,
         url,
-        params,
+        params: {
+          ...params,
+          user_type: "user",
+        },
       },
     },
   };
@@ -54,7 +60,10 @@ export function deleteData(type, url, params) {
       request: {
         url,
         method: "delete",
-        params,
+        params: {
+          ...params,
+          user_type: "user",
+        },
       },
     },
   };
@@ -76,7 +85,10 @@ export function updateData(type, url, data, params = {}) {
         method: "put",
         data,
         url,
-        params,
+        params: {
+          ...params,
+          user_type: "user",
+        },
       },
     },
   };

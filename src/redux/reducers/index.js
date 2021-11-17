@@ -11,7 +11,8 @@ const reducers = combineReducers({
   getAllProductsReducer: commonReducer(ActionTypes.GET_PRODUCTS),
   getProductsReducer: commonReducer(ActionTypes.GET_PRODUCT_DETAILS),
   getAdsReducer: commonReducer(ActionTypes.GET_ADS),
-  getReviewReducer: commonReducer(ActionTypes.GET_REVIEW)
+  getReviewReducer: commonReducer(ActionTypes.GET_REVIEW),
+  getCartDetailsReducer: commonReducer(ActionTypes.GET_CART_DETAILS),
 
   // product:selectedProductReducer,
 });

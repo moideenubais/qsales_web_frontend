@@ -9,7 +9,7 @@ function Navigation(props) {
   return (
     <React.Fragment>
       <div className="col-lg-12 col-md-12 col-sm-12 bg-light">
-        <div className="col-lg-9 col-md-9 col-sm-12 mx-auto d-flex align-items-center flex-row justify-content-start">
+        <div className="col-lg-9 col-md-9 col-sm-12 mx-auto d-flex align-items-center flex-row  flex-wrap justify-content-start">
           <div className="nav-list p-3 small ">
             <Link
               className="text-decoration-none"

@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
-import { saveCartToLocalStorage } from "../heper";
+import { isEmptyObj, saveCartToLocalStorage } from "../heper";
 import toast from "react-hot-toast";
 
 function ProductDescription(props) {
@@ -18,30 +18,92 @@ function ProductDescription(props) {
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const {
-    product_image_small_url,
     product_image_big_url,
-    resourceBundle,
     brand,
     rating,
-    prices,
-    attribute_value_object,
-    color_array,
-  } = productDetailsReducer?.data || {};
-
-  const {
+    varients: variants ,
+    attribute_array,
+    colors,
     name: title,
-    _id: resourceId,
     description,
+    _id: resourceId,
     modal_name,
-  } = resourceBundle?.[0] || {};
-  const { unit_price, quantity } = prices?.[0] || {};
+  } = productDetailsReducer?.data || {};
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [selectedAttribute, setSelectedAttribute] = useState({});
+  const [attributeArray, setAttributeArray] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(
+    product_image_big_url ? `${imageBaseUrl}${product_image_big_url[0]}` : ''
+  );
+
+  const getPriceAndQuantity = (attributeObject, initail = false) => {
+    let returnData = {};
+    const attributeData = Object.entries(attributeObject).map(
+      ([name, values]) => ({ name, values })
+    );
+
+    variants.forEach((variant) => {
+      let variantDep = {};
+      if (!isEmptyObj(variant.attribute_value)) {
+        variant.attribute_value.forEach(({ name, value }) => {
+          variantDep[name] = value;
+        });
+      }
+
+      if (variant.color && variant.color.length) variantDep.colors = variant.color.value;
+      if (initail) {
+        const isNotMatch = attributeData.some(({ name, values }) => {
+          return variantDep[name] && variantDep[name] !== values[0].value;
+        });
+
+        if (!isNotMatch) {
+          returnData = {
+            unit_price: variant.unit_price,
+            quantity: variant.quantity,
+            variant_id: variant._id
+          };
+          attributeData.forEach(({ name, values }) => {
+            returnData[name] = values[0].value;
+          });
+        }
+      } else {
+        const isNotMatch = attributeData.some(({ name, values }) => {
+          if (["quantity", "unit_price"].includes(name)) return false;
+          return variantDep[name] && variantDep[name] !== values;
+        });
+        if (!isNotMatch) {
+          returnData = {
+            unit_price: variant.unit_price,
+            quantity: variant.quantity,
+            variant_id: variant._id
+          };
+        }
+      }
+    });
+
+    return isEmptyObj(returnData) ? { unit_price: 0, quantity: 0 } : returnData;
+  };
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_PRODUCT_DETAILS, `/product/${productId}`);
   }, [productId, propsGetData]);
+
+  useEffect(() => {
+    let attributeData = [];
+    if (attribute_array) {
+      attribute_array.forEach(({ name, values }) => {
+        attributeData[name] = values;
+      });
+    }
+    if (colors && colors.length) attributeData.colors = colors;
+    const initialValue = getPriceAndQuantity(attributeData, true);
+    setSelectedAttribute(initialValue);
+    setAttributeArray(
+      Object.entries(attributeData).map(([name, values]) => ({ name, values }))
+    );
+  }, [attribute_array, colors]);
 
   const {
     register,
@@ -55,10 +117,15 @@ function ProductDescription(props) {
     setRatingValue(newRating);
   };
 
+  const handleOnAttributeChagne = (name, value) => {
+    const updateData = { ...selectedAttribute, [name]: value };
+    setSelectedAttribute({ ...updateData, ...getPriceAndQuantity(updateData) });
+  };
+
   const addToCart = () => {
     saveCartToLocalStorage({
       product_id: productId,
-      varient_id: resourceId,
+      varient_id: selectedAttribute.variant_id,
       quantity: selectedQuantity,
     });
     toast.success("Added To Cart");
@@ -73,16 +140,17 @@ function ProductDescription(props) {
             <div className="col-4 p-0 m-0 h-100">
               <ReactImageMagnify
                 className="product-magnify"
+                style={{ zIndex: 9 }}
                 {...{
                   smallImage: {
                     alt: `${title}`,
                     isFluidWidth: true,
-                    src: `${imageBaseUrl}${product_image_small_url}`,
+                    src: selectedImage,
                     width: 400,
                     height: 400,
                   },
                   largeImage: {
-                    src: `${imageBaseUrl}${product_image_big_url[0]}`,
+                    src: selectedImage,
                     alt: `${title}`,
                     width: 1200,
                     height: 1200,
@@ -108,6 +176,9 @@ function ProductDescription(props) {
                       width="80"
                       alt=""
                       className="rounded-3 border"
+                      onClick={() =>
+                        setSelectedImage(`${imageBaseUrl}${imgUrl}`)
+                      }
                     />
                   ))}
                 </Carousel>
@@ -117,80 +188,86 @@ function ProductDescription(props) {
             {/* Product Description */}
             <div className="col-5 d-flex flex-column px-5 ">
               <h5>{title} </h5>
-              <p className="small m-0 mt-3">
-                <span className="fw-normal text-dark">Brand :</span>
-                <span className="fw-normal text-black-50 ms-2">{brand}</span>
-              </p>
-              <p className="small m-0 mt-2">
-                <span className="fw-normal text-dark">Model Name :</span>
-                <span className="fw-normal text-black-50 ms-2">
-                  {modal_name}
-                </span>
-              </p>
+              {brand && (
+                <p className="small m-0 mt-3">
+                  <span className="fw-normal text-dark">Brand :</span>
+                  <span className="fw-normal text-black-50 ms-2">{brand}</span>
+                </p>
+              )}
+              {modal_name && (
+                <p className="small m-0 mt-2">
+                  <span className="fw-normal text-dark">Model Name :</span>
+                  <span className="fw-normal text-black-50 ms-2">
+                    {modal_name}
+                  </span>
+                </p>
+              )}
               <div className="d-flex flex-row align-items-center mt-1 ">
                 <p className="small fw-normal text-dark me-2">Ratings :</p>
                 <ReactStars
-                  style={{ zIndex: -19 }}
                   count={5}
                   value={ratingValue}
+                  edit={false}
                   onChange={ratingChanged}
                   size={20}
                   color2={"#ffd700"}
                 />
               </div>
 
-              {attribute_value_object && (
-                <p className="small m-0 mt-2">
-                  <span className="fw-normal text-dark">Size :</span>
-                  <span className="fw-normal text-black-50 ms-2">
-                    {attribute_value_object}
-                  </span>
-                </p>
-              )}
-
-              {color_array && (
-                <p className="small m-0 mt-2">
-                  <span className="fw-normal text-dark">Color :</span>
-                  <span className="fw-normal text-black-50 ms-2">
-                    {attribute_value_object}
-                  </span>
-                </p>
-              )}
+              {attributeArray.map(({ name, values }) => (
+                <div className="d-flex">
+                  <p className="small fw-normal text-dark mb-1">{name} :</p>
+                  <select
+                    className="py-1 px-3 form-select"
+                    aria-label="Default select example"
+                    onChange={(e) =>
+                      handleOnAttributeChagne(name, e.target.value)
+                    }
+                    value={selectedAttribute[name]}
+                  >
+                    {values.map(({ value: v, name: n }) => (
+                      <option value={v}>{n || v}</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
 
               <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                 <div className="">
                   <p className="small fw-normal mb-1">Now at</p>
-                  <h5 className="primary-color p-0 m-0 ">₹ {unit_price}</h5>
+                  <h5 className="primary-color p-0 m-0 ">
+                    ₹ {selectedAttribute.unit_price}
+                  </h5>
                 </div>
 
                 <div className="">
-                  <p className="small fw-normal text-dark mb-1">Quantity</p>
-                  <select
-                    className="py-1 px-3 form-select"
-                    aria-label="Default select example"
-                    onChange={(e) => setSelectedQuantity(e.target.value)}
-                    value={selectedQuantity}
-                  >
-                    {quantity > 0 && (
-                      <>
-                        {[...Array(parseInt(quantity)).keys()].map((v) => (
-                          <option value={v + 1}>{v + 1}</option>
-                        ))}
-                      </>
-                    )}
-                  </select>
+                  {selectedAttribute.quantity > 0 ? (
+                    <>
+                      <p className="small fw-normal text-dark mb-1">Quantity</p>
+                      <select
+                        className="py-1 px-3 form-select"
+                        aria-label="Default select example"
+                        onChange={(e) => setSelectedQuantity(e.target.value)}
+                        value={selectedQuantity}
+                      >
+                        <>
+                          {[
+                            ...Array(
+                              parseInt(selectedAttribute.quantity)
+                            ).keys(),
+                          ].map((v) => (
+                            <option value={v + 1}>{v + 1}</option>
+                          ))}
+                        </>
+                      </select>
+                    </>
+                  ) : (
+                    <p className="small fw-normal text-black-50">
+                      Out of Stock
+                    </p>
+                  )}
                 </div>
               </div>
-              <div className="mt-3">
-                <p className="small  d-flex flex-column">
-                  <span className="fw-normal mb-1">About Product</span>
-                  <span className="small text-black-50">
-                    Free shipping when you spend AED 100 and above on express
-                    items
-                  </span>
-                </p>
-              </div>
-
               <hr className="my-4" />
               <div className="d-flex flex-row ">
                 <button
@@ -207,14 +284,14 @@ function ProductDescription(props) {
             <div className="col-3 border p-3 rounded-3 card">
               <h6 className="">Checkout</h6>
               <hr className="my-3" />
-              <p className="small  d-flex flex-column">
+              {/* <p className="small  d-flex flex-column">
                 <span className="fw-normal mb-1">TRUSTED SHIPPING</span>
                 <span className="small text-black-50">
                   Free shipping when you spend AED 100 and above on express
                   items
                 </span>
-              </p>
-              <div className="mt-3">
+              </p> */}
+              <div className="mt-1">
                 <p className="small my-2 d-flex flex-column">
                   <span className="fw-normal mb-1">ADDRESS</span>
                   <span className="small text-black-50">

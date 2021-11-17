@@ -16,15 +16,23 @@ function CategoryListHolder(props) {
     propsGetData(ActionTypes.GET_CATEGORY_DETAILS, `/category/${categoryId}`);
     propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
       category_id: categoryId,
-      user_type: "user",
     });
   }, [propsGetData, categoryId]);
+
+  const handleOnFilterChange = (filter) => {
+    propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
+      category_id: categoryId,
+      ...filter,
+    });
+  };
 
   return (
     <CategoryContainer
       key={categoryId}
       products={productReducer?.data?.products || []}
+      info={productReducer?.data?.info || {}}
       categoryData={cateogryReducer?.data || {}}
+      handleOnFilterChange={handleOnFilterChange}
     />
   );
 }
