@@ -1,25 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, resetPassword } from "./redux/actions/auth";
 import { createData } from "./redux/actions";
-import { useState } from "react";
 import { ActionTypes } from "./redux/contants/action-types";
-import { useEffect } from "react";
+import axios from "axios";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
   const { errors: userErrors, history } = props;
-
+  const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
   const [forgotPwd, setForgotPwd] = useState(false);
-
+  const [searchText, setSearchText] = useState("");
+  const [searchResponse, setSearchReponse] = useState([]);
   const isEmptyObj = (v) => {
     return typeof value === "object" && Object.keys(v).length === 0;
   };
@@ -397,6 +397,27 @@ function Header(props) {
     );
   };
 
+  useEffect(() => {
+    if (searchText === "") {
+      return setSearchReponse([]);
+    }
+
+    axios
+      .get(
+        `${process.env.REACT_APP_BASE_URL}product?search=${searchText}&user_type=user&limit=5`
+      )
+      .then((res) => {
+        console.log("search", res.data.products);
+        const searchedProducts = res.data.products.map((item) => {
+          return {
+            ...item,
+            imageUrl: `https://picsum.photos/40?random&t=${Date.now()}`,
+          };
+        });
+        setSearchReponse(searchedProducts);
+      });
+  }, [searchText]);
+
   return (
     <>
       <header className="col-12 col-md-12 col-lg-12 border bg-primary">
@@ -417,12 +438,38 @@ function Header(props) {
               />
             </Link>
           </div>
-          <div className="col-md-5 col-lg-5 p-0 d-flex flex-row align-items-center justify-content-center">
+          <div className="col-md-5 col-lg-5 p-0 dropdown-content">
             <input
+              ref={searchRef}
               type="text"
               placeholder="What are you looking for ?"
               className="search border px-2 py-1 rounded w-100"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
             />
+            <div
+              style={{
+                width: searchRef?.current?.offsetWidth,
+              }}
+            >
+              {searchResponse &&
+                searchResponse.length > 0 &&
+                searchResponse.map((item) => {
+                  return (
+                    <a className="dropdown-list-item">
+                      <img
+                        src={item.imageUrl}
+                        width={40}
+                        height={40}
+                        style={{ borderRadius: 20 }}
+                      />
+                      <span className="dropdown-list-item-text">
+                        {item.name}
+                      </span>
+                    </a>
+                  );
+                })}
+            </div>
           </div>
           <div className="col d-flex flex-row align-items-center justify-content-center">
             <p className="text-white small p-0 m-0">العربية</p>
