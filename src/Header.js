@@ -426,11 +426,12 @@ function Header(props) {
     }
 
     axios
-      .get(
-        `${process.env.REACT_APP_BASE_URL}product?search=${searchText}&user_type=user&limit=5`
-      )
+      .get(`product?search=${searchText}&user_type=user&limit=5`)
       .then((res) => {
-        console.log("search", res.data.products);
+        if (!res.data.products || res.data.products.length === 0) {
+          return setSearchReponse([]);
+        }
+
         const searchedProducts = res.data.products.map((item) => {
           return {
             ...item,
@@ -479,14 +480,20 @@ function Header(props) {
                 searchResponse.length > 0 &&
                 searchResponse.map((item) => {
                   return (
-                    <a className="dropdown-list-item">
+                    <a
+                      className="dropdown-list-item"
+                      onClick={history.push(`/product/${item._id}`)}
+                    >
                       <img
                         src={item.imageUrl}
                         width={40}
                         height={40}
                         style={{ borderRadius: 20 }}
                       />
-                      <span className="dropdown-list-item-text">
+                      <span
+                        style={{ textOverflow: "ellipsis" }}
+                        className="dropdown-list-item-text"
+                      >
                         {item.name}
                       </span>
                     </a>

@@ -319,7 +319,7 @@ body {
 .dropdown-list-item {
   background-color: #fff;
   color: black;
-  padding: 12px 8px !important;
+  padding: 6px 8px 6px 8px !important;
   text-decoration: none;
   display: block;
 }
