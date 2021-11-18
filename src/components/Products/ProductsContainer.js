@@ -14,10 +14,10 @@ function ProductsContainer(props) {
   useEffect(() => {
     if (!datas) return;
 
-    const query = { user_type: "user", cateogry_id: datas._id };
+    const query = { user_type: "user", category_id: datas._id };
     if (!datas._id) {
       query[datas.type] = true;
-      delete datas.cateogry_id;
+      delete datas.category_id;
     }
 
     propsGetData(ActionTypes.GET_PRODUCTS, "/product", query).then((res) => {
@@ -52,10 +52,10 @@ function ProductsContainer(props) {
                   {productsData.map(
                     (
                       {
-                        i18nResourceBundle,
+                        name,
                         rating,
                         description,
-                        prices = [],
+                        price,
                         product_image_small_url,
                         _id,
                       },
@@ -72,11 +72,11 @@ function ProductsContainer(props) {
                         >
                           <Product
                             key={index}
-                            productName={i18nResourceBundle.name}
+                            productName={name}
                             rating={rating}
                             description={description}
                             productImage={product_image_small_url}
-                            price={prices?.[0]?.unit_price}
+                            price={price?.unit_price}
                           />
                         </Link>
                       );

@@ -12,8 +12,32 @@ import axios from "axios";
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
+const isEmptyObj = (v) => {
+  return typeof value === "object" && Object.keys(v).length === 0;
+};
+
+const validatePasswords = ({ password, confirm_password }, setError) => {
+  if (!new RegExp(passwordRegex).test(password)) {
+    setError("password", {
+      type: "manual",
+      message:
+        "Password should be of 8 character with atleast one uppercase and lowercase letter, number and special character",
+    });
+    return false;
+  }
+
+  if (confirm_password && password !== confirm_password) {
+    setError("confirm_password", {
+      type: "manual",
+      message: "Password does not match",
+    });
+    return false;
+  }
+  return true;
+};
+
 function Header(props) {
-  const { errors: userErrors, history } = props;
+  const { errors: userErrors, history, user } = props;
   const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
@@ -278,7 +302,6 @@ function Header(props) {
       props
         .createData(ActionTypes.CREATE_USER, "/user?user_type=user", {
           ...SignUpData,
-          user_type: "user",
         })
         .then((result) => {
           if (isEmptyObj(result?.error)) return;
@@ -498,6 +521,7 @@ function Header(props) {
                 Cart
               </p>
               <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
+              {(user?.cart || []).length}
             </div>
           </div>
         </div>

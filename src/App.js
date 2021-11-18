@@ -5,6 +5,7 @@ import React, { lazy, Suspense } from "react";
 import jwtDecode from "jwt-decode";
 import { setCurrentUser, setAuthToken } from "./redux/actions/auth";
 import store from "./redux/store";
+import { getCartInLocalStorage } from "./heper";
 
 const Home = lazy(() => import("./pages/Home"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
@@ -14,6 +15,8 @@ const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwtDecode(localStorage.jwtToken);
+  const cartData = Object.values(getCartInLocalStorage());
+  decoded.cart = decoded.cart ? [...decoded.cart, ...cartData] : cartData;
   console.log({ user: decoded });
   store.dispatch(setCurrentUser(decoded));
 }

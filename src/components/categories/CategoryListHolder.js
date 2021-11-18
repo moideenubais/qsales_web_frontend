@@ -5,27 +5,35 @@ import { getData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
 
 function CategoryListHolder(props) {
-  const { getData: propsGetData, productReducer, categoryId } = props;
+  const {
+    getData: propsGetData,
+    productReducer,
+    categoryId,
+    cateogryReducer,
+  } = props;
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY_DETAILS, `/category/${categoryId}`);
     propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
-      cateogry_id: categoryId,
-      user_type: "user",
+      category_id: categoryId,
     });
   }, [propsGetData, categoryId]);
 
+  const handleOnFilterChange = (filter) => {
+    propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
+      category_id: categoryId,
+      ...filter,
+    });
+  };
+
   return (
-    <>
-      {[0].map(() => {
-        return (
-          <CategoryContainer
-            key={categoryId}
-            products={productReducer?.data?.products || []}
-          />
-        );
-      })}
-    </>
+    <CategoryContainer
+      key={categoryId}
+      products={productReducer?.data?.products || []}
+      info={productReducer?.data?.info || {}}
+      categoryData={cateogryReducer?.data || {}}
+      handleOnFilterChange={handleOnFilterChange}
+    />
   );
 }
 
