@@ -44,7 +44,7 @@ function ProductDescription(props) {
       ([name, values]) => ({ name, values })
     );
 
-    variants.forEach((variant) => {
+    variants?.forEach((variant) => {
       let variantDep = {};
       if (!isEmptyObj(variant.attribute_value)) {
         variant.attribute_value.forEach(({ name, value }) => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -7,26 +8,18 @@ function Navigation(props) {
   const { categories = [] } = categoryReducer?.data || {};
 
   return (
-    <React.Fragment>
+    <>
       <div className="col-lg-12 col-md-12 col-sm-12 bg-light">
         <div className="col-lg-9 col-md-9 col-sm-12 mx-auto d-flex align-items-center flex-row  flex-wrap justify-content-start">
-          <div className="nav-list p-3 small ">
-            <Link
-              className="text-decoration-none"
-              style={{ color: "#8f1d3f" }}
-              to={{ pathname: `/` }}
-            >
-              <h6
-                className="small nav-link dropdown-toggle"
-                id="navbarDropdownMenuLink"
-                data-toggle="dropdown"
-                //   aria-haspopup="true"
-                //   aria-expanded="false"
-              >
-                All Categories
-              </h6>
-            </Link>
-
+          <div className="nav-list p-3 small navdropdown">
+            <DropdownButton id="dropdown-basic-button" title="All Categories">
+              <Dropdown.Item href="/">All Categories</Dropdown.Item>
+              {categories.map((cat) => (
+                <Dropdown.Item href={`/category/${cat._id}`}>
+                  {cat.i18nResourceBundle.name}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
             <div className="dropdown-menu">
               <select
                 className="py-1 px-3 form-select"
@@ -40,7 +33,7 @@ function Navigation(props) {
               </select>
             </div>
           </div>
-          {categories.map((cat) => (
+          {categories.slice(0, 7).map((cat) => (
             <Link
               className="text-decoration-none"
               style={{ color: "#8f1d3f" }}
@@ -55,7 +48,7 @@ function Navigation(props) {
           ))}
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 

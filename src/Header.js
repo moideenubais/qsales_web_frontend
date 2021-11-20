@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, resetPassword } from "./redux/actions/auth";
-import { createData } from "./redux/actions";
+import { createData, updateData } from "./redux/actions";
 import { ActionTypes } from "./redux/contants/action-types";
 import axios from "axios";
 
@@ -40,6 +40,7 @@ function Header(props) {
   const { errors: userErrors, history, user } = props;
   const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
   const [forgotPwd, setForgotPwd] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -154,6 +155,116 @@ function Header(props) {
               </span>
             </p>
           </div>
+        </div>
+      </div>
+    );
+  };
+
+  const UserProfile = (userprops) => {
+    const { user } = userprops;
+
+    const {
+      register,
+      handleSubmit,
+      reset,
+      setError,
+      formState: { errors },
+    } = useForm();
+
+    useEffect(() => {
+      reset(user);
+    }, [user, reset]);
+
+    useEffect(() => {
+      if (!userErrors?.msg) return;
+      setError("email", { type: "manual", message: userErrors.msg });
+    }, [setError]);
+
+    const updateUser = (userData) => {
+      if (isEmptyObj(errors)) return;
+      props
+        .updateData(ActionTypes.CREATE_USER, "/user", {
+          ...userData,
+        })
+        .then((result) => {
+          if (isEmptyObj(result?.error)) return;
+          setIsSignIn(true);
+        });
+    };
+
+    return (
+      <div className="shadow-lg col-12 bg-transparent-full">
+        <div className="signIn-model col-3 p-4 bg-white rounded shadow-lg border">
+          <div className="my-2 d-flex flex-row justify-content-between">
+            <div className="">
+              <h6 className="mb-2">Profile</h6>
+            </div>
+            <button
+              type="button"
+              className="bg-white border-0 fs-4 p-0 m-0 animate-close"
+              onClick={() => {
+                setShowProfile(false);
+              }}
+            >
+              &#10005;
+            </button>
+          </div>
+          <form
+            onSubmit={handleSubmit(updateUser)}
+            className="d-flex flex-column my-3"
+          >
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+                Name
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="text"
+                placeholder="Name"
+                {...register("name", { required: "Name is required" })}
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+            </div>
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+              Mobile
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="mobile"
+                placeholder="Mobile"
+                {...register("mobile", {
+                  required: "Mobile is required",
+                  pattern: /^[0-9]*$/i,
+                })}
+              />
+            </div>
+            <div className="form-group d-flex flex-column my-2">
+              <label for="formGroupExampleInput" className="small mb-1">
+                Email
+              </label>
+              <input
+                className="qs-input p-2 rounded"
+                id="formGroupExampleInput"
+                type="email"
+                placeholder="Email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: /^\S+@\S+$/i,
+                })}
+              />
+            </div>
+            <div className="d-flex flex-row align-items-center">
+              <button
+                type="submit"
+                className="w-25 btn btn-qs-primary mt-2 p-2 me-5"
+              >
+                Save
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     );
@@ -300,7 +411,8 @@ function Header(props) {
       if (!isValid) return;
 
       props
-        .createData(ActionTypes.CREATE_USER, "/user?user_type=user", {
+        .createData(ActionTypes.CREATE_USER, "/user", {
+          user_type: "user",
           ...SignUpData,
         })
         .then((result) => {
@@ -482,7 +594,7 @@ function Header(props) {
                   return (
                     <a
                       className="dropdown-list-item"
-                      onClick={history.push(`/product/${item._id}`)}
+                      onClick={() => history.push(`/product/${item._id}`)}
                     >
                       <img
                         src={item.imageUrl}
@@ -505,18 +617,34 @@ function Header(props) {
             <p className="text-white small p-0 m-0">العربية</p>
           </div>
           <div className="col-3 col-md-3 col-lg-3 d-flex flex-row align-items-center justify-content-center p-0">
-            <div className="d-flex flex-row align-items-center px-3 border-right">
-              <p
-                className="text-white small p-0 m-0 mr-2 me-2"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setShowModal(true);
-                }}
-              >
-                Sign In
-              </p>
-              <img src="../assets/images/user.svg" alt="userIcon" />
-            </div>
+            {user?.name ? (
+              <div className="d-flex flex-row align-items-center px-3 border-right">
+                <p
+                  className="text-white small p-0 m-0 mr-2 me-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setShowProfile(true);
+                  }}
+                >
+                  {user.name || "Profile"}
+                </p>
+                <img src="../assets/images/user.svg" alt="userIcon" />
+              </div>
+            ) : (
+              <div className="d-flex flex-row align-items-center px-3 border-right">
+                <p
+                  className="text-white small p-0 m-0 mr-2 me-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setShowModal(true);
+                  }}
+                >
+                  Sign In
+                </p>
+                <img src="../assets/images/user.svg" alt="userIcon" />
+              </div>
+            )}
+
             <div className="d-flex flex-row align-items-center px-3">
               <p
                 className="text-white small p-0 m-0 mr-2 me-2"
@@ -528,16 +656,20 @@ function Header(props) {
                 Cart
               </p>
               <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
-              {(user?.cart || []).length}
+              <span
+                className="text-white small"
+                style={{ paddingBottom: "14px !important" }}
+              >
+                {(user?.cart || []).length}
+              </span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* SIGN IN MODULE */}
-
       <Toaster />
 
+      {showProfile && <UserProfile user={user} />}
       {showModal ? isSignIn && !forgotPwd ? <SignIn /> : <SignUp /> : ""}
       {showModal && forgotPwd ? <ForgotPasswordComponent /> : ""}
     </>
@@ -561,5 +693,6 @@ export default withRouter(
     loginUser,
     resetPassword,
     createData,
+    updateData,
   })(Header)
 );

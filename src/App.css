@@ -12,6 +12,12 @@
   --border-grey: #dee2e6;
 }
 
+.dropdown-toggle {
+  background-color: transparent !important;
+  color: #8f1d3f !important;
+  border: none !important;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   background: #f2f3f8;
@@ -19,6 +25,16 @@ body {
 
 .primary-color {
   color: var(--primary) !important;
+}
+
+.rec-pagination {
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+.rec-dot {
+  margin-right: 5px !important;
 }
 
 .bg-primary {
