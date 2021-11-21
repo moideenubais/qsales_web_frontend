@@ -228,7 +228,7 @@ function Header(props) {
             </div>
             <div className="form-group d-flex flex-column my-2">
               <label for="formGroupExampleInput" className="small mb-1">
-              Mobile
+                Mobile
               </label>
               <input
                 className="qs-input p-2 rounded"
@@ -556,7 +556,7 @@ function Header(props) {
 
   return (
     <>
-      <header className="col-12 col-md-12 col-lg-12 border bg-primary">
+      <header className="col-12 col-md-12 col-lg-12 bg-primary">
         <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row">
           <div className="col-2 d-flex flex-row align-items-center justify-content-start">
             <Link
@@ -650,7 +650,7 @@ function Header(props) {
                 className="text-white small p-0 m-0 mr-2 me-2"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  history.push("/checkout");
+                  history.push("/cart");
                 }}
               >
                 Cart

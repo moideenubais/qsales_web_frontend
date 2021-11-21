@@ -10,6 +10,7 @@ import { getCartInLocalStorage } from "./heper";
 const Home = lazy(() => import("./pages/Home"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
+const CartPage = lazy(() => import("./pages/CartPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 
 if (localStorage.jwtToken) {
@@ -40,6 +41,7 @@ function App() {
             component={WaitingComponent(ProductPage)}
           />
           <Route path="/checkout" component={WaitingComponent(CheckoutPage)} />
+          <Route path="/cart" component={WaitingComponent(CartPage)} />
           <Route
             path="/category/:categoryId"
             component={WaitingComponent(CategoryPage)}
