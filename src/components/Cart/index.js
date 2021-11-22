@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import {
@@ -34,6 +34,8 @@ import {
 
 const CartComponent = () => {
   const history = useHistory();
+  const [cartItems, setCartItems] = useState([]);
+
   const CartPlusIcon = () => (
     <img
       src="../assets/images/cart-plus.svg"
@@ -50,9 +52,18 @@ const CartComponent = () => {
     />
   );
 
+  const calcSubTotal = () => {
+    let subTotal = 0;
+    cartItems.forEach((item) => {
+      subTotal += item.product.varient.unit_price;
+    });
+
+    return subTotal;
+  };
+  //
   useEffect(() => {
     axios.get("/user/cart").then((res) => {
-      console.log(res.data);
+      setCartItems(res.data.cart);
     });
   }, []);
 
@@ -72,77 +83,50 @@ const CartComponent = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <img
-                    src="../assets/images/cart-plus.svg"
-                    alt="cartPlusIcon"
-                    style={{ width: 16, height: 16 }}
-                  />
-                  <ProductAmount>2</ProductAmount>
-                  <img
-                    src="../assets/images/cart-minus.svg"
-                    alt="cartMinusIcon"
-                    style={{ width: 16, height: 16 }}
-                  />
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> HAKURA T-SHIRT
-                  </ProductName>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <CartPlusIcon />
-                  <ProductAmount>1</ProductAmount>
-                  <CartMinusIcon />
-                </ProductAmountContainer>
-                <ProductPrice>$ 20</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cartItems.length > 0 ? (
+              cartItems.map((item) => (
+                <Product>
+                  <ProductDetail>
+                    <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+                    <Details>
+                      <ProductName>
+                        <b>Product:</b> {item.product.i18nResourceBundle.name}
+                      </ProductName>
+                      <ProductColor color="gray" />
+                      <ProductSize>
+                        <b>Size:</b> M
+                      </ProductSize>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <CartPlusIcon />
+                      <ProductAmount>1</ProductAmount>
+                      <CartMinusIcon />
+                    </ProductAmountContainer>
+                    <ProductPrice>
+                      AED {item.product.varient.unit_price}
+                    </ProductPrice>
+                  </PriceDetail>
+                </Product>
+              ))
+            ) : (
+              <span>Empty</span>
+            )}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemPrice>FREE</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
             </SummaryItem>
             <Button onClick={() => history.push("/checkout")}>
               CHECKOUT NOW
