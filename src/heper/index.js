@@ -4,9 +4,12 @@ export const isEmptyObj = (v) => {
 
 export const saveCartToLocalStorage = (data) => {
   let updateData = { [data.varient_id]: data };
-  const oldData = localStorage.getItem("cart");
-  if (oldData && !isEmptyObj(JSON.parse(oldData))) {
-    updateData = { ...JSON.parse(oldData), ...updateData };
+  const oldData = JSON.parse(localStorage.getItem("cart") || "{}");
+  if (!isEmptyObj(oldData)) {
+    if (oldData[data.varient_id]) {
+      data.quantity += oldData[data.varient_id].quantity;
+    }
+    updateData = { ...oldData, [data.varient_id]: data };
   }
   localStorage.setItem("cart", JSON.stringify(updateData));
 };
