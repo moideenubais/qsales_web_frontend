@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "../Products/Product";
-import Select from "react-select";
+// import Select from "react-select";
 
 function CategoryContainer(props) {
   const { products, info, categoryData, handleOnFilterChange } = props;
@@ -32,7 +32,7 @@ function CategoryContainer(props) {
             <div className="border d-flex flex-row justify-content-between">
               <h4 className="p-0 m-0">{title}</h4>
               <p className="p-0 m-0">{`${info?.totalNumber} Results for ${title}`}</p>
-              <Select
+              {/* <Select
                 placeholder="Sort By"
                 className="col-2"
                 name="sort_by"
@@ -45,7 +45,7 @@ function CategoryContainer(props) {
                       )[0]
                     : null
                 }
-              />
+              /> */}
             </div>
             <div className="p-4 border p-2 d-flex flex-row">
               {/* Title of Product Container */}
