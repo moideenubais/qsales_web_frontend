@@ -91,13 +91,13 @@ export const PriceDetail = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px !important;
+  margin-bottom: 0px !important;
 `;
 
 export const ProductAmount = styled.div`
@@ -108,7 +108,7 @@ export const ProductAmount = styled.div`
 
 export const ProductPrice = styled.div`
   font-size: 30px;
-  font-weight: 200;
+  font-weight: 400;
   ${mobile({ marginBottom: "20px !important" })}
 `;
 
@@ -149,4 +149,29 @@ export const Button = styled.button`
   border-color: var(--primary) !important;
   color: white;
   font-weight: 600;
+`;
+
+export const SmallButton = styled.button`
+  padding: 6px !important;
+  background-color: var(--primary);
+  border-color: var(--primary) !important;
+  color: white;
+  font-weight: 600;
+`;
+
+export const ButtonWrapper = styled.div`
+background-color: #8f1d3f,
+border-radius: 20px,
+height: 30px,
+width: 30px,
+display: flex,
+justify-content: center,
+align-items: center,
+`;
+
+export const SpinnerWrapper = styled.div`
+height: 65vh,
+display: flex,
+align-items: center,
+justify-content: center,
 `;

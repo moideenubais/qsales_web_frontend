@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router";
 import {
   Container,
@@ -30,26 +31,35 @@ import {
   SummaryItemText,
   SummaryTitle,
   Button,
+  SmallButton,
+  ButtonWrapper,
 } from "./styles";
+import { getCartInLocalStorage } from "../../heper";
 
 const CartComponent = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const CartPlusIcon = () => (
-    <img
-      src="../assets/images/cart-plus.svg"
-      alt="cartPlusIcon"
-      style={{ width: 16, height: 16 }}
-    />
+    <ButtonWrapper>
+      <img
+        src="../assets/images/cart-plus.svg"
+        alt="cartPlusIcon"
+        style={{ width: 16, height: 16, color: "white" }}
+      />
+    </ButtonWrapper>
   );
 
   const CartMinusIcon = () => (
-    <img
-      src="../assets/images/cart-minus.svg"
-      alt="cartMinusIcon"
-      style={{ width: 16, height: 16 }}
-    />
+    <ButtonWrapper>
+      <img
+        src="../assets/images/cart-minus.svg"
+        alt="cartMinusIcon"
+        style={{ width: 16, height: 16 }}
+      />
+    </ButtonWrapper>
   );
 
   const calcSubTotal = () => {
@@ -62,35 +72,64 @@ const CartComponent = () => {
   };
   //
   useEffect(() => {
-    axios.get("/user/cart").then((res) => {
-      setCartItems(res.data.cart);
-    });
+    setLoading(true);
+    axios
+      .get("/user/cart")
+      .then((res) => {
+        setCartItems(res.data.cart);
+        console.log(res.data.cart);
+
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "65vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div className="spinner" />
+      </div>
+    );
+  }
+
+  const removeFromCart = () => {
+    console.log("cart", getCartInLocalStorage());
+  };
 
   return (
     <Container>
       <Wrapper>
-        <Title>YOUR BAG</Title>
+        <Title>{t("yourCart")}</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton onClick={() => history.push("/")}>
+            {t("continueShopping")}
+          </TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
+            <TopText></TopText>
           </TopTexts>
-          <TopButton type="filled" onClick={() => history.push("/checkout")}>
-            CHECKOUT NOW
+          <TopButton type="filled" onClick={() => null}>
+            {t("shoppingCart")} ({cartItems.length})
           </TopButton>
         </Top>
-        <Bottom>
-          <Info>
-            {cartItems.length > 0 ? (
-              cartItems.map((item) => (
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => (
+            <Bottom>
+              <Info>
                 <Product>
                   <ProductDetail>
                     <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
                     <Details>
                       <ProductName>
-                        <b>Product:</b> {item.product.i18nResourceBundle.name}
+                        {item.product.i18nResourceBundle.name}
                       </ProductName>
                       <ProductColor color="gray" />
                       <ProductSize>
@@ -105,34 +144,48 @@ const CartComponent = () => {
                       <CartMinusIcon />
                     </ProductAmountContainer>
                     <ProductPrice>
-                      AED {item.product.varient.unit_price}
+                      {t("dirhamsText")} {item.product.varient.unit_price}
                     </ProductPrice>
+                    <SmallButton onClick={() => removeFromCart()}>
+                      {t("remove")}
+                    </SmallButton>
                   </PriceDetail>
                 </Product>
-              ))
-            ) : (
-              <span>Empty</span>
-            )}
-          </Info>
-          <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>FREE</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
-            </SummaryItem>
-            <Button onClick={() => history.push("/checkout")}>
-              CHECKOUT NOW
-            </Button>
-          </Summary>
-        </Bottom>
+              </Info>
+              <Summary>
+                <SummaryTitle>{t("orderSummary")}</SummaryTitle>
+                <SummaryItem>
+                  <SummaryItemText>{t("subTotal")}</SummaryItemText>
+                  <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>{t("estimatedShipping")}</SummaryItemText>
+                  <SummaryItemPrice>FREE</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem type="total">
+                  <SummaryItemText>{t("total")}</SummaryItemText>
+                  <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
+                </SummaryItem>
+                <Button onClick={() => history.push("/checkout")}>
+                  {t("checkoutNow")}
+                </Button>
+              </Summary>
+            </Bottom>
+          ))
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              position: "absolute",
+              backgroundColor: "white",
+            }}
+          >
+            <Title>{t("emptyCartText")}</Title>
+          </div>
+        )}
       </Wrapper>
     </Container>
   );

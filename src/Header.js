@@ -1,8 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useRef } from "react";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link, withRouter } from "react-router-dom";
+import i18n from "i18next";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { loginUser, resetPassword } from "./redux/actions/auth";
 import { createData, updateData } from "./redux/actions";
@@ -38,6 +41,7 @@ const validatePasswords = ({ password, confirm_password }, setError) => {
 
 function Header(props) {
   const { errors: userErrors, history, user } = props;
+  const { t } = useTranslation();
   const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -67,6 +71,13 @@ function Header(props) {
       return false;
     }
     return true;
+  };
+
+  const switchLanguage = () => {
+    if (i18n.language === "en") {
+      return i18n.changeLanguage("ar");
+    }
+    return i18n.changeLanguage("en");
   };
 
   // FORGOT PASSWORD COMPONENT
@@ -644,7 +655,6 @@ function Header(props) {
                 <img src="../assets/images/user.svg" alt="userIcon" />
               </div>
             )}
-
             <div className="d-flex flex-row align-items-center px-3">
               <p
                 className="text-white small p-0 m-0 mr-2 me-2"
@@ -653,7 +663,7 @@ function Header(props) {
                   history.push("/cart");
                 }}
               >
-                Cart
+                {t("cart")}
               </p>
               <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
               <span
@@ -662,6 +672,14 @@ function Header(props) {
               >
                 {(user?.cart || []).length}
               </span>
+            </div>
+            <div className="d-flex flex-row align-items-center px-3">
+              <img
+                src="../assets/images/translate.svg"
+                alt="translateIcon"
+                style={{ width: 20, height: 20 }}
+                onClick={() => switchLanguage()}
+              />
             </div>
           </div>
         </div>
