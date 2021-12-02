@@ -76,7 +76,7 @@ const CartComponent = () => {
     axios
       .get("/user/cart")
       .then((res) => {
-        // setCartItems(res.data.cart);
+        setCartItems(res.data.cart);
         console.log(res.data.cart);
 
         setLoading(false);
@@ -177,7 +177,7 @@ const CartComponent = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              // alignItems: "center",
               width: "100%",
               height: "59vh",
               position: "relative",
@@ -189,7 +189,7 @@ const CartComponent = () => {
               width={200}
               height={200}
             />
-            <Title style={{ position: "absolute", top: 350 }}>
+            <Title style={{ position: "absolute", top: 250 }}>
               {t("emptyCartText")}
             </Title>
           </div>

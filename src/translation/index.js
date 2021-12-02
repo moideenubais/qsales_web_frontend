@@ -22,7 +22,7 @@ export const englishTranslations = {
   estimatedShipping: "Estimated Shipping",
   total: "Total",
   checkoutNow: "CHECKOUT NOW",
-  emptyCartText: "No Items Found",
+  emptyCartText: "Your Cart is Empty",
   dirhamsText: "AED",
   ratings: "Ratings",
   size: "Size",
