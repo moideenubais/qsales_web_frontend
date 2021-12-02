@@ -76,7 +76,7 @@ const CartComponent = () => {
     axios
       .get("/user/cart")
       .then((res) => {
-        setCartItems(res.data.cart);
+        // setCartItems(res.data.cart);
         console.log(res.data.cart);
 
         setLoading(false);
@@ -179,11 +179,19 @@ const CartComponent = () => {
               justifyContent: "center",
               alignItems: "center",
               width: "100%",
-              position: "absolute",
+              height: "59vh",
+              position: "relative",
               backgroundColor: "white",
             }}
           >
-            <Title>{t("emptyCartText")}</Title>
+            <img
+              src="../assets/images/empty-cart.svg"
+              width={200}
+              height={200}
+            />
+            <Title style={{ position: "absolute", top: 350 }}>
+              {t("emptyCartText")}
+            </Title>
           </div>
         )}
       </Wrapper>

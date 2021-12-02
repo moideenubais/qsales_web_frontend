@@ -624,9 +624,6 @@ function Header(props) {
                 })}
             </div>
           </div>
-          <div className="col d-flex flex-row align-items-center justify-content-center">
-            <p className="text-white small p-0 m-0">العربية</p>
-          </div>
           <div className="col-3 col-md-3 col-lg-3 d-flex flex-row align-items-center justify-content-center p-0">
             {user?.name ? (
               <div className="d-flex flex-row align-items-center px-3 border-right">
@@ -656,6 +653,14 @@ function Header(props) {
               </div>
             )}
             <div className="d-flex flex-row align-items-center px-3">
+              <img
+                src="../assets/images/translate.svg"
+                alt="translateIcon"
+                style={{ width: 20, height: 20 }}
+                onClick={() => switchLanguage()}
+              />
+            </div>
+            <div className="d-flex flex-row align-items-center px-3">
               <p
                 className="text-white small p-0 m-0 mr-2 me-2"
                 style={{ cursor: "pointer" }}
@@ -665,21 +670,19 @@ function Header(props) {
               >
                 {t("cart")}
               </p>
-              <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
-              <span
-                className="text-white small"
-                style={{ paddingBottom: "14px !important" }}
-              >
-                {(user?.cart || []).length}
-              </span>
-            </div>
-            <div className="d-flex flex-row align-items-center px-3">
-              <img
-                src="../assets/images/translate.svg"
-                alt="translateIcon"
-                style={{ width: 20, height: 20 }}
-                onClick={() => switchLanguage()}
-              />
+              <div style={{ position: "relative" }}>
+                <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
+                <span
+                  className="text-white small"
+                  style={{
+                    paddingBottom: "14px !important",
+                    position: "absolute",
+                    left: 20,
+                  }}
+                >
+                  {(user?.cart || []).length}
+                </span>
+              </div>
             </div>
           </div>
         </div>
