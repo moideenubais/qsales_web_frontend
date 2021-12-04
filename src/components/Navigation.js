@@ -33,7 +33,7 @@ function Navigation(props) {
               </select>
             </div>
           </div>
-          {categories.slice(0, 7).map((cat) => (
+          {categories.slice(0, 6).map((cat) => (
             <Link
               className="text-decoration-none"
               style={{ color: "#8f1d3f" }}
@@ -42,7 +42,7 @@ function Navigation(props) {
               }}
             >
               <div className="nav-list p-3 small">
-                <h6 className="small">{cat.i18nResourceBundle.name}</h6>
+                <h6 className="fs-6">{cat.i18nResourceBundle.name}</h6>
               </div>
             </Link>
           ))}

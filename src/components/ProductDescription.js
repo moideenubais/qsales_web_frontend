@@ -150,7 +150,7 @@ function ProductDescription(props) {
         <>
           <div className="col-12 d-flex flex-row py-5">
             {/* Product Image */}
-            <div className="col-4 p-0 m-0 h-100">
+            <div className="col-6 p-0 m-0 h-100">
               <ReactImageMagnify
                 className="product-magnify"
                 style={{ zIndex: 9 }}
@@ -199,7 +199,7 @@ function ProductDescription(props) {
             </div>
 
             {/* Product Description */}
-            <div className="col-5 d-flex flex-column px-5 ">
+            <div className="col-6 d-flex flex-column px-5 ">
               <h5>{title} </h5>
               {brand && (
                 <p className="small m-0 mt-3">
@@ -216,7 +216,7 @@ function ProductDescription(props) {
                 </p>
               )}
               <div className="d-flex flex-row align-items-center mt-1 ">
-                <p className="small fw-normal text-dark me-2">Ratings :</p>
+                <p className="medium fw-normal text-dark me-2">Ratings :</p>
                 <ReactStars
                   count={5}
                   value={ratingValue}
@@ -228,10 +228,11 @@ function ProductDescription(props) {
               </div>
 
               {attributeArray.map(({ name, values }) => (
-                <div className="d-flex">
-                  <p className="small fw-normal text-dark mb-1">{name} :</p>
+                <div className="d-flex mb-2 mt-2 justify-content-between">
+                  <p className="medium fw-normal text-dark me-5">{name} :</p>
                   <select
-                    className="py-1 px-3 form-select"
+                    className="py-2 px-3 form-select"
+                    style={{ width: "60%" }}
                     aria-label="Default select example"
                     onChange={(e) =>
                       handleOnAttributeChagne(name, e.target.value)
@@ -247,7 +248,7 @@ function ProductDescription(props) {
 
               <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                 <div className="">
-                  <p className="small fw-normal mb-1">Now at</p>
+                  <p className="medium fw-normal mb-1">Now at</p>
                   <h5 className="primary-color p-0 m-0 ">
                     ₹ {selectedAttribute.unit_price}
                   </h5>
@@ -256,7 +257,9 @@ function ProductDescription(props) {
                 <div className="">
                   {selectedAttribute.quantity > 0 ? (
                     <>
-                      <p className="small fw-normal text-dark mb-1">Quantity</p>
+                      <p className="medium fw-normal text-dark mb-1">
+                        Quantity
+                      </p>
                       <select
                         className="py-1 px-3 form-select"
                         aria-label="Default select example"
@@ -275,7 +278,7 @@ function ProductDescription(props) {
                       </select>
                     </>
                   ) : (
-                    <p className="small fw-normal text-black-50">
+                    <p className="medium fw-normal text-black-50">
                       Out of Stock
                     </p>
                   )}
@@ -297,16 +300,16 @@ function ProductDescription(props) {
             </div>
 
             {/* Checkout Section */}
-            <div className="col-3 border p-3 rounded-3 card">
+            {/* <div className="col-3 border p-3 rounded-3 card">
               <h6 className="">Checkout</h6>
               <hr className="my-3" />
-              {/* <p className="small  d-flex flex-column">
+              <p className="small  d-flex flex-column">
                 <span className="fw-normal mb-1">TRUSTED SHIPPING</span>
                 <span className="small text-black-50">
                   Free shipping when you spend AED 100 and above on express
                   items
                 </span>
-              </p> */}
+              </p>
               <div className="mt-1">
                 <p className="small my-2 d-flex flex-column">
                   <span className="fw-normal mb-1">ADDRESS</span>
@@ -350,7 +353,7 @@ function ProductDescription(props) {
                   </button>
                 </form>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Product tabs */}
 
