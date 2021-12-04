@@ -14,7 +14,7 @@ function Product(props) {
     <>
       <div className=" product p-3 rounded mx-1">
         <img
-          src={`http://ec2-3-133-125-119.us-east-2.compute.amazonaws.com/${productImage}`}
+          src={`${process.env.REACT_APP_IMAGE_URL}/${productImage}`}
           alt="product"
           className="img-fluid product-image"
         />

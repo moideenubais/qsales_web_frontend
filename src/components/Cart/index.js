@@ -129,6 +129,20 @@ const CartComponent = (props) => {
     });
   };
 
+  const getAttributesValue = (varient) => {
+    const { attribute_value, color } = varient;
+    return (
+      <>
+        <ProductColor color={color?.value} />
+        {attribute_value?.map(({ name, value }) => (
+          <ProductSize>
+            <b>{name}:</b> {value}
+          </ProductSize>
+        ))}
+      </>
+    );
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -155,15 +169,14 @@ const CartComponent = (props) => {
                 <Info>
                   <Product>
                     <ProductDetail>
-                      <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+                      <Image
+                        src={`${process.env.REACT_APP_IMAGE_URL}/${item.product.product_image_small_url}`}
+                      />
                       <Details>
                         <ProductName>
                           {item.product.i18nResourceBundle.name}
                         </ProductName>
-                        <ProductColor color="gray" />
-                        <ProductSize>
-                          <b>Size:</b> M
-                        </ProductSize>
+                        {getAttributesValue(item.product.varient)}
                       </Details>
                     </ProductDetail>
                     <PriceDetail>

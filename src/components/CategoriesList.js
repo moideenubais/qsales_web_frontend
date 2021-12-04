@@ -8,7 +8,7 @@ function CategoriesList() {
   React.useEffect(() => {
     axios
       .get(
-        `http://ec2-3-133-125-119.us-east-2.compute.amazonaws.com/api/category`
+        `${process.env.REACT_APP_BASE_URL}//api/category`
       )
       .then((response) => {
         setPostData(response.data);
