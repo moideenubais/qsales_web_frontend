@@ -4,6 +4,7 @@ import ReactStars from "react-stars";
 import Carousel from "react-elastic-carousel";
 import { useForm } from "react-hook-form";
 import ProductTabs from "./ProductTabs";
+import Address from "./Address";
 import FloatingButton from "./whatsappFloatingButton/FloatingButton";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
@@ -321,6 +322,7 @@ function ProductDescription(props) {
                   Change Address
                 </button>
               </div>
+              <Address />
               <hr className="my-3" />
               <div className="mb-2">
                 <p className="fw-normal mb-1">Payments</p>
@@ -347,9 +349,9 @@ function ProductDescription(props) {
                   <button
                     className="btn btn-qs-primary w-100 p-2 small mt-3"
                     type="submit"
-                    onClick={() => history.push("/checkout")}
+                    onClick={() => {}}
                   >
-                    CHECKOUT
+                    BUY NOW
                   </button>
                 </form>
               </div>
