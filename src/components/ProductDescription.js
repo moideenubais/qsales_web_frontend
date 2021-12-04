@@ -7,26 +7,35 @@ import ProductTabs from "./ProductTabs";
 import FloatingButton from "./whatsappFloatingButton/FloatingButton";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { getData } from "../redux/actions";
+import { getData, updateData } from "../redux/actions";
+import { useHistory } from "react-router";
 import { ActionTypes } from "../redux/contants/action-types";
-import { isEmptyObj, saveCartToLocalStorage } from "../heper";
+import {
+  getCartInLocalStorage,
+  isEmptyObj,
+  saveCartToLocalStorage,
+} from "../heper";
 import toast from "react-hot-toast";
 
 function ProductDescription(props) {
+  const history = useHistory();
   const { productId } = useParams();
-  const { getData: propsGetData, productDetailsReducer } = props;
+  const {
+    getData: propsGetData,
+    updateData: propsUpdateData,
+    productDetailsReducer,
+  } = props;
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const {
     product_image_big_url,
     brand,
     rating,
-    varients: variants ,
+    varients: variants,
     attribute_array,
     colors,
     name: title,
     description,
-    _id: resourceId,
     modal_name,
   } = productDetailsReducer?.data || {};
 
@@ -35,7 +44,7 @@ function ProductDescription(props) {
   const [selectedAttribute, setSelectedAttribute] = useState({});
   const [attributeArray, setAttributeArray] = useState([]);
   const [selectedImage, setSelectedImage] = useState(
-    product_image_big_url ? `${imageBaseUrl}${product_image_big_url[0]}` : ''
+    product_image_big_url ? `${imageBaseUrl}${product_image_big_url[0]}` : ""
   );
 
   const getPriceAndQuantity = (attributeObject, initail = false) => {
@@ -52,7 +61,8 @@ function ProductDescription(props) {
         });
       }
 
-      if (variant.color && variant.color.length) variantDep.colors = variant.color.value;
+      if (variant.color && variant.color.length)
+        variantDep.colors = variant.color.value;
       if (initail) {
         const isNotMatch = attributeData.some(({ name, values }) => {
           return variantDep[name] && variantDep[name] !== values[0].value;
@@ -62,7 +72,7 @@ function ProductDescription(props) {
           returnData = {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
-            variant_id: variant._id
+            variant_id: variant._id,
           };
           attributeData.forEach(({ name, values }) => {
             returnData[name] = values[0].value;
@@ -77,7 +87,7 @@ function ProductDescription(props) {
           returnData = {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
-            variant_id: variant._id
+            variant_id: variant._id,
           };
         }
       }
@@ -123,11 +133,14 @@ function ProductDescription(props) {
   };
 
   const addToCart = () => {
+    if (selectedQuantity <= 0) return;
     saveCartToLocalStorage({
       product_id: productId,
       varient_id: selectedAttribute.variant_id,
       quantity: selectedQuantity,
     });
+    const cart = getCartInLocalStorage();
+    propsUpdateData("UPDATE_CART", `/user/cart`, { cart: Object.values(cart) });
     toast.success("Added To Cart");
   };
 
@@ -273,9 +286,12 @@ function ProductDescription(props) {
                 <button
                   className="btn btn-qs-primary w-100 p-2 small "
                   type="button"
+                  disabled={selectedAttribute.quantity <= 0}
                   onClick={addToCart}
                 >
-                  Add To Cart
+                  {selectedAttribute.quantity > 0
+                    ? "Add To Cart"
+                    : " Out of Stock"}
                 </button>
               </div>
             </div>
@@ -328,6 +344,7 @@ function ProductDescription(props) {
                   <button
                     className="btn btn-qs-primary w-100 p-2 small mt-3"
                     type="submit"
+                    onClick={() => history.push("/checkout")}
                   >
                     CHECKOUT
                   </button>
@@ -352,5 +369,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
+  updateData,
   getData,
 })(ProductDescription);
