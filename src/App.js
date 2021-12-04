@@ -23,7 +23,7 @@ i18n
       en: { translation: englishTranslations },
       ar: { translation: arabicTranslations },
     },
-    lng: "en",
+    lng: localStorage.getItem("lang") || "en",
     fallbackLng: "en",
     interpolation: { escapeValue: false },
   });

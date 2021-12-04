@@ -74,10 +74,9 @@ function Header(props) {
   };
 
   const switchLanguage = () => {
-    if (i18n.language === "en") {
-      return i18n.changeLanguage("ar");
-    }
-    return i18n.changeLanguage("en");
+    const lang = i18n.language === "en" ? "ar" : "en";
+    localStorage.setItem("lang", lang);
+    return i18n.changeLanguage(lang);
   };
 
   // FORGOT PASSWORD COMPONENT

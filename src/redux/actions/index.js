@@ -14,6 +14,7 @@ export function getData(type, url, params) {
         params: {
           ...params,
           user_type: "user",
+          lang: localStorage.getItem("lang") || "en",
         },
       },
     },

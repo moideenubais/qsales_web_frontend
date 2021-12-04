@@ -25,9 +25,9 @@ const middlewareConfig = {
     request: [
       {
         async success(func, req) {
-          if (localStorage.getItem("jwtToken"))
+          if (localStorage.getItem("jwtToken")) {
             req.headers["x-auth-token"] = localStorage.getItem("jwtToken");
-          console.log("interceptors request", req); // contains information about request object
+          }
           return req;
         },
         error(error) {
@@ -38,13 +38,10 @@ const middlewareConfig = {
     response: [
       {
         success(func, res) {
-          console.log("AXIOS RESPONSE = ", res); // contains information about request object
           return Promise.resolve(res);
         },
         error(func, error) {
           console.log("API ERROR", error);
-          const errorStatus = error.response.status;
-          // if (errorStatus === 401) window.location.href = "/login";
           return Promise.reject(error);
         },
       },

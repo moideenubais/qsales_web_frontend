@@ -33,7 +33,7 @@ function Navigation(props) {
               </select>
             </div>
           </div>
-          {categories.slice(0, 7).map((cat) => (
+          {categories.slice(0, 6).map((cat) => (
             <Link
               className="text-decoration-none"
               style={{ color: "#8f1d3f" }}

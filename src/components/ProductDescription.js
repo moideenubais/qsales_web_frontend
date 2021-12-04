@@ -4,6 +4,7 @@ import ReactStars from "react-stars";
 import Carousel from "react-elastic-carousel";
 import { useForm } from "react-hook-form";
 import ProductTabs from "./ProductTabs";
+import Address from "./Address";
 import FloatingButton from "./whatsappFloatingButton/FloatingButton";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
@@ -300,24 +301,7 @@ function ProductDescription(props) {
             <div className="col-3 border p-3 rounded-3 card">
               <h6 className="">Checkout</h6>
               <hr className="my-3" />
-              {/* <p className="small  d-flex flex-column">
-                <span className="fw-normal mb-1">TRUSTED SHIPPING</span>
-                <span className="small text-black-50">
-                  Free shipping when you spend AED 100 and above on express
-                  items
-                </span>
-              </p> */}
-              <div className="mt-1">
-                <p className="small my-2 d-flex flex-column">
-                  <span className="fw-normal mb-1">ADDRESS</span>
-                  <span className="small text-black-50">
-                    Near Firdous Hotel, Ayal Nasr Street, Deira
-                  </span>
-                </p>
-                <button className="btn btn-dark btn-sm p-1 px-2 small my-2">
-                  Change Address
-                </button>
-              </div>
+              <Address />
               <hr className="my-3" />
               <div className="mb-2">
                 <p className="fw-normal mb-1">Payments</p>
@@ -344,9 +328,9 @@ function ProductDescription(props) {
                   <button
                     className="btn btn-qs-primary w-100 p-2 small mt-3"
                     type="submit"
-                    onClick={() => history.push("/checkout")}
+                    onClick={() => {}}
                   >
-                    CHECKOUT
+                    BUY NOW
                   </button>
                 </form>
               </div>
