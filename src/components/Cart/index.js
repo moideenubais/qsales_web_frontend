@@ -177,13 +177,21 @@ const CartComponent = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
+              // alignItems: "center",
               width: "100%",
-              position: "absolute",
+              height: "59vh",
+              position: "relative",
               backgroundColor: "white",
             }}
           >
-            <Title>{t("emptyCartText")}</Title>
+            <img
+              src="../assets/images/empty-cart.svg"
+              width={200}
+              height={200}
+            />
+            <Title style={{ position: "absolute", top: 250 }}>
+              {t("emptyCartText")}
+            </Title>
           </div>
         )}
       </Wrapper>
