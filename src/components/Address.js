@@ -4,12 +4,21 @@ import { connect } from "react-redux";
 import { getData } from "../redux/actions";
 
 function Address(props) {
-  const { userData } = props;
+  const { userData, onChange } = props;
   const [selectedAddressIndex, setSelectedAddressIndex] = React.useState(0);
+  const selectedAddressIndexRef = React.useRef(null);
   const [show, setShow] = React.useState(false);
 
   const displayAddress = () => {
     const address = Object.values(userData.data.address[selectedAddressIndex]);
+    if (!address) return;
+
+    delete address._id;
+    if (selectedAddressIndexRef.current !== selectedAddressIndex) {
+      console.log({ address });
+      selectedAddressIndexRef.current = selectedAddressIndex;
+      onChange(address);
+    }
     return address.slice(1, address.length).join(", ");
   };
 

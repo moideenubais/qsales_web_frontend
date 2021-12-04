@@ -14,9 +14,6 @@ import { useHistory } from "react-router";
 import { getCartInLocalStorage } from "../../heper";
 
 const ADDRESS_FIELDS = [
-  // { label: "Building Name", name: "building_name" },
-  // { label: "Street", name: "street" },
-  // { label: "City", name: "city" },
   { label: "Building Number", name: "building_no" },
   { label: "Street Number", name: "street_no" },
   { label: "Zone Number", name: "zone_no" },
@@ -40,7 +37,8 @@ function CheckoutSteps(props) {
   const [expandedKey, setExpandedKey] = React.useState("0");
   const [editable, setEditable] = React.useState(null);
   const [paymentMethod, setPaymentMethod] = React.useState("cod");
-  const [deliveryPreference, setDeliveryPreference] = React.useState({
+  const [errors, setErrors] = React.useState({});
+  const [orderContent, setOrderContent] = React.useState({
     delivery_note: "This is for you", // [OPTIONAL]
     delivery_time: "Any time",
   });
@@ -56,6 +54,16 @@ function CheckoutSteps(props) {
   useEffect(() => {
     getAddressData();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setOrderContent({
+        ...orderContent,
+        customer_name: user.name || "",
+        mobile: user.mobile || "",
+      });
+    }
+  }, [user]);
 
   const emptyAddress = (val, index) => {
     if (val == null || !Object.keys(val).length) return true;
@@ -99,13 +107,32 @@ function CheckoutSteps(props) {
   };
 
   const placeOrder = () => {
+    const errorsData = {};
+    if (!orderContent.customer_name) {
+      errorsData.customer_name = "Name is required";
+    }
+    if (!orderContent.delivery_note) {
+      errorsData.delivery_note = "Note is required";
+    }
+    if (!orderContent.mobile) {
+      errorsData.mobile = "mobile is required";
+    } else if (orderContent.mobile.length !== 10) {
+      errorsData.mobile = "Mobile length should be 10 characters";
+    }
+    if (Object.keys(errorsData).length) {
+      setErrors(errorsData);
+      toast.error(errorsData[Object.keys(errorsData)[0]]);
+      return;
+    }
+
     const isPaymentSucces = false;
     const orderData = {
       products: Object.values(getCartInLocalStorage()), //An array of objects
       customer_id: user._id,
+      mobile: user.mobile,
       customer_name: user.name,
       shipping_address: { ...addresses[selectedAddressIndex], _id: undefined },
-      ...deliveryPreference,
+      ...orderContent,
       payment_status:
         paymentMethod === "cod" || !isPaymentSucces ? "unpaid" : "paid",
       payment_method: paymentMethod, // one of ["card","cod"]
@@ -148,23 +175,43 @@ function CheckoutSteps(props) {
           }}
         >
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Login</Accordion.Header>
+            <Accordion.Header>User Details</Accordion.Header>
             <Accordion.Body className="p-3">
               <div className="col-12">
                 {isAuthenticated ? (
                   <div className="">
-                    <p className="d-flex flex-column">
+                    <div className="d-flex flex-column">
                       <span className="fw-normal ">
                         Name :
-                        <span className="primary-color fw-normal">
-                          {user.name}
-                        </span>
+                        <input
+                          type="text"
+                          name="customer_name"
+                          className="mb-2 ml-2"
+                          value={orderContent.customer_name}
+                          onChange={({ target }) => {
+                            setOrderContent({
+                              ...orderContent,
+                              customer_name: target.value,
+                            });
+                          }}
+                        />
+                        {errors.customer_name && <p>{errors.customer_name}</p>}
                       </span>
                       <span className="fw-normal mt-2">
                         Phone :
-                        <span className="primary-color fw-normal">
-                          {user.mobile}
-                        </span>
+                        <input
+                          className="ml-2"
+                          type="number"
+                          name="mobile"
+                          value={orderContent.mobile}
+                          onChange={({ target }) => {
+                            setOrderContent({
+                              ...orderContent,
+                              mobile: target.value,
+                            });
+                          }}
+                        />
+                        {errors.mobile && <p>{errors.mobile}</p>}
                       </span>
 
                       <div className="d-flex flex-row justify-content-between mt-2 ">
@@ -172,7 +219,7 @@ function CheckoutSteps(props) {
                           <u>Logout & SignIn to another account</u>
                         </p>
                       </div>
-                    </p>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)}>
@@ -291,32 +338,37 @@ function CheckoutSteps(props) {
             <Accordion.Header>Delivery Preferences</Accordion.Header>
             <Accordion.Body className="p-3">
               <div className="d-flex">
-                <p className="small fw-normal text-dark mb-1 col-2">Delivery Note</p>
+                <p className="small fw-normal text-dark mb-1 col-2">
+                  Delivery Note
+                </p>
                 <input
                   className="p-2 mb-2"
                   onChange={({ target }) =>
-                    setDeliveryPreference({
-                      ...deliveryPreference,
+                    setOrderContent({
+                      ...orderContent,
                       delivery_note: target.value,
                     })
                   }
                   name="delivery_note"
                   placeholder="Enter your delivery note"
-                  value={deliveryPreference.delivery_note}
+                  value={orderContent.delivery_note}
                 />
+                {errors.delivery_note && <p>{errors.delivery_note}</p>}
               </div>
               <div className="d-flex">
-                <p className="small fw-normal text-dark mb-1 col-2">Delivery Time</p>
+                <p className="small fw-normal text-dark mb-1 col-2">
+                  Delivery Time
+                </p>
                 <select
                   className="p-2"
                   name="delivery_time"
                   onChange={({ target }) =>
-                    setDeliveryPreference({
-                      ...deliveryPreference,
+                    setOrderContent({
+                      ...orderContent,
                       delivery_time: target.value,
                     })
                   }
-                  value={deliveryPreference.delivery_time}
+                  value={orderContent.delivery_time}
                 >
                   {[
                     "Any time",

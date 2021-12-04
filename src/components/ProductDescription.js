@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import ReactImageMagnify from "react-image-magnify";
 import ReactStars from "react-stars";
 import Carousel from "react-elastic-carousel";
-import { useForm } from "react-hook-form";
 import ProductTabs from "./ProductTabs";
 import Address from "./Address";
 import FloatingButton from "./whatsappFloatingButton/FloatingButton";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { getData, updateData } from "../redux/actions";
-import { useHistory } from "react-router";
+import { getData, updateData, createData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
 import {
   getCartInLocalStorage,
@@ -19,12 +17,13 @@ import {
 import toast from "react-hot-toast";
 
 function ProductDescription(props) {
-  const history = useHistory();
   const { productId } = useParams();
   const {
     getData: propsGetData,
     updateData: propsUpdateData,
+    createData: propsCreateData,
     productDetailsReducer,
+    user,
   } = props;
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
@@ -41,9 +40,48 @@ function ProductDescription(props) {
   } = productDetailsReducer?.data || {};
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
+  const [show, setShow] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedAttribute, setSelectedAttribute] = useState({});
+  const [errors, setErrors] = useState({});
   const [attributeArray, setAttributeArray] = useState([]);
+  const [orderData, setOrderData] = useState({
+    products: [], //An array of objects
+    customer_id: user._id,
+    customer_name: user.name,
+    mobile: user.mobile,
+    shipping_address: { _id: undefined },
+    delivery_note: "This is for you", // [OPTIONAL]
+    delivery_time: "Any time",
+    payment_status: "unpaid",
+    payment_method: "cod", // one of ["card","cod"]
+  });
+
+  useEffect(() => {
+    console.log({ user });
+    if (user) {
+      setOrderData({
+        ...orderData,
+        customer_id: user._id,
+        customer_name: user.name,
+        mobile: user.mobile,
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    setOrderData({
+      ...orderData,
+      products: [
+        {
+          product_id: productId,
+          varient_id: selectedAttribute.variant_id,
+          quantity: selectedQuantity,
+        },
+      ],
+    });
+  }, [selectedAttribute, selectedQuantity]);
+
   const [selectedImage, setSelectedImage] = useState(
     product_image_big_url ? `${imageBaseUrl}${product_image_big_url[0]}` : ""
   );
@@ -115,14 +153,6 @@ function ProductDescription(props) {
       Object.entries(attributeData).map(([name, values]) => ({ name, values }))
     );
   }, [attribute_array, colors]);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
 
   const ratingChanged = (newRating) => {
     setRatingValue(newRating);
@@ -301,58 +331,157 @@ function ProductDescription(props) {
             <div className="col-3 border p-3 rounded-3 card">
               <h6 className="">Checkout</h6>
               <hr className="my-3" />
-              <Address />
+              <div className="mb-2">
+                <p className="fw-normal mb-1">User Details</p>
+                <div className="d-flex gap-1">
+                  <p className="small ms-2 mb-2">Name</p>
+                  <input
+                    type="text"
+                    name="customer_name"
+                    className="w-10 mb-2"
+                    value={orderData.customer_name}
+                    onChange={({ target }) => {
+                      setOrderData({
+                        ...orderData,
+                        customer_name: target.value,
+                      });
+                    }}
+                  />
+                  {errors.customer_name && <p>{errors.customer_name}</p>}
+                </div>
+                <div className="d-flex gap-1">
+                  <p className="small ms-2 ">Mobile</p>
+                  <input
+                    type="number"
+                    name="mobile"
+                    value={orderData.mobile}
+                    onChange={({ target }) => {
+                      setOrderData({
+                        ...orderData,
+                        mobile: target.value,
+                      });
+                    }}
+                  />
+                  {errors.mobile && <p>{errors.mobile}</p>}
+                </div>
+              </div>
+              <hr className="my-3" />
+              <Address
+                onChange={(address) => {
+                  setOrderData({ ...orderData, address });
+                }}
+              />
               <hr className="my-3" />
               <div className="mb-2">
                 <p className="fw-normal mb-1">Payments</p>
+                <div className="d-flex flex-row align-items-center mb-1">
+                  <input
+                    type="radio"
+                    value="cod"
+                    checked={orderData.payment_method === "cod"}
+                    onChange={() => {
+                      setOrderData({ ...orderData, payment_method: "cod" });
+                    }}
+                  />
+                  <p className="small ms-2">Cash on delivery</p>
+                </div>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="d-flex flex-row align-items-center mb-1">
-                    <input
-                      {...register("payment-method", { required: true })}
-                      type="radio"
-                      value="Cash on delivery"
-                    />
-                    <p className="small ms-2">Cash on delivery</p>
-                  </div>
+                <div className="d-flex flex-row align-items-center">
+                  <input
+                    type="radio"
+                    value="card"
+                    checked={orderData.payment_method === "card"}
+                    onChange={() => {
+                      setOrderData({ ...orderData, payment_method: "card" });
+                    }}
+                  />
+                  <p className="small ms-2">Net banking</p>
+                </div>
 
-                  <div className="d-flex flex-row align-items-center">
-                    <input
-                      {...register("payment-method", { required: true })}
-                      type="radio"
-                      value="Net Banking"
-                    />
-                    <p className="small ms-2">Net banking</p>
-                  </div>
-
-                  <button
-                    className="btn btn-qs-primary w-100 p-2 small mt-3"
-                    type="submit"
-                    onClick={() => {}}
-                  >
-                    BUY NOW
-                  </button>
-                </form>
+                <button
+                  className="btn btn-qs-primary w-100 p-2 small mt-3"
+                  type="submit"
+                  onClick={() => {
+                    const errorsData = {};
+                    if (!orderData.customer_name) {
+                      errorsData.customer_name = "Name is required";
+                    }
+                    if (!orderData.mobile) {
+                      errorsData.mobile = "mobile is required";
+                    }else if (orderData.mobile.length !== 10) {
+                      errorsData.mobile = "Mobile length should be 10 characters";
+                    }
+                    if (Object.keys(errorsData).length) {
+                      setErrors(errorsData);
+                      return;
+                    }
+                    setShow(true);
+                  }}
+                >
+                  BUY NOW
+                </button>
               </div>
             </div>
           </div>
           {/* Product tabs */}
-
           <div className="col-12 my-2">
             <ProductTabs description={description} />
           </div>
           <FloatingButton />
         </>
       )}
+      {show && (
+        <div className="popup">
+          <div
+            style={{
+              borderRadius: "5px",
+              backgroundColor: "white",
+            }}
+            className="align-items-center p-5 justify-content-center absolute"
+          >
+            Do you want to place the order?
+            <div className="d-flex align-items-center justify-content-center absolute gap-2">
+              <button
+                className="btn btn-qs-primary w-100 p-2 small mt-3"
+                type="submit"
+                onClick={() => {
+                  propsCreateData("PLACE_ORDER", "order", orderData).then(
+                    (res) => {
+                      if (res.error) toast.error("Error while creating order");
+                      else {
+                        toast.success("Order placed");
+                        setShow(false);
+                      }
+                    }
+                  );
+                }}
+              >
+                CONFIRM
+              </button>
+              <button
+                className="btn btn-qs-secondary  w-100 p-2 small mt-3"
+                type="submit"
+                onClick={() => {
+                  setShow(false);
+                }}
+              >
+                CANCEL
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
+  ...state.authReducer,
   productDetailsReducer: state.getProductsReducer,
 });
 
 export default connect(mapStateToProps, {
   updateData,
   getData,
+  createData,
 })(ProductDescription);

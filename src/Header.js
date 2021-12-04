@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useRef } from "react";
-import { Dropdown, DropdownButton } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link, withRouter } from "react-router-dom";
@@ -14,30 +13,6 @@ import axios from "axios";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-
-const isEmptyObj = (v) => {
-  return typeof value === "object" && Object.keys(v).length === 0;
-};
-
-const validatePasswords = ({ password, confirm_password }, setError) => {
-  if (!new RegExp(passwordRegex).test(password)) {
-    setError("password", {
-      type: "manual",
-      message:
-        "Password should be of 8 character with atleast one uppercase and lowercase letter, number and special character",
-    });
-    return false;
-  }
-
-  if (confirm_password && password !== confirm_password) {
-    setError("confirm_password", {
-      type: "manual",
-      message: "Password does not match",
-    });
-    return false;
-  }
-  return true;
-};
 
 function Header(props) {
   const { errors: userErrors, history, user } = props;
@@ -607,6 +582,7 @@ function Header(props) {
                       onClick={() => history.push(`/product/${item._id}`)}
                     >
                       <img
+                        alt="img"
                         src={item.imageUrl}
                         width={40}
                         height={40}
