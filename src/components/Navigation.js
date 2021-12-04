@@ -42,7 +42,7 @@ function Navigation(props) {
               }}
             >
               <div className="nav-list p-3 small">
-                <h6 className="small">{cat.i18nResourceBundle.name}</h6>
+                <h6 className="fs-6">{cat.i18nResourceBundle.name}</h6>
               </div>
             </Link>
           ))}

@@ -95,8 +95,6 @@ const CartComponent = (props) => {
       .get("/user/cart")
       .then((res) => {
         setCartItems(res.data.cart);
-        console.log(res.data.cart);
-
         setLoading(false);
       })
       .catch((err) => {
@@ -175,7 +173,7 @@ const CartComponent = (props) => {
                         <CartMinusIcon />
                       </ProductAmountContainer>
                       <ProductPrice>
-                        {t("dirhamsText")} {item.product.varient.unit_price}
+                        {t("riyalText")} {item.product.varient.unit_price}
                       </ProductPrice>
                       <SmallButton
                         onClick={() => removeFromCart(item.varient_id)}
@@ -187,7 +185,7 @@ const CartComponent = (props) => {
                 </Info>
               </Bottom>
             ))}
-            <Summary style={{height: '30vh'}}>
+            <Summary style={{ height: "30vh" }}>
               <SummaryTitle>{t("orderSummary")}</SummaryTitle>
               <SummaryItem>
                 <SummaryItemText>{t("subTotal")}</SummaryItemText>
