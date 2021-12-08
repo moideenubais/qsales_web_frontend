@@ -154,10 +154,15 @@ const CartComponent = (props) => {
                 {t("continueShopping")}
               </TopButton>
               <TopTexts>
-                <TopText></TopText>
+                <TopText>
+                  {t("shoppingCart")} ({cartItems.length})
+                </TopText>
               </TopTexts>
-              <TopButton type="filled" onClick={() => null}>
-                {t("shoppingCart")} ({cartItems.length})
+              <TopButton
+                type="filled"
+                onClick={() => history.push("/checkout")}
+              >
+                {t("checkoutNow")}
               </TopButton>
             </Top>
           </>
@@ -198,26 +203,6 @@ const CartComponent = (props) => {
                 </Info>
               </Bottom>
             ))}
-            <Summary style={{ height: "30vh" }}>
-              <SummaryTitle>{t("orderSummary")}</SummaryTitle>
-              <SummaryItem>
-                <SummaryItemText>{t("subTotal")}</SummaryItemText>
-                <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>{t("estimatedShipping")}</SummaryItemText>
-                <SummaryItemPrice>FREE</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                <SummaryItemText>{t("total")}</SummaryItemText>
-                <SummaryItemPrice>AED {calcSubTotal()}</SummaryItemPrice>
-              </SummaryItem>
-              {!checkoutPage && (
-                <Button onClick={() => history.push("/checkout")}>
-                  {t("checkoutNow")}
-                </Button>
-              )}
-            </Summary>
           </>
         ) : (
           <div

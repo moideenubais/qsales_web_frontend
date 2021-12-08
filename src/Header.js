@@ -528,11 +528,10 @@ function Header(props) {
         if (!res.data.products || res.data.products.length === 0) {
           return setSearchReponse([]);
         }
-
         const searchedProducts = res.data.products.map((item) => {
           return {
             ...item,
-            imageUrl: `https://picsum.photos/40?random&t=${Date.now()}`,
+            imageUrl: item.product_image_small_url,
           };
         });
         setSearchReponse(searchedProducts);

@@ -39,7 +39,20 @@ if (localStorage.jwtToken) {
 
 function WaitingComponent(Component) {
   return (props) => (
-    <Suspense fallback={<>loading...</>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            height: "70vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div className="spinner" />
+        </div>
+      }
+    >
       <Component {...props} />
     </Suspense>
   );

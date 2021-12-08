@@ -181,7 +181,7 @@ function ProductDescription(props) {
         <>
           <div className="col-12 d-flex flex-row py-5">
             {/* Product Image */}
-            <div className="col-6 p-0 m-0 h-100">
+            <div className="col-5 p-0 m-0 h-100">
               <ReactImageMagnify
                 className="product-magnify"
                 style={{ zIndex: 9 }}
@@ -230,7 +230,7 @@ function ProductDescription(props) {
             </div>
 
             {/* Product Description */}
-            <div className="col-6 d-flex flex-column px-5 ">
+            <div className="col-5 d-flex flex-column px-5 ">
               <h5>{title} </h5>
               {brand && (
                 <p className="small m-0 mt-3">
@@ -336,12 +336,12 @@ function ProductDescription(props) {
               <hr className="my-3" />
               <div className="mb-2">
                 <p className="fw-normal mb-1">User Details</p>
-                <div className="d-flex gap-1">
-                  <p className="small ms-2 mb-2">Name</p>
+                <div className="">
+                  <p className="small mb-1">Name</p>
                   <input
                     type="text"
                     name="customer_name"
-                    className="w-10 mb-2"
+                    className="w-100 mb-2"
                     value={orderData.customer_name}
                     onChange={({ target }) => {
                       setOrderData({
@@ -352,11 +352,11 @@ function ProductDescription(props) {
                   />
                   {errors.customer_name && <p>{errors.customer_name}</p>}
                 </div>
-                <div className="d-flex gap-1">
-                  <p className="small ms-2 ">Mobile</p>
+                <div className="">
+                  <p className="small mb-1">Mobile</p>
                   <input
-                    type="number"
                     name="mobile"
+                    className="w-100"
                     value={orderData.mobile}
                     onChange={({ target }) => {
                       setOrderData({

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
   getData,
   updateData,
@@ -20,6 +21,7 @@ const ADDRESS_FIELDS = [
 ];
 
 function CheckoutSteps(props) {
+  const { t } = useTranslation();
   const history = useHistory();
   const {
     user,
@@ -175,18 +177,18 @@ function CheckoutSteps(props) {
           }}
         >
           <Accordion.Item eventKey="0">
-            <Accordion.Header>User Details</Accordion.Header>
+            <Accordion.Header>{t("userDetails")}</Accordion.Header>
             <Accordion.Body className="p-3">
               <div className="col-12">
                 {isAuthenticated ? (
                   <div className="">
                     <div className="d-flex flex-column">
                       <span className="fw-normal ">
-                        Name :
+                        {t("name")}{" "}
                         <input
                           type="text"
                           name="customer_name"
-                          className="mb-2 ml-2"
+                          className="p-2 mb-2"
                           value={orderContent.customer_name}
                           onChange={({ target }) => {
                             setOrderContent({
@@ -198,10 +200,9 @@ function CheckoutSteps(props) {
                         {errors.customer_name && <p>{errors.customer_name}</p>}
                       </span>
                       <span className="fw-normal mt-2">
-                        Phone :
+                        {t("phone")}{" "}
                         <input
-                          className="ml-2"
-                          type="number"
+                          className="p-2 mb-2"
                           name="mobile"
                           value={orderContent.mobile}
                           onChange={({ target }) => {
@@ -216,7 +217,7 @@ function CheckoutSteps(props) {
 
                       <div className="d-flex flex-row justify-content-between mt-2 ">
                         <p className="fw-normal primary-color p-2 px-0 w-50">
-                          <u>Logout & SignIn to another account</u>
+                          <u>{t("signInToAnotherAccount")}</u>
                         </p>
                       </div>
                     </div>
@@ -229,7 +230,7 @@ function CheckoutSteps(props) {
                     />
                     <input {...register("lastName")} placeholder="Last name" />
                     <p>{result}</p>
-                    <button type="submit">Login</button>
+                    <button type="submit">{t("login")}</button>
                   </form>
                 )}
               </div>
@@ -240,14 +241,14 @@ function CheckoutSteps(props) {
                     setExpandedKey("1");
                   }}
                 >
-                  Continue
+                  {t("continue")}
                 </button>
               </div>
             </Accordion.Body>
           </Accordion.Item>
 
           <Accordion.Item eventKey="1" expanded={expandedKey === "1"}>
-            <Accordion.Header>Delivery Address</Accordion.Header>
+            <Accordion.Header>{t("deliveryAddress")}</Accordion.Header>
             <Accordion.Body className="p-3">
               <div className="col-12 align-items-start justify-content-start">
                 {addresses?.map((address, i) => (
@@ -287,14 +288,14 @@ function CheckoutSteps(props) {
                             setEditable(i);
                           }}
                         >
-                          Edit
+                          {t("edit")}
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
                           className="p-0 m-0 primary-color "
                           onClick={() => deletAddress(i)}
                         >
-                          Delete
+                          {t("delete")}
                         </p>
                       </div>
                     </div>
@@ -315,7 +316,7 @@ function CheckoutSteps(props) {
                       setEditable(addresses.length);
                     }}
                   >
-                    Add New
+                    {t("addNew")}
                   </button>
                   {addresses.length ? (
                     <button
@@ -324,7 +325,7 @@ function CheckoutSteps(props) {
                         setExpandedKey("3");
                       }}
                     >
-                      Continue
+                      {t("continue")}
                     </button>
                   ) : (
                     <></>
@@ -335,11 +336,11 @@ function CheckoutSteps(props) {
           </Accordion.Item>
 
           <Accordion.Item eventKey="3">
-            <Accordion.Header>Delivery Preferences</Accordion.Header>
+            <Accordion.Header>{t("deliveryPreferences")}</Accordion.Header>
             <Accordion.Body className="p-3">
               <div className="d-flex">
                 <p className="small fw-normal text-dark mb-1 col-2">
-                  Delivery Note
+                  {t("deliveryNote")}
                 </p>
                 <input
                   className="p-2 mb-2"
@@ -357,7 +358,7 @@ function CheckoutSteps(props) {
               </div>
               <div className="d-flex">
                 <p className="small fw-normal text-dark mb-1 col-2">
-                  Delivery Time
+                  {t("deliveryTime")}
                 </p>
                 <select
                   className="p-2"
@@ -387,14 +388,14 @@ function CheckoutSteps(props) {
                     setExpandedKey("4");
                   }}
                 >
-                  Continue
+                  {t("continue")}
                 </button>
               </div>
             </Accordion.Body>
           </Accordion.Item>
 
           <Accordion.Item eventKey="4">
-            <Accordion.Header>Order Summary</Accordion.Header>
+            <Accordion.Header>{t("orderSummarySmall")}</Accordion.Header>
             <Accordion.Body className="p-3">
               <CartComponent checkoutPage />
               <div className="d-flex flex-row justify-content-end small gap-2">
@@ -404,14 +405,14 @@ function CheckoutSteps(props) {
                     setExpandedKey("5");
                   }}
                 >
-                  Proceed to pay
+                  {t("proceedToPay")}
                 </button>
               </div>
             </Accordion.Body>
           </Accordion.Item>
 
           <Accordion.Item eventKey="5">
-            <Accordion.Header>Payment Options</Accordion.Header>
+            <Accordion.Header>{t("paymentOptions")}</Accordion.Header>
             <Accordion.Body className="p-3">
               <div className="d-flex flex-row align-items-center mb-1">
                 <input
@@ -420,7 +421,7 @@ function CheckoutSteps(props) {
                   checked={paymentMethod === "cod"}
                   onChange={() => setPaymentMethod("cod")}
                 />
-                <p className="small ms-2">Cash on delivery</p>
+                <p className="small ms-2">{t("cashOnDelivery")}</p>
               </div>
 
               <div className="d-flex flex-row align-items-center">
@@ -430,14 +431,14 @@ function CheckoutSteps(props) {
                   checked={paymentMethod === "card"}
                   onChange={() => setPaymentMethod("card")}
                 />
-                <p className="small ms-2">Net banking</p>
+                <p className="small ms-2">{t("netBanking")}</p>
               </div>
               <div className="d-flex flex-row justify-content-end small gap-2">
                 <button
                   className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
                   onClick={placeOrder}
                 >
-                  Place order
+                  {t("placeOrder")}
                 </button>
               </div>
             </Accordion.Body>

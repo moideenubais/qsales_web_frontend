@@ -44,6 +44,7 @@ export const TopText = styled.span`
 export const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 5px !important;
   ${mobile({ flexDirection: "column" })}
 `;
 
@@ -101,14 +102,15 @@ export const ProductAmountContainer = styled.div`
 `;
 
 export const ProductAmount = styled.div`
-  font-size: 24px;
+  font-size: 18px;
   margin: 10px !important;
   ${mobile({ margin: "5px 15px !important" })}
 `;
 
 export const ProductPrice = styled.div`
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 400;
+  margin-bottom: 10px !important;
   ${mobile({ marginBottom: "20px !important" })}
 `;
 
@@ -152,7 +154,8 @@ export const Button = styled.button`
 `;
 
 export const SmallButton = styled.button`
-  padding: 6px !important;
+  padding: 4px !important;
+  font-size: 14px;
   background-color: var(--primary);
   border-color: var(--primary) !important;
   color: white;
