@@ -41,6 +41,7 @@ const CartComponent = (props) => {
     getData: propsGetData,
     updateData: propsUpdateData,
     checkoutPage = false,
+    user,
   } = props;
   const { t } = useTranslation();
   const history = useHistory();
@@ -57,7 +58,17 @@ const CartComponent = (props) => {
   const getAttributesData = () => {};
 
   useEffect(() => {
-    updateCartState();
+    if (!user?._id) {
+      const cart = getCartInLocalStorage();
+      propsGetData("GET_CART_DETAILS", "cartDetails", {
+        cart: Object.values(cart),
+      }).then((res) => {
+        if (res.error) return;
+        setCartItems(res.payload.data.cart);
+      });
+    } else {
+      updateCartState();
+    }
   }, []);
 
   const CartPlusIcon = () => (
@@ -232,7 +243,12 @@ const CartComponent = (props) => {
   );
 };
 
-export default connect(() => ({}), {
-  getData,
-  updateData,
-})(CartComponent);
+export default connect(
+  (state) => ({
+    ...state.authReducer,
+  }),
+  {
+    getData,
+    updateData,
+  }
+)(CartComponent);

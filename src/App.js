@@ -33,8 +33,7 @@ if (localStorage.jwtToken) {
   const decoded = jwtDecode(localStorage.jwtToken);
   const cartData = Object.values(getCartInLocalStorage());
   decoded.cart = decoded.cart ? [...decoded.cart, ...cartData] : cartData;
-  console.log({ user: decoded });
-  store.dispatch(setCurrentUser(decoded));
+  store.dispatch(setCurrentUser({decoded, token: localStorage.jwtToken}));
 }
 
 function WaitingComponent(Component) {

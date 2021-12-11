@@ -41,7 +41,7 @@ export const loginUser = (user) => (dispatch) => {
         localStorage.setItem("jwtToken", token);
         setAuthToken(token);
         const decoded = jwtDecode(token);
-        dispatch(setCurrentUser(decoded));
+        dispatch(setCurrentUser({ decoded, token }));
         toast.success("Logged In");
         resolve(true);
       })

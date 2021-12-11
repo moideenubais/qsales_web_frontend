@@ -6,16 +6,17 @@ import { Link, withRouter } from "react-router-dom";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { loginUser, resetPassword } from "./redux/actions/auth";
+import { loginUser, resetPassword, setAuthToken } from "./redux/actions/auth";
 import { createData, updateData } from "./redux/actions";
 import { ActionTypes } from "./redux/contants/action-types";
 import axios from "axios";
+import { getCartInLocalStorage } from "./heper";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
-  const { errors: userErrors, history, user } = props;
+  const { errors: userErrors, history, user, token: userToken } = props;
   const { t } = useTranslation();
   const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +28,13 @@ function Header(props) {
   const isEmptyObj = (v) => {
     return typeof value === "object" && Object.keys(v).length === 0;
   };
+
+  useEffect(() => {
+    if (!localStorage.jwtToken && userToken) {
+      setAuthToken(userToken);
+      localStorage.setItem("jwtToken", userToken);
+    }
+  }, [userToken]);
 
   const validatePasswords = ({ password, confirm_password }, setError) => {
     if (!new RegExp(passwordRegex).test(password)) {
@@ -274,7 +282,16 @@ function Header(props) {
       );
       if (!isValid) return;
 
-      props.loginUser(SignInData).then(() => {
+      props.loginUser(SignInData).then((res) => {
+        if (!res.error) {
+          const cart = getCartInLocalStorage();
+          setTimeout(() => {
+            props.updateData("UPDATE_CART", `/user/cart`, {
+              cart: Object.values(cart),
+            });
+          }, 1000);
+         
+        }
         setShowModal(false);
       });
     };

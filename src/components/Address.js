@@ -10,6 +10,8 @@ function Address(props) {
   const [show, setShow] = React.useState(false);
 
   const displayAddress = () => {
+    if (!userData?.data) return;
+
     const address = Object.values(userData.data.address[selectedAddressIndex]);
     if (!address) return;
 

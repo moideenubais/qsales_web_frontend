@@ -171,8 +171,18 @@ function ProductDescription(props) {
       quantity: selectedQuantity,
     });
     const cart = getCartInLocalStorage();
-    propsUpdateData("UPDATE_CART", `/user/cart`, { cart: Object.values(cart) });
-    toast.success("Added To Cart");
+
+    if (!user._id) {
+      toast.success("Added To Cart");
+      return;
+    }
+    
+    propsUpdateData("UPDATE_CART", `/user/cart`, {
+      cart: Object.values(cart),
+    }).then((res) => {
+      if (!res.error) toast.success("Added To Cart");
+      else toast.error("Something went wrong");
+    });
   };
 
   return (
