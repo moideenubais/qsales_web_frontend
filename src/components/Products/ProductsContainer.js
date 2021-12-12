@@ -48,7 +48,7 @@ function ProductsContainer(props) {
               </div>
               {/* List of product */}
               <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap">
-                <Carousel breakPoints={breakPoints}>
+                <Carousel breakPoints={breakPoints} pagination={false}>
                   {productsData.map(
                     (
                       {
