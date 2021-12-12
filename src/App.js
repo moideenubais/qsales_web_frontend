@@ -15,6 +15,7 @@ const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
+export const UserContext = React.createContext();
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -33,7 +34,7 @@ if (localStorage.jwtToken) {
   const decoded = jwtDecode(localStorage.jwtToken);
   const cartData = Object.values(getCartInLocalStorage());
   decoded.cart = decoded.cart ? [...decoded.cart, ...cartData] : cartData;
-  store.dispatch(setCurrentUser({decoded, token: localStorage.jwtToken}));
+  store.dispatch(setCurrentUser({ decoded, token: localStorage.jwtToken }));
 }
 
 function WaitingComponent(Component) {
@@ -61,26 +62,31 @@ function App() {
   const { t } = useTranslation();
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/" component={WaitingComponent(Home)} />
-          <Route
-            path="/product/:productId"
-            component={WaitingComponent(ProductPage)}
-          />
-          <Route path="/checkout" component={WaitingComponent(CheckoutPage)} />
-          <Route path="/cart" component={WaitingComponent(CartPage)} />
-          <Route
-            path="/category/:categoryId"
-            component={WaitingComponent(CategoryPage)}
-          />
-          <Route>
-            <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">
-              404 Not Found!
-            </div>
-          </Route>
-        </Switch>
-      </Router>
+      <UserContext.Provider cartInLocal={Object.values(getCartInLocalStorage() || {})}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={WaitingComponent(Home)} />
+            <Route
+              path="/product/:productId"
+              component={WaitingComponent(ProductPage)}
+            />
+            <Route
+              path="/checkout"
+              component={WaitingComponent(CheckoutPage)}
+            />
+            <Route path="/cart" component={WaitingComponent(CartPage)} />
+            <Route
+              path="/category/:categoryId"
+              component={WaitingComponent(CategoryPage)}
+            />
+            <Route>
+              <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">
+                404 Not Found!
+              </div>
+            </Route>
+          </Switch>
+        </Router>
+      </UserContext.Provider>
     </div>
   );
 }

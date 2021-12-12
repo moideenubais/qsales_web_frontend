@@ -16,7 +16,8 @@ const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
-  const { errors: userErrors, history, user, token: userToken } = props;
+  const { errors: userErrors, history, user, token: userToken, cartInLocal } = props;
+
   const { t } = useTranslation();
   const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
@@ -290,7 +291,6 @@ function Header(props) {
               cart: Object.values(cart),
             });
           }, 1000);
-         
         }
         setShowModal(false);
       });
@@ -671,7 +671,7 @@ function Header(props) {
                     left: 20,
                   }}
                 >
-                  {(user?.cart || []).length}
+                  {cartInLocal?.length}
                 </span>
               </div>
             </div>

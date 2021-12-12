@@ -24,22 +24,17 @@ import {
   ProductAmountContainer,
   ProductAmount,
   ProductPrice,
-  Summary,
-  SummaryItem,
-  SummaryItemPrice,
-  SummaryItemText,
-  SummaryTitle,
-  Button,
   SmallButton,
   ButtonWrapper,
 } from "./styles";
 import { getCartInLocalStorage, removeCartFromLocalStorage } from "../../heper";
-import { getData, updateData } from "../../redux/actions/index";
+import { getData, updateData, createData } from "../../redux/actions/index";
 
 const CartComponent = (props) => {
   const {
     getData: propsGetData,
     updateData: propsUpdateData,
+    createData: propsCreateData,
     checkoutPage = false,
     user,
   } = props;
@@ -58,9 +53,24 @@ const CartComponent = (props) => {
   const getAttributesData = () => {};
 
   useEffect(() => {
+    if (!user?._id) return;
+    
+    setLoading(true);
+    axios
+      .get("/user/cart")
+      .then((res) => {
+        setCartItems(res.data.cart);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
     if (!user?._id) {
       const cart = getCartInLocalStorage();
-      propsGetData("GET_CART_DETAILS", "cartDetails", {
+      propsCreateData("GET_CART_DETAILS", "user/cartDetails", {
         cart: Object.values(cart),
       }).then((res) => {
         if (res.error) return;
@@ -96,22 +106,8 @@ const CartComponent = (props) => {
     cartItems.forEach((item) => {
       subTotal += item.product.varient.unit_price * item.quantity;
     });
-
     return subTotal;
   };
-  //
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("/user/cart")
-      .then((res) => {
-        setCartItems(res.data.cart);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-      });
-  }, []);
 
   if (loading) {
     return (
@@ -249,6 +245,7 @@ export default connect(
   }),
   {
     getData,
+    createData,
     updateData,
   }
 )(CartComponent);
