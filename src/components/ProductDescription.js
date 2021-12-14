@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
 import ReactStars from "react-stars";
 import Carousel from "react-elastic-carousel";
@@ -17,6 +18,7 @@ import {
 import toast from "react-hot-toast";
 
 function ProductDescription(props) {
+  const history = useHistory();
   const { productId } = useParams();
   const {
     getData: propsGetData,
@@ -37,6 +39,7 @@ function ProductDescription(props) {
     name: title,
     description,
     modal_name,
+    i18nResourceBundle,
   } = productDetailsReducer?.data || {};
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
@@ -163,7 +166,7 @@ function ProductDescription(props) {
     setSelectedAttribute({ ...updateData, ...getPriceAndQuantity(updateData) });
   };
 
-  const addToCart = () => {
+  const addToCart = (isBuyNow = false) => {
     if (selectedQuantity <= 0) return;
     saveCartToLocalStorage({
       product_id: productId,
@@ -173,15 +176,31 @@ function ProductDescription(props) {
     const cart = getCartInLocalStorage();
 
     if (!user._id) {
-      toast.success("Added To Cart");
+      toast.success("Added To Cart", {
+        style: {
+          border: "1px solid #713200",
+          padding: "16px",
+          color: "#713200",
+        },
+      });
+
+      if (isBuyNow) {
+        history.push("/checkout");
+      }
+
       return;
     }
-    
+
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
     }).then((res) => {
       if (!res.error) toast.success("Added To Cart");
-      else toast.error("Something went wrong");
+      else
+        toast.error("Something went wrong", {
+          style: {
+            padding: "30px !important",
+          },
+        });
     });
   };
 
@@ -191,7 +210,7 @@ function ProductDescription(props) {
         <>
           <div className="col-12 d-flex flex-row py-5">
             {/* Product Image */}
-            <div className="col-5 p-0 m-0 h-100">
+            <div className="col-6 p-0 m-0 h-100">
               <ReactImageMagnify
                 className="product-magnify"
                 style={{ zIndex: 9 }}
@@ -240,9 +259,9 @@ function ProductDescription(props) {
             </div>
 
             {/* Product Description */}
-            <div className="col-5 d-flex flex-column px-5 ">
-              <h5>{title} </h5>
-              {brand && (
+            <div className="col-6 d-flex flex-column px-5 ">
+              <h5>{i18nResourceBundle.name} </h5>
+              {/* {brand && (
                 <p className="small m-0 mt-3">
                   <span className="fw-normal text-dark">Brand :</span>
                   <span className="fw-normal text-black-50 ms-2">{brand}</span>
@@ -255,7 +274,7 @@ function ProductDescription(props) {
                     {modal_name}
                   </span>
                 </p>
-              )}
+              )} */}
               <div className="d-flex flex-row align-items-center mt-1 ">
                 <p className="medium fw-normal text-dark me-2">Ratings :</p>
                 <ReactStars
@@ -337,11 +356,19 @@ function ProductDescription(props) {
                     ? "Add To Cart"
                     : " Out of Stock"}
                 </button>
+                <button
+                  className="btn btn-qs-primary w-100 p-2 ms-1 small "
+                  type="button"
+                  disabled={selectedAttribute.quantity <= 0}
+                  onClick={() => addToCart(true)}
+                >
+                  {selectedAttribute.quantity > 0 ? "Buy Now" : " Out of Stock"}
+                </button>
               </div>
             </div>
 
             {/* Checkout Section */}
-            <div className="col-3 border p-3 rounded-3 card">
+            {/* <div className="col-3 border p-3 rounded-3 card">
               <h6 className="">Checkout</h6>
               <hr className="my-3" />
               <div className="mb-2">
@@ -435,7 +462,7 @@ function ProductDescription(props) {
                   BUY NOW
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Product tabs */}
           <div className="col-12 my-2">

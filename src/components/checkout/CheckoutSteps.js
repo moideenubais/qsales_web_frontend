@@ -253,9 +253,9 @@ function CheckoutSteps(props) {
               <div className="col-12 align-items-start justify-content-start">
                 {addresses?.map((address, i) => (
                   <div className="mb-3 border-bottom py-2 align-items-start justify-content-start">
-                    <div className="d-flex align-items-start justify-content-start">
+                    <div className="align-items-start justify-content-start">
                       <input
-                        className="form-check-input p-2 mt-1 me-3 align-self-start "
+                        className="form-check-input p-2 mt-1 me-3 ms-2 mb-2 align-self-start "
                         type="radio"
                         onChange={() => setSelectedAddressIndex(i)}
                         name="flexRadioDefault"
@@ -263,10 +263,10 @@ function CheckoutSteps(props) {
                         id="flexRadioDefault1"
                       />
                       {ADDRESS_FIELDS.map(({ label, name }) => (
-                        <div className="">
-                          <label className="p-2">{label}</label>
+                        <div className="d-flex">
+                          <label className="p-2 w-25">{label}</label>
                           <input
-                            className="p-2 ml-5"
+                            className="p-2 ml-5 w-75 mb-2"
                             name={name}
                             disabled={editable !== i}
                             onChange={({ target }) =>
@@ -278,7 +278,7 @@ function CheckoutSteps(props) {
                           />
                         </div>
                       ))}
-                      <div className="d-flex gap-2">
+                      <div className="d-flex gap-3 ms-2">
                         <p
                           style={{
                             cursor: "pointer",
