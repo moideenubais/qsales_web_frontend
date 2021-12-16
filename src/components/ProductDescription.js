@@ -466,7 +466,7 @@ function ProductDescription(props) {
           </div>
           {/* Product tabs */}
           <div className="col-12 my-2">
-            <ProductTabs description={description} />
+            <ProductTabs description={i18nResourceBundle?.description} />
           </div>
           <FloatingButton />
         </>
