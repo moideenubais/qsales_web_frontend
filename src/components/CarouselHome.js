@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-elastic-carousel";
 import { connect } from "react-redux";
 import { getData } from "../redux/actions";
@@ -6,23 +6,56 @@ import { ActionTypes } from "../redux/contants/action-types";
 
 function CarouselHome(props) {
   const { getData: propsGetData, adsReducer } = props;
+  const [showBannerAds, setShowBannerAds] = useState(true);
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
+  const carouselRef = useRef(null);
+  const totalPages = adsReducer?.data?.ads.length;
+  let resetTimeout;
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_ADS, "/ad");
   }, [propsGetData]);
-
+  console.log("yoyo", adsReducer?.data?.ads);
   return (
     <div className="col-lg-12 col-md-12 col-sm-12">
-      <div className="col-12 col-md-9 col-lg-9 mx-auto">
-        <Carousel itemsToShow={1} enableAutoPlay={true}>
-          {adsReducer?.data?.ads
-            ?.filter((ad) => ad.ad_type === "top")[0]
-            .ad_url?.map((ad) => (
-              <img src={`${imageBaseUrl}${ad}`} className="w-100" alt={ad} />
+      {showBannerAds && (
+        <div className="col-12 col-md-9 col-lg-9 mx-auto">
+          <span
+            style={{
+              position: "absolute",
+              right: "15%",
+              zIndex: 100,
+            }}
+            onClick={() => setShowBannerAds(false)}
+          >
+            <img src="./assets/images/close-svg.svg" height={20} width={20} />
+          </span>
+          <Carousel
+            ref={carouselRef}
+            itemsToShow={1}
+            enableAutoPlay={true}
+            transitionMs={1000}
+            style={{ position: "relative" }}
+            onNextEnd={({ index }) => {
+              clearTimeout(resetTimeout);
+              if (index + 1 === totalPages) {
+                resetTimeout = setTimeout(() => {
+                  carouselRef.current.goTo(0);
+                }, 1000);
+              }
+            }}
+          >
+            {adsReducer?.data?.ads?.map((ad, index) => (
+              <img
+                src={`${imageBaseUrl}${ad?.ad_url}`}
+                className="w-100"
+                style={{ height: "150px" }}
+                alt={ad?.name}
+              />
             ))}
-        </Carousel>
-      </div>
+          </Carousel>
+        </div>
+      )}
     </div>
   );
 }
