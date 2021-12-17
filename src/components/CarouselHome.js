@@ -40,7 +40,7 @@ function CarouselHome(props) {
               clearTimeout(resetTimeout);
               if (index + 1 === totalPages) {
                 resetTimeout = setTimeout(() => {
-                  carouselRef.current.goTo(0);
+                  carouselRef?.current.goTo(0);
                 }, 1000);
               }
             }}
