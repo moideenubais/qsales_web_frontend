@@ -350,7 +350,7 @@ function ProductDescription(props) {
                   className="btn btn-qs-primary w-100 p-2 small "
                   type="button"
                   disabled={selectedAttribute.quantity <= 0}
-                  onClick={addToCart}
+                  onClick={()=>addToCart(false)}
                 >
                   {selectedAttribute.quantity > 0
                     ? "Add To Cart"
