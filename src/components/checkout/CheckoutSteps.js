@@ -162,7 +162,6 @@ function CheckoutSteps(props) {
     } else {
       orderData = {
         products: Object.values(getCartInLocalStorage()),
-        customer_id: null,
         mobile: unAuthenticatedUser.mobile,
         customer_name:
           unAuthenticatedUser.firstName + " " + unAuthenticatedUser.lastName,
