@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -41,8 +41,21 @@ function CheckoutSteps(props) {
   const [paymentMethod, setPaymentMethod] = React.useState("cod");
   const [errors, setErrors] = React.useState({});
   const [orderContent, setOrderContent] = React.useState({
-    delivery_note: "This is for you", // [OPTIONAL]
+    delivery_note: "", // [OPTIONAL]
     delivery_time: "Any time",
+  });
+  const [unAuthenticatedUser, setUnAuthenticatedUser] = useState({
+    firstName: "",
+    lastName: "",
+    mobile: "",
+    address: {
+      building_no: "",
+      street_no: "",
+      zone_no: "",
+    },
+    delivery_note: "",
+    delivery_time: "Any time",
+    payment_method: paymentMethod,
   });
 
   const onSubmit = (data) => setResult(JSON.stringify(data));
@@ -110,35 +123,59 @@ function CheckoutSteps(props) {
 
   const placeOrder = () => {
     const errorsData = {};
-    if (!orderContent.customer_name) {
-      errorsData.customer_name = "Name is required";
-    }
-    if (!orderContent.delivery_note) {
-      errorsData.delivery_note = "Note is required";
-    }
-    if (!orderContent.mobile) {
-      errorsData.mobile = "mobile is required";
-    } else if (orderContent.mobile.length !== 10) {
-      errorsData.mobile = "Mobile length should be 10 characters";
-    }
-    if (Object.keys(errorsData).length) {
-      setErrors(errorsData);
-      toast.error(errorsData[Object.keys(errorsData)[0]]);
-      return;
+    let orderData = {};
+    if (isAuthenticated) {
+      if (!orderContent.customer_name) {
+        errorsData.customer_name = "Name is required";
+      }
+      if (!orderContent.delivery_note) {
+        errorsData.delivery_note = "Note is required";
+      }
+      if (!orderContent.mobile) {
+        errorsData.mobile = "mobile is required";
+      } else if (orderContent.mobile.length !== 10) {
+        errorsData.mobile = "Mobile length should be 10 characters";
+      }
+      if (Object.keys(errorsData).length) {
+        setErrors(errorsData);
+        toast.error(errorsData[Object.keys(errorsData)[0]]);
+        return;
+      }
     }
 
     const isPaymentSucces = false;
-    const orderData = {
-      products: Object.values(getCartInLocalStorage()), //An array of objects
-      customer_id: user._id,
-      mobile: user.mobile,
-      customer_name: user.name,
-      shipping_address: { ...addresses[selectedAddressIndex], _id: undefined },
-      ...orderContent,
-      payment_status:
-        paymentMethod === "cod" || !isPaymentSucces ? "unpaid" : "paid",
-      payment_method: paymentMethod, // one of ["card","cod"]
-    };
+    if (isAuthenticated) {
+      orderData = {
+        products: Object.values(getCartInLocalStorage()), //An array of objects
+        customer_id: user._id,
+        mobile: user.mobile,
+        customer_name: user.name,
+        shipping_address: {
+          ...addresses[selectedAddressIndex],
+          _id: undefined,
+        },
+        ...orderContent,
+        payment_status:
+          paymentMethod === "cod" || !isPaymentSucces ? "unpaid" : "paid",
+        payment_method: paymentMethod, // one of ["card","cod"]
+      };
+    } else {
+      orderData = {
+        products: Object.values(getCartInLocalStorage()),
+        customer_id: null,
+        mobile: unAuthenticatedUser.mobile,
+        customer_name:
+          unAuthenticatedUser.firstName + " " + unAuthenticatedUser.lastName,
+        shipping_address: {
+          ...unAuthenticatedUser.address,
+        },
+        delivery_note: unAuthenticatedUser.delivery_note,
+        delivery_time: unAuthenticatedUser.delivery_time,
+        payment_status:
+          paymentMethod === "cod" || !isPaymentSucces ? "unpaid" : "paid",
+        payment_method: paymentMethod,
+      };
+    }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
       if (res.error) toast.error("Error while creating order");
       else {
@@ -168,6 +205,20 @@ function CheckoutSteps(props) {
     } else {
       setAddresses([upData]);
     }
+  };
+
+  const handleChangeForUnAuthenticatedUser = (e, isAddress = false) => {
+    const { name, value } = e.target;
+    if (isAddress) {
+      return setUnAuthenticatedUser({
+        ...unAuthenticatedUser,
+        address: {
+          ...unAuthenticatedUser.address,
+          [name]: value,
+        },
+      });
+    }
+    return setUnAuthenticatedUser({ ...unAuthenticatedUser, [name]: value });
   };
 
   return (
@@ -229,12 +280,34 @@ function CheckoutSteps(props) {
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <input
-                      {...register("firstName")}
+                      className="p-2 mb-2 me-2"
+                      name="firstName"
+                      value={unAuthenticatedUser.firstName}
+                      onChange={handleChangeForUnAuthenticatedUser}
                       placeholder="First name"
                     />
-                    <input {...register("lastName")} placeholder="Last name" />
+                    <input
+                      className="p-2 mb-2"
+                      name="lastName"
+                      value={unAuthenticatedUser.lastName}
+                      onChange={handleChangeForUnAuthenticatedUser}
+                      placeholder="Last name"
+                    />
+                    <br />
+                    <input
+                      className="p-2 mb-2"
+                      name="mobile"
+                      value={unAuthenticatedUser.phone}
+                      onChange={handleChangeForUnAuthenticatedUser}
+                      placeholder="Mobile Number"
+                    />
                     <p>{result}</p>
-                    <button type="submit">{t("login")}</button>
+                    <button
+                      className="mr-3 mt-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                      type="submit"
+                    >
+                      {t("login")}
+                    </button>
                   </form>
                 )}
               </div>
@@ -305,23 +378,40 @@ function CheckoutSteps(props) {
                     </div>
                   </div>
                 ))}
+                {!isAuthenticated &&
+                  ADDRESS_FIELDS.map(({ label, name }) => (
+                    <div className="d-flex">
+                      <label className="p-2 w-25">{label}</label>
+                      <input
+                        className="p-2 ml-5 w-75 mb-2"
+                        name={name}
+                        onChange={(e) =>
+                          handleChangeForUnAuthenticatedUser(e, true)
+                        }
+                        value={unAuthenticatedUser.address[name] || ""}
+                        placeholder={`Enter your ${name.replace("_", " ")}`}
+                      />
+                    </div>
+                  ))}
                 <div className="d-flex flex-row justify-content-end small gap-2">
-                  <button
-                    className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
-                    onClick={() => {
-                      setAddresses([
-                        ...addresses,
-                        {
-                          building_no: "",
-                          street_no: "",
-                          zone_no: "",
-                        },
-                      ]);
-                      setEditable(addresses.length);
-                    }}
-                  >
-                    {t("addNew")}
-                  </button>
+                  {isAuthenticated && (
+                    <button
+                      className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                      onClick={() => {
+                        setAddresses([
+                          ...addresses,
+                          {
+                            building_no: "",
+                            street_no: "",
+                            zone_no: "",
+                          },
+                        ]);
+                        setEditable(addresses.length);
+                      }}
+                    >
+                      {t("addNew")}
+                    </button>
+                  )}
                   {addresses.length ? (
                     <button
                       className="btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
@@ -348,15 +438,22 @@ function CheckoutSteps(props) {
                 </p>
                 <input
                   className="p-2 mb-2"
-                  onChange={({ target }) =>
-                    setOrderContent({
-                      ...orderContent,
-                      delivery_note: target.value,
-                    })
-                  }
+                  onChange={(e) => {
+                    if (isAuthenticated) {
+                      return setOrderContent({
+                        ...orderContent,
+                        delivery_note: e.target.value,
+                      });
+                    }
+                    handleChangeForUnAuthenticatedUser(e);
+                  }}
                   name="delivery_note"
-                  placeholder="Enter your delivery note"
-                  value={orderContent.delivery_note}
+                  placeholder="Optional"
+                  value={
+                    isAuthenticated
+                      ? orderContent.delivery_note
+                      : unAuthenticatedUser.delivery_note
+                  }
                 />
                 {errors.delivery_note && <p>{errors.delivery_note}</p>}
               </div>
@@ -367,13 +464,20 @@ function CheckoutSteps(props) {
                 <select
                   className="p-2"
                   name="delivery_time"
-                  onChange={({ target }) =>
-                    setOrderContent({
-                      ...orderContent,
-                      delivery_time: target.value,
-                    })
+                  onChange={(e) => {
+                    if (isAuthenticated) {
+                      return setOrderContent({
+                        ...orderContent,
+                        delivery_time: e.target.value,
+                      });
+                    }
+                    handleChangeForUnAuthenticatedUser(e);
+                  }}
+                  value={
+                    isAuthenticated
+                      ? orderContent.delivery_time
+                      : unAuthenticatedUser.delivery_time
                   }
-                  value={orderContent.delivery_time}
                 >
                   {[
                     "Any time",
