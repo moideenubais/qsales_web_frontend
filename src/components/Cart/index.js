@@ -29,6 +29,7 @@ import {
 } from "./styles";
 import { getCartInLocalStorage, removeCartFromLocalStorage } from "../../heper";
 import { getData, updateData, createData } from "../../redux/actions/index";
+import { useCartContext } from "../../context/cartContext";
 
 const CartComponent = (props) => {
   const {
@@ -38,6 +39,7 @@ const CartComponent = (props) => {
     checkoutPage = false,
     user,
   } = props;
+  const { setCartInLocal } = useCartContext();
   const { t } = useTranslation();
   const history = useHistory();
   const [cartItems, setCartItems] = useState([]);
@@ -54,7 +56,7 @@ const CartComponent = (props) => {
 
   useEffect(() => {
     if (!user?._id) return;
-    
+
     setLoading(true);
     axios
       .get("/user/cart")
@@ -65,6 +67,10 @@ const CartComponent = (props) => {
       .catch((err) => {
         setLoading(false);
       });
+
+    return () => {
+      setCartItems([]);
+    };
   }, []);
 
   useEffect(() => {
@@ -104,7 +110,7 @@ const CartComponent = (props) => {
   const calcSubTotal = () => {
     let subTotal = 0;
     cartItems.forEach((item) => {
-      subTotal += item.product.varient.unit_price * item.quantity;
+      subTotal += item.product?.varient.unit_price * item.quantity;
     });
     return subTotal;
   };
@@ -128,6 +134,7 @@ const CartComponent = (props) => {
     removeCartFromLocalStorage(varient_id);
     const cart = getCartInLocalStorage();
     const clear = !Object.values(cart).length;
+    setCartInLocal(cart);
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
       clear,
@@ -137,6 +144,7 @@ const CartComponent = (props) => {
   };
 
   const getAttributesValue = (varient) => {
+    if (varient == null) return <></>;
     const { attribute_value, color } = varient;
     return (
       <>
@@ -182,13 +190,13 @@ const CartComponent = (props) => {
                   <Product>
                     <ProductDetail>
                       <Image
-                        src={`${process.env.REACT_APP_IMAGE_URL}/${item.product.product_image_small_url}`}
+                        src={`${process.env.REACT_APP_IMAGE_URL}/${item.product?.product_image_small_url}`}
                       />
                       <Details>
                         <ProductName>
-                          {item.product.i18nResourceBundle.name}
+                          {item.product?.i18nResourceBundle.name}
                         </ProductName>
-                        {getAttributesValue(item.product.varient)}
+                        {getAttributesValue(item.product?.varient)}
                       </Details>
                     </ProductDetail>
                     <PriceDetail>
@@ -198,7 +206,7 @@ const CartComponent = (props) => {
                         <CartMinusIcon />
                       </ProductAmountContainer>
                       <ProductPrice>
-                        {t("riyalText")} {item.product.varient.unit_price}
+                        {t("riyalText")} {item.product?.varient.unit_price}
                       </ProductPrice>
                       <SmallButton
                         onClick={() => removeFromCart(item.varient_id)}

@@ -142,8 +142,12 @@ function CheckoutSteps(props) {
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
       if (res.error) toast.error("Error while creating order");
       else {
+        propsUpdateData("UPDATE_CART", `/user/cart`, {
+          clear: true,
+        }).then((res) => {
+          history.push("/");
+        });
         toast.success("Order placed");
-        history.push("/");
         localStorage.removeItem("cart");
       }
     });

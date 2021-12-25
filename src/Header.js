@@ -11,12 +11,14 @@ import { createData, updateData } from "./redux/actions";
 import { ActionTypes } from "./redux/contants/action-types";
 import axios from "axios";
 import { getCartInLocalStorage } from "./heper";
+import { useCartContext } from "./context/cartContext";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
-  const { errors: userErrors, history, user, token: userToken, cartInLocal } = props;
+  const { errors: userErrors, history, user, token: userToken } = props;
+  const { cartInLocal } = useCartContext();
 
   const { t } = useTranslation();
   const searchRef = useRef(null);
@@ -29,6 +31,10 @@ function Header(props) {
   const isEmptyObj = (v) => {
     return typeof value === "object" && Object.keys(v).length === 0;
   };
+
+  useEffect(() => {
+    console.log({cartInLocal});
+  }, [cartInLocal]);
 
   useEffect(() => {
     if (!localStorage.jwtToken && userToken) {
@@ -671,7 +677,7 @@ function Header(props) {
                     left: 20,
                   }}
                 >
-                  {cartInLocal?.length}
+                  {Object.keys(cartInLocal)?.length}
                 </span>
               </div>
             </div>

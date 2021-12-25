@@ -15,7 +15,6 @@ const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
-export const UserContext = React.createContext();
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -62,7 +61,6 @@ function App() {
   const { t } = useTranslation();
   return (
     <div className="App">
-      <UserContext.Provider cartInLocal={Object.values(getCartInLocalStorage() || {})}>
         <Router>
           <Switch>
             <Route exact path="/" component={WaitingComponent(Home)} />
@@ -86,7 +84,6 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </UserContext.Provider>
     </div>
   );
 }

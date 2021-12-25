@@ -7,13 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import axios from "axios";
+import { RootContext } from "./context";
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RootContext>
+        <App />
+      </RootContext>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

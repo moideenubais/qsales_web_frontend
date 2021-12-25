@@ -7,10 +7,15 @@ import { ActionTypes } from "../redux/contants/action-types";
 import ReactStars from "react-stars";
 
 function ProductTabs(props) {
-  const { getData: propsGetData, reviewReducer, description } = props;
+  const {
+    getData: propsGetData,
+    reviewReducer,
+    description,
+    product_id,
+  } = props;
 
   useEffect(() => {
-    propsGetData(ActionTypes.GET_REVIEW, "review");
+    propsGetData(ActionTypes.GET_REVIEW, "review", { product_id });
   }, [propsGetData]);
 
   return (
@@ -33,23 +38,27 @@ function ProductTabs(props) {
         <TabPanel>
           {reviewReducer.data?.reviews ? (
             <div className="d-flex flex-row  flex-wrap flex-md-nowrap">
-              {reviewReducer.data?.reviews.map(({ customer_name, createdAt, rating, comment }) => (
-                <div className=" p-3 rounded mx-1">
-                  <div className="p-2 d-flex justify-content-between">
-                    <div className="pt-1">{customer_name}</div>
-                    <ReactStars
-                      style={{ marginLeft: "10px" }}
-                      count={5}
-                      value={rating}
-                      edit={false}
-                      size={20}
-                      color2={"#ffd700"}
-                    />
+              {reviewReducer.data?.reviews.map(
+                ({ customer_name, createdAt, rating, comment }) => (
+                  <div className=" p-3 rounded mx-1">
+                    <div className="p-2 d-flex justify-content-between">
+                      <div className="pt-1">{customer_name}</div>
+                      <ReactStars
+                        style={{ marginLeft: "10px" }}
+                        count={5}
+                        value={rating}
+                        edit={false}
+                        size={20}
+                        color2={"#ffd700"}
+                      />
+                    </div>
+                    <div className="p-2">
+                      {new Date(createdAt).toDateString()}
+                    </div>
+                    <div className="p-2">{comment}</div>
                   </div>
-                  <div className="p-2">{new Date(createdAt).toDateString()}</div>
-                  <div className="p-2">{comment}</div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           ) : (
             <div>{reviewReducer.data?.msg}</div>

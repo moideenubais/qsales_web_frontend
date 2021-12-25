@@ -16,6 +16,7 @@ import {
   saveCartToLocalStorage,
 } from "../heper";
 import toast from "react-hot-toast";
+import { useCartContext } from "../context/cartContext";
 
 function ProductDescription(props) {
   const history = useHistory();
@@ -31,6 +32,7 @@ function ProductDescription(props) {
 
   const {
     product_image_big_url,
+    _id,
     brand,
     rating,
     varients: variants,
@@ -41,6 +43,8 @@ function ProductDescription(props) {
     modal_name,
     i18nResourceBundle,
   } = productDetailsReducer?.data || {};
+
+  const { setCartInLocal } = useCartContext();
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
   const [show, setShow] = useState(false);
@@ -174,7 +178,7 @@ function ProductDescription(props) {
       quantity: selectedQuantity,
     });
     const cart = getCartInLocalStorage();
-
+    setCartInLocal(cart);
     if (!user._id) {
       toast.success("Added To Cart", {
         style: {
@@ -466,7 +470,10 @@ function ProductDescription(props) {
           </div>
           {/* Product tabs */}
           <div className="col-12 my-2">
-            <ProductTabs description={i18nResourceBundle?.description} />
+            <ProductTabs
+              description={i18nResourceBundle?.description}
+              product_id={_id}
+            />
           </div>
           <FloatingButton />
         </>
