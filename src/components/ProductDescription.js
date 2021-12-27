@@ -30,27 +30,14 @@ function ProductDescription(props) {
   } = props;
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
-  const {
-    product_image_big_url,
-    _id,
-    brand,
-    rating,
-    varients: variants,
-    attribute_array,
-    colors,
-    name: title,
-    description,
-    modal_name,
-    i18nResourceBundle,
-  } = productDetailsReducer?.data || {};
-
   const { setCartInLocal } = useCartContext();
 
-  const [ratingValue, setRatingValue] = useState(rating || 0);
+  const [ratingValue, setRatingValue] = useState(0);
+  const [productDetails, setProductDetails] = useState({});
   const [show, setShow] = useState(false);
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedAttribute, setSelectedAttribute] = useState({});
-  const [errors, setErrors] = useState({});
+  const [initialLoading, setInitialLoading] = useState(false);
   const [attributeArray, setAttributeArray] = useState([]);
   const [orderData, setOrderData] = useState({
     products: [], //An array of objects
@@ -63,9 +50,33 @@ function ProductDescription(props) {
     payment_status: "unpaid",
     payment_method: "cod", // one of ["card","cod"]
   });
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
-    console.log({ user });
+    propsGetData(ActionTypes.GET_PRODUCT_DETAILS, `/product/${productId}`);
+  }, [productId, propsGetData]);
+
+  useEffect(() => {
+    const data = productDetailsReducer?.data;
+    console.log({ data, productDetailsReducer });
+    if (!data || data._id !== productId) return setInitialLoading(true);
+    setInitialLoading(false);
+    setProductDetails(data || {});
+    setSelectedImage(
+      data.product_image_big_url
+        ? `${imageBaseUrl}${data.product_image_big_url[0]}`
+        : ""
+    );
+    setRatingValue(data.rating);
+
+    return () => {
+      setProductDetails({});
+      setSelectedImage("");
+      setRatingValue(0);
+    };
+  }, [productDetailsReducer, imageBaseUrl, productId]);
+
+  useEffect(() => {
     if (user) {
       setOrderData({
         ...orderData,
@@ -89,17 +100,13 @@ function ProductDescription(props) {
     });
   }, [selectedAttribute, selectedQuantity]);
 
-  const [selectedImage, setSelectedImage] = useState(
-    product_image_big_url ? `${imageBaseUrl}${product_image_big_url[0]}` : ""
-  );
-
   const getPriceAndQuantity = (attributeObject, initail = false) => {
     let returnData = {};
     const attributeData = Object.entries(attributeObject).map(
       ([name, values]) => ({ name, values })
     );
 
-    variants?.forEach((variant) => {
+    productDetails.varients?.forEach((variant) => {
       let variantDep = {};
       if (!isEmptyObj(variant.attribute_value)) {
         variant.attribute_value.forEach(({ name, value }) => {
@@ -143,10 +150,7 @@ function ProductDescription(props) {
   };
 
   useEffect(() => {
-    propsGetData(ActionTypes.GET_PRODUCT_DETAILS, `/product/${productId}`);
-  }, [productId, propsGetData]);
-
-  useEffect(() => {
+    const { attribute_array, colors } = productDetails;
     let attributeData = [];
     if (attribute_array) {
       attribute_array.forEach(({ name, values }) => {
@@ -159,7 +163,7 @@ function ProductDescription(props) {
     setAttributeArray(
       Object.entries(attributeData).map(([name, values]) => ({ name, values }))
     );
-  }, [attribute_array, colors]);
+  }, [productDetails]);
 
   const ratingChanged = (newRating) => {
     setRatingValue(newRating);
@@ -210,7 +214,19 @@ function ProductDescription(props) {
 
   return (
     <>
-      {productDetailsReducer?.data && (
+      {initialLoading && (
+        <div
+          style={{
+            height: "65vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div className="spinner" />
+        </div>
+      )}
+      {productDetails && !initialLoading && (
         <>
           <div className="col-12 d-flex flex-row py-5">
             {/* Product Image */}
@@ -220,7 +236,7 @@ function ProductDescription(props) {
                 style={{ zIndex: 9 }}
                 {...{
                   smallImage: {
-                    alt: `${title}`,
+                    alt: `${productDetails.title}`,
                     isFluidWidth: true,
                     src: selectedImage,
                     width: 400,
@@ -228,7 +244,7 @@ function ProductDescription(props) {
                   },
                   largeImage: {
                     src: selectedImage,
-                    alt: `${title}`,
+                    alt: `${productDetails.title}`,
                     width: 1200,
                     height: 1200,
                   },
@@ -246,7 +262,7 @@ function ProductDescription(props) {
                   transitionMs={700}
                   className="px-0"
                 >
-                  {product_image_big_url.map((imgUrl) => (
+                  {productDetails.product_image_big_url?.map((imgUrl) => (
                     <img
                       src={`${imageBaseUrl}${imgUrl}`}
                       height="80"
@@ -264,7 +280,7 @@ function ProductDescription(props) {
 
             {/* Product Description */}
             <div className="col-6 d-flex flex-column px-5 ">
-              <h5>{i18nResourceBundle.name} </h5>
+              <h5>{productDetails.i18nResourceBundle?.name} </h5>
               {/* {brand && (
                 <p className="small m-0 mt-3">
                   <span className="fw-normal text-dark">Brand :</span>
@@ -354,7 +370,7 @@ function ProductDescription(props) {
                   className="btn btn-qs-primary w-100 p-2 small "
                   type="button"
                   disabled={selectedAttribute.quantity <= 0}
-                  onClick={()=>addToCart(false)}
+                  onClick={() => addToCart(false)}
                 >
                   {selectedAttribute.quantity > 0
                     ? "Add To Cart"
@@ -471,8 +487,8 @@ function ProductDescription(props) {
           {/* Product tabs */}
           <div className="col-12 my-2">
             <ProductTabs
-              description={i18nResourceBundle?.description}
-              product_id={_id}
+              description={productDetails.i18nResourceBundle?.description}
+              product_id={productId}
             />
           </div>
           <FloatingButton />
@@ -525,7 +541,7 @@ function ProductDescription(props) {
 
 const mapStateToProps = (state) => ({
   ...state.authReducer,
-  productDetailsReducer: state.getProductsReducer,
+  productDetailsReducer: state.getProductReducer,
 });
 
 export default connect(mapStateToProps, {

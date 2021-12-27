@@ -94,14 +94,3 @@ export function updateData(type, url, data, params = {}) {
     },
   };
 }
-
-/**
- * Clear reducer
- * @param {String} type reducer type
- * @returns {*}
- */
-export function clearReducer(type = "CLEAR_REDUCER") {
-  return {
-    type,
-  };
-}
