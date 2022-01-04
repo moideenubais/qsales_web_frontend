@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
-
 import jwtDecode from "jwt-decode";
 import { setCurrentUser, setAuthToken } from "./redux/actions/auth";
 import store from "./redux/store";

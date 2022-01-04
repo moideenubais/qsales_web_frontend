@@ -13,11 +13,13 @@ function Product(props) {
   return (
     <>
       <div className=" product p-3 rounded mx-1">
-        <img
-          src={`${process.env.REACT_APP_IMAGE_URL}/${productImage}`}
-          alt="product"
-          className="img-fluid product-image"
-        />
+        <div className="d-flex justify-content-center">
+          <img
+            src={`${process.env.REACT_APP_IMAGE_URL}/${productImage}`}
+            alt="product"
+            className="img-fluid product-image"
+          />
+        </div>
         <div className="pt-3 product-description">
           <h6
             className="p-0 m-0 mb-1 text-dark "
@@ -37,7 +39,7 @@ function Product(props) {
             value={ratingValue}
           />
           <div className="d-flex flex-row mt-1  align-items-center justify-content-between">
-            <p className="primary-color p-0 m-0 small">₹ {price}</p>
+            <p className="primary-color p-0 m-0 small">QR {price}</p>
             <div className="d-flex align-items-center justify-content-center">
               {/* Cart icon */}
               {/* <button className="btn-cart d-flex align-items-center justify-content-center">

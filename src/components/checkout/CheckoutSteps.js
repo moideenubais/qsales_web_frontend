@@ -13,6 +13,7 @@ import CartComponent from "../../components/Cart";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router";
 import { getCartInLocalStorage } from "../../heper";
+import { useCartContext } from "../../context/cartContext";
 
 const ADDRESS_FIELDS = [
   { label: "Building Number", name: "building_no" },
@@ -32,6 +33,7 @@ function CheckoutSteps(props) {
     deleteData: propsDeleteData,
     userData,
   } = props;
+  const { setCartInLocal } = useCartContext();
   const { register, handleSubmit } = useForm();
   const [result, setResult] = React.useState("");
   const [addresses, setAddresses] = React.useState([]);
@@ -61,7 +63,7 @@ function CheckoutSteps(props) {
   const onSubmit = (data) => setResult(JSON.stringify(data));
 
   const getAddressData = () => {
-    propsGetData("GET_USER", `user/${user._id}`).then((res) => {
+    propsGetData("GET_USER", `user/${user?._id}`).then((res) => {
       if (!res.error) setAddresses(res.payload.data.address);
     });
   };
@@ -128,13 +130,56 @@ function CheckoutSteps(props) {
       if (!orderContent.customer_name) {
         errorsData.customer_name = "Name is required";
       }
-      if (!orderContent.delivery_note) {
-        errorsData.delivery_note = "Note is required";
-      }
+      
       if (!orderContent.mobile) {
         errorsData.mobile = "mobile is required";
       } else if (orderContent.mobile.length !== 10) {
         errorsData.mobile = "Mobile length should be 10 characters";
+      }
+
+      if (!addresses[selectedAddressIndex].building_no) {
+        errorsData.building_no = "Address (building no) is required";
+      }
+      if (!addresses[selectedAddressIndex].street_no) {
+        errorsData.street_no = "Address (street no) is required";
+      }
+      if (!addresses[selectedAddressIndex].zone_no) {
+        errorsData.zone_no = "Address (zone no) is required";
+      }
+
+      if (!orderContent.delivery_note) {
+        errorsData.delivery_note = "Note is required";
+      }
+      if (Object.keys(errorsData).length) {
+        setErrors(errorsData);
+        toast.error(errorsData[Object.keys(errorsData)[0]]);
+        return;
+      }
+    }else{
+      console.log("unathenticated user",unAuthenticatedUser)
+      if (!unAuthenticatedUser.firstName || !unAuthenticatedUser.lastName) {
+        errorsData.customer_name = "Name is required";
+      }
+      
+      if (!unAuthenticatedUser.mobile) {
+        errorsData.mobile = "mobile is required";
+      } else if (unAuthenticatedUser.mobile.length !== 10) {
+        errorsData.mobile = "Mobile length should be 10 characters";
+      }
+
+
+      if (!unAuthenticatedUser.address.building_no) {
+        errorsData.building_no = "Address (building no) is required";
+      }
+      if (!unAuthenticatedUser.address.street_no) {
+        errorsData.street_no = "Address (street no) is required";
+      }
+      if (!unAuthenticatedUser.address.zone_no) {
+        errorsData.zone_no = "Address (zone no) is required";
+      }
+
+      if (!unAuthenticatedUser.delivery_note) {
+        errorsData.delivery_note = "Note is required";
       }
       if (Object.keys(errorsData).length) {
         setErrors(errorsData);
@@ -185,6 +230,7 @@ function CheckoutSteps(props) {
         });
         toast.success("Order placed");
         localStorage.removeItem("cart");
+        setCartInLocal({});
       }
     });
   };
@@ -447,7 +493,7 @@ function CheckoutSteps(props) {
                     handleChangeForUnAuthenticatedUser(e);
                   }}
                   name="delivery_note"
-                  placeholder="Optional"
+                  placeholder=""
                   value={
                     isAuthenticated
                       ? orderContent.delivery_note

@@ -6,6 +6,10 @@ export const getCartInLocalStorage = () => {
   return JSON.parse(localStorage.getItem("cart") || "{}");
 };
 
+export const clearCartInLocalStorage = () => {
+  return localStorage.clearItem("cart");
+};
+
 export const saveCartToLocalStorage = (data) => {
   let updateData = { [data.varient_id]: data };
   const oldData = getCartInLocalStorage();

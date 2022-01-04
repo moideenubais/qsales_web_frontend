@@ -41,9 +41,9 @@ function ProductDescription(props) {
   const [attributeArray, setAttributeArray] = useState([]);
   const [orderData, setOrderData] = useState({
     products: [], //An array of objects
-    customer_id: user._id,
-    customer_name: user.name,
-    mobile: user.mobile,
+    customer_id: user?._id,
+    customer_name: user?.name,
+    mobile: user?.mobile,
     shipping_address: { _id: undefined },
     delivery_note: "This is for you", // [OPTIONAL]
     delivery_time: "Any time",
@@ -183,7 +183,7 @@ function ProductDescription(props) {
     });
     const cart = getCartInLocalStorage();
     setCartInLocal(cart);
-    if (!user._id) {
+    if (!user?._id) {
       toast.success("Added To Cart", {
         style: {
           border: "1px solid #713200",
@@ -237,10 +237,10 @@ function ProductDescription(props) {
                 {...{
                   smallImage: {
                     alt: `${productDetails.title}`,
-                    isFluidWidth: true,
+                    // isFluidWidth: true,
                     src: selectedImage,
                     width: 400,
-                    height: 400,
+                    height: 400
                   },
                   largeImage: {
                     src: selectedImage,

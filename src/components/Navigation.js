@@ -20,7 +20,7 @@ function Navigation(props) {
                 </Dropdown.Item>
               ))}
             </DropdownButton>
-            <div className="dropdown-menu">
+            <div className="dropdown-menu px-4">
               <select
                 className="py-1 px-3 form-select"
                 aria-label="Default select example"

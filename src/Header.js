@@ -6,7 +6,7 @@ import { Link, withRouter } from "react-router-dom";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { loginUser, resetPassword, setAuthToken } from "./redux/actions/auth";
+import { loginUser, resetPassword, setAuthToken, logoutUser } from "./redux/actions/auth";
 import { createData, updateData } from "./redux/actions";
 import { ActionTypes } from "./redux/contants/action-types";
 import axios from "axios";
@@ -681,6 +681,13 @@ function Header(props) {
                 </span>
               </div>
             </div>
+            {
+              user?.name && 
+              <div className="px-3 pointer text-white">
+                <p onClick={()=>props.logoutUser()}>Sign Out</p>
+            </div>
+            }
+            
           </div>
         </div>
       </header>
@@ -709,6 +716,7 @@ const mapStateToProps = (state) => ({
 export default withRouter(
   connect(mapStateToProps, {
     loginUser,
+    logoutUser,
     resetPassword,
     createData,
     updateData,
