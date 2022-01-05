@@ -261,13 +261,22 @@ body {
 
 /* floating button */
 
-.floating-btn {
+.floating-btns-container {
   position: fixed !important;
   z-index: 1000 !important;
-  bottom: 70px;
-  right: 70px;
+  bottom: 50px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  
 }
-
+.floating-btn{
+  margin-block: 2px !important;
+}
+/* .floating-btn img{
+  width:35px;
+  height:35px;
+} */
 /* sign in modal  */
 
 .bg-transparent-full {
@@ -359,6 +368,7 @@ body {
   padding: 6px 8px 6px 8px !important;
   text-decoration: none;
   display: block;
+  display: flex;
 }
 
 .dropdown-content :hover {
@@ -437,4 +447,26 @@ a.dropdown-item {
 
 .pointer{
   cursor: pointer;
+}
+
+.subscribe-container{
+
+}
+.subscribe-input,.subscribe-btn{
+  border-radius: 0px;
+  padding: 5px !important;
+}
+.subscribe-btn:hover{
+  background-color: var(--primary);
+  color:#fff;
+}
+.nowrap{
+  white-space: nowrap;
+}
+.cart-toast {
+  padding: 17px !important;
+  border-radius: 0px;
+}
+.ads-img{
+  object-fit: cover;
 }

@@ -28,6 +28,8 @@ function Header(props) {
   const [forgotPwd, setForgotPwd] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResponse, setSearchReponse] = useState([]);
+  const [suggestionActive,setSuggestionActive] = useState(false);
+
   const isEmptyObj = (v) => {
     return typeof value === "object" && Object.keys(v).length === 0;
   };
@@ -183,7 +185,7 @@ function Header(props) {
     const updateUser = (userData) => {
       if (isEmptyObj(errors)) return;
       props
-        .updateData(ActionTypes.CREATE_USER, "/user", {
+        .updateData(ActionTypes.CREATE_USER, `/user/${userData._id}`, {
           ...userData,
         })
         .then((result) => {
@@ -542,12 +544,14 @@ function Header(props) {
 
   useEffect(() => {
     if (searchText === "") {
+      setSuggestionActive(false);
       return setSearchReponse([]);
     }
 
     axios
       .get(`product?search=${searchText}&user_type=user&limit=5`)
       .then((res) => {
+        setSuggestionActive(true);
         if (!res.data.products || res.data.products.length === 0) {
           return setSearchReponse([]);
         }
@@ -560,15 +564,15 @@ function Header(props) {
         setSearchReponse(searchedProducts);
       });
   }, [searchText]);
-
+console.log("Suggestion Active...",suggestionActive);
   return (
     <>
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
-        <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row">
+        <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row justify-content-around">
           <div className="col-2 d-flex flex-row align-items-center justify-content-start">
             <Link
               className="text-decoration-none"
-              style={{ top: "0px", position: "absolute" }}
+              style={{ top: "64px", position: "absolute" }}
               to={{ pathname: `/` }}
             >
               {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
@@ -595,8 +599,8 @@ function Header(props) {
                 width: searchRef?.current?.offsetWidth,
               }}
             >
-              {searchResponse &&
-                searchResponse.length > 0 &&
+              {suggestionActive ?
+                searchResponse.length > 0 ?
                 searchResponse.map((item) => {
                   return (
                     <a
@@ -605,7 +609,7 @@ function Header(props) {
                     >
                       <img
                         alt="img"
-                        src={item.imageUrl}
+                        src={`${process.env.REACT_APP_IMAGE_URL}/${item.imageUrl}`}
                         width={40}
                         height={40}
                         style={{ borderRadius: 20 }}
@@ -618,14 +622,17 @@ function Header(props) {
                       </span>
                     </a>
                   );
-                })}
+                }):
+                <p>
+                  No product Found
+                </p>:""}
             </div>
           </div>
           <div className="col-3 col-md-3 col-lg-3 d-flex flex-row align-items-center justify-content-center p-0">
             {user?.name ? (
               <div className="d-flex flex-row align-items-center px-3 border-right">
                 <p
-                  className="text-white small p-0 m-0 mr-2 me-2"
+                  className="text-white small p-0 m-0 me-2 nowrap"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setShowProfile(true);
@@ -638,7 +645,7 @@ function Header(props) {
             ) : (
               <div className="d-flex flex-row align-items-center px-3 border-right">
                 <p
-                  className="text-white small p-0 m-0 mr-2 me-2"
+                  className="text-white small p-0 m-0 mr-2 me-2 nowrap"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setShowModal(true);
@@ -657,13 +664,14 @@ function Header(props) {
                 onClick={() => switchLanguage()}
               />
             </div>
-            <div className="d-flex flex-row align-items-center px-3">
+            <div className="d-flex flex-row align-items-center px-3 pointer"
+            onClick={() => {
+              history.push("/cart");
+            }}
+            >
               <p
                 className="text-white small p-0 m-0 mr-2 me-2"
                 style={{ cursor: "pointer" }}
-                onClick={() => {
-                  history.push("/cart");
-                }}
               >
                 {t("cart")}
               </p>
@@ -684,7 +692,7 @@ function Header(props) {
             {
               user?.name && 
               <div className="px-3 pointer text-white">
-                <p onClick={()=>props.logoutUser()}>Sign Out</p>
+                <p className="nowrap" onClick={()=>props.logoutUser()}>Sign Out</p>
             </div>
             }
             

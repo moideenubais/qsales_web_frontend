@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Slider from "react-slick";
 import Carousel from "react-elastic-carousel";
 import { connect } from "react-redux";
 import { getData } from "../redux/actions";
@@ -19,8 +20,8 @@ function CarouselHome(props) {
   return (
     <div className="col-lg-12 col-md-12 col-sm-12">
       {showBannerAds && (
-        <div className="col-12 col-md-9 col-lg-9 mx-auto">
-          <span
+        <div className="col-12  m-1">
+          {/* <span
             style={{
               position: "absolute",
               right: "15%",
@@ -29,21 +30,22 @@ function CarouselHome(props) {
             onClick={() => setShowBannerAds(false)}
           >
             <img src="./assets/images/close-svg.svg" height={20} width={20} />
-          </span>
-          <Carousel
+          </span> */}
+          {/* <Carousel
             ref={carouselRef}
             itemsToShow={1}
             enableAutoPlay={true}
             transitionMs={1000}
             style={{ position: "relative" }}
-            onNextEnd={({ index }) => {
-              clearTimeout(resetTimeout);
-              if (index + 1 === totalPages) {
-                resetTimeout = setTimeout(() => {
-                  carouselRef?.current?.goTo(0);
-                }, 1000);
-              }
-            }}
+            infinite={true}
+            // onNextEnd={({ index }) => {
+            //   clearTimeout(resetTimeout);
+            //   if (index + 1 === totalPages) {
+            //     resetTimeout = setTimeout(() => {
+            //       carouselRef?.current?.goTo(0);
+            //     }, 1000);
+            //   }
+            // }}
           >
             {adsReducer?.data?.ads?.map((ad, index) => (
               <img
@@ -53,7 +55,27 @@ function CarouselHome(props) {
                 alt={ad?.name}
               />
             ))}
-          </Carousel>
+          </Carousel> */}
+          <Slider
+          // dots={true}
+          slidesToShow={1}
+          slidesToScroll={1}
+           autoplay={true}
+           autoplaySpeed={2000}
+            
+          >
+            {adsReducer?.data?.ads?.map((ad, index) => (
+              <div key={index}>
+              <img
+                src={`${imageBaseUrl}${ad?.ad_url}`}
+                className="w-100 ads-img"
+                style={{ height: "50px" }}
+                alt={ad?.name}
+              />
+               </div>
+            ))}
+          </Slider>
+          
         </div>
       )}
     </div>

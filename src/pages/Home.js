@@ -13,9 +13,10 @@ import FloatingButton from "../components/whatsappFloatingButton/FloatingButton"
 function Home() {
   return (
     <div>
+      <CarouselHome />
       <Header />
       <Navigation />
-      <CarouselHome />
+      
       {/* <CategoriesList /> */}
       <ProductsListHolder />
       <Footer />

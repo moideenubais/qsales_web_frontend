@@ -184,12 +184,8 @@ function ProductDescription(props) {
     const cart = getCartInLocalStorage();
     setCartInLocal(cart);
     if (!user?._id) {
-      toast.success("Added To Cart", {
-        style: {
-          border: "1px solid #713200",
-          padding: "16px",
-          color: "#713200",
-        },
+      toast.success("Added To Cart",{ 
+        className:"cart-toast"
       });
 
       if (isBuyNow) {
@@ -202,7 +198,9 @@ function ProductDescription(props) {
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
     }).then((res) => {
-      if (!res.error) toast.success("Added To Cart");
+      if (!res.error) toast.success("Added To Cart",{ 
+        className:"cart-toast"
+      });
       else
         toast.error("Something went wrong", {
           style: {
@@ -330,7 +328,7 @@ function ProductDescription(props) {
                 <div className="">
                   <p className="medium fw-normal mb-1">Now at</p>
                   <h5 className="primary-color p-0 m-0 ">
-                    ₹ {selectedAttribute.unit_price}
+                    QR {selectedAttribute.unit_price}
                   </h5>
                 </div>
 

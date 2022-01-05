@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import SellerForm from "./components/SignIn/SellerForm";
 import Modal from "react-bootstrap/Modal";
+import SubscriptionForm from "./components/SubscriptionForm/SubscriptionForm";
 
 function Footer() {
   const { t } = useTranslation();
@@ -38,6 +39,7 @@ function Footer() {
                 <p className="small text-secondary">customer.qsales.com</p>
               </div>
             </div>
+            <SubscriptionForm />
           </div>
           <div className="col-6 border-start ps-5 d-flex flex-column">
             <h6 className="fs-5 fw-bold mb-2">{t("downloadOurApp")}</h6>
@@ -46,7 +48,15 @@ function Footer() {
               <img src="../assets/images/app-store.svg" className="" />
               <img src="../assets/images/google-play.svg" className="ms-3" />
             </div>
+            <div className="mt-3">
+              <a href="http://instagram.com/_u/qsales2022/" target="_blank">
+                <div className="floating-btn">
+                    <img src="../assets/images/insta.png" width="28" height="28" className="img-fluid"/>
+                </div>
+            </a>
           </div>
+          </div>
+          
         </div>
 
         <div className="d-flex flex-column col-9 mx-auto pt-3 border-top">
