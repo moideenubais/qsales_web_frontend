@@ -46,6 +46,16 @@ function CheckoutSteps(props) {
     delivery_note: "", // [OPTIONAL]
     delivery_time: "Any time",
   });
+
+  const [location,setLocation]=useState({latitude:"",longitude:""})
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(handleLocation);
+    }
+  }, [])
+  const handleLocation=(postion)=>{
+    setLocation({latitude:postion.coords.latitude,longitude:postion.coords.longitude});
+  }
   const [unAuthenticatedUser, setUnAuthenticatedUser] = useState({
     firstName: "",
     lastName: "",
@@ -192,6 +202,7 @@ function CheckoutSteps(props) {
     if (isAuthenticated) {
       orderData = {
         products: Object.values(getCartInLocalStorage()), //An array of objects
+        location:location, 
         customer_id: user._id,
         mobile: user.mobile,
         customer_name: user.name,
@@ -207,6 +218,7 @@ function CheckoutSteps(props) {
     } else {
       orderData = {
         products: Object.values(getCartInLocalStorage()),
+        location:location, 
         mobile: unAuthenticatedUser.mobile,
         customer_name:
           unAuthenticatedUser.firstName + " " + unAuthenticatedUser.lastName,

@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Pagination from "../Common/Pagination";
 import Product from "../Products/Product";
-// import Select from "react-select";
+import Select from "react-select";
 
 function CategoryContainer(props) {
   const { products, info, categoryData, handleOnFilterChange } = props;
   const { resourceBundle } = categoryData || {};
 
-  const [filterData, setFilterData] = useState({});
+  const [filterData, setFilterData] = useState({limit:10,page:1,sort_by:"newest"});
+
+  const handlePageClick = data => {
+    let page=data.selected+1;
+    setFilterData({...filterData,page:page});
+  }
+
+  useEffect(()=>{
+    handleOnFilterChange(filterData)
+  },[filterData])
 
   const { name: title } = resourceBundle?.[0] || {};
 
   const handleOnChange = (name, value) => {
-    const updatedFilterData = { ...filterData, [name]: value };
+    const updatedFilterData = { ...filterData,page:1, [name]: value };
     setFilterData(updatedFilterData);
-    handleOnFilterChange(updatedFilterData);
   };
 
   const options = [
@@ -24,14 +33,41 @@ function CategoryContainer(props) {
     { value: "price_low_to_high", label: "Low to High" },
   ];
 
+  const filterOptions = [
+    { value: "shop", label: "Shop" },
+    { value: "brand", label: "Brand" }
+  ];
+
+  let offset=(filterData.page-1)*filterData.limit;
   return (
     <>
       <div className="col-12 col-sm-12 col-md-12 col-lg-12">
         {products?.length > 0 ? (
           <div className="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 ">
-            <div className="border d-flex flex-row justify-content-between">
-              <h4 className="p-0 m-0">{title}</h4>
+            <h4 className="p-0 m-0">{title}</h4>
               <p className="p-0 m-0">{`${info?.totalNumber} Results for ${title}`}</p>
+            <div className="border d-flex flex-row justify-content-between p-2">
+              <div className="d-flex flex-row align-items-center">
+              <span className="mx-2">Filter By:</span>
+              <Select
+                // value={options.find(opt=>opt.value==filterData.sort_by)}
+                onChange={(data) => handleOnChange("sort_by", data?.value)}
+                options={filterOptions}
+                className="sortby-select"
+              />
+              <Select
+                // value={options.find(opt=>opt.value==filterData.sort_by)}
+                onChange={(data) => handleOnChange("sort_by", data?.value)}
+                options={filterOptions}
+                className="sortby-select"
+              />
+              </div>
+              <Select
+                value={options.find(opt=>opt.value==filterData.sort_by)}
+                onChange={(data) => handleOnChange("sort_by", data?.value)}
+                options={options}
+                className="sortby-select"
+              />
               {/* <Select
                 placeholder="Sort By"
                 className="col-2"
@@ -85,6 +121,14 @@ function CategoryContainer(props) {
                   }
                 )}
               </div>
+            </div>
+            <div className="mx-auto d-flex justify-content-center">
+              <Pagination
+                limit={filterData.limit}
+                offset={offset}
+                totalPages={Math.ceil(info.totalNumber / filterData.limit)}
+                handlePageClick={handlePageClick}
+              />
             </div>
           </div>
         ) : (

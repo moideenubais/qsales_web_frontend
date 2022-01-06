@@ -470,3 +470,36 @@ a.dropdown-item {
 .ads-img{
   object-fit: cover;
 }
+
+/**** Pagination Css ****/
+.pagination{
+  margin: 10px !important;
+}
+li.label-item.page-item.disabled {
+  background-color: gray !important;
+}
+li.page-item.active {
+  background-color: dodgerblue;
+  color: white;
+}
+li.page-item {
+  padding: 5px 15px !important;
+}
+li.label-item.page-item {
+  background-color: var(--primary) !important;
+}
+li.label-item.page-item a {
+  color: white;
+  text-decoration: none;
+}
+.page-item{
+  margin-inline: 1px !important;
+}
+/** Css for SortBy Select **/
+.sortby-select {
+  min-width: 200px;
+}
+.sortby-select > div{
+  border-radius: 0px;
+  padding-inline: 5px !important;
+}

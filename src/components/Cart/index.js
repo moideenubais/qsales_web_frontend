@@ -30,6 +30,7 @@ import {
 import { getCartInLocalStorage, removeCartFromLocalStorage } from "../../heper";
 import { getData, updateData, createData } from "../../redux/actions/index";
 import { useCartContext } from "../../context/cartContext";
+import toast from "react-hot-toast";
 
 const CartComponent = (props) => {
   const {
@@ -131,10 +132,13 @@ const CartComponent = (props) => {
   }
 
   const removeFromCart = (varient_id) => {
+    // debugger;
     removeCartFromLocalStorage(varient_id);
     const cart = getCartInLocalStorage();
+    
     const clear = !Object.values(cart).length;
-    setCartInLocal(cart);
+    setCartInLocal(Object.values(cart));
+    setCartItems(cartItems.filter(product=>product.varient_id!==varient_id))
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
       clear,
@@ -142,6 +146,14 @@ const CartComponent = (props) => {
       updateCartState();
     });
   };
+
+  const handleCheckout=()=>{
+    if(cartItems.length>0){
+    history.push("/checkout")
+    }else{
+      toast.error("Cart is Empty")
+    }
+  }
 
   const getAttributesValue = (varient) => {
     if (varient == null) return <></>;
@@ -175,7 +187,7 @@ const CartComponent = (props) => {
               </TopTexts>
               <TopButton
                 type="filled"
-                onClick={() => history.push("/checkout")}
+                onClick={() => handleCheckout()}
               >
                 {t("checkoutNow")}
               </TopButton>
