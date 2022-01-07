@@ -503,3 +503,11 @@ li.label-item.page-item a {
   border-radius: 0px;
   padding-inline: 5px !important;
 }
+.sortby-select.filter-select > div {
+  border-left: none !important;
+}
+.reset-btn {
+  padding: 6px !important;
+  border-radius: 0px;
+  margin-left:1px !important;
+}

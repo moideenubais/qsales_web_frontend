@@ -9,11 +9,17 @@ import {
   createData,
   deleteData,
 } from "../../redux/actions";
+import {
+  logoutUser
+} from "../../redux/actions/auth.js";
 import CartComponent from "../../components/Cart";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router";
 import { getCartInLocalStorage } from "../../heper";
 import { useCartContext } from "../../context/cartContext";
+import SignIn from "../../components/Auth/SignIn";
+import SignUp from "../../components/Auth/SignUp";
+import ForgetPassword from "../../components/Auth//ForgetPassword";
 
 const ADDRESS_FIELDS = [
   { label: "Building Number", name: "building_no" },
@@ -33,6 +39,12 @@ function CheckoutSteps(props) {
     deleteData: propsDeleteData,
     userData,
   } = props;
+
+  ///LoginLogout STates
+  const [showModal, setShowModal] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [forgotPwd, setForgotPwd] = useState(false);
+  ////
   const { setCartInLocal } = useCartContext();
   const { register, handleSubmit } = useForm();
   const [result, setResult] = React.useState("");
@@ -328,14 +340,16 @@ function CheckoutSteps(props) {
                       </span>
 
                       <div className="d-flex flex-row justify-content-between mt-2 ">
-                        <p className="fw-normal primary-color p-2 px-0 w-50">
-                          <u>{t("signInToAnotherAccount")}</u>
+                        <p className="fw-normal primary-color p-2 px-0 w-50 pointer">
+                          <u
+                          onClick={()=>props.logoutUser()}
+                          >{t("signInToAnotherAccount")}</u>
                         </p>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  <>
                     <input
                       className="p-2 mb-2 me-2"
                       name="firstName"
@@ -358,14 +372,14 @@ function CheckoutSteps(props) {
                       onChange={handleChangeForUnAuthenticatedUser}
                       placeholder="Mobile Number"
                     />
-                    <p>{result}</p>
+                    <br />
                     <button
                       className="mr-3 mt-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
-                      type="submit"
+                      onClick={()=>setShowModal(true)}
                     >
                       {t("login")}
                     </button>
-                  </form>
+                  </>
                 )}
               </div>
               <div className="d-flex flex-row justify-content-end small gap-2">
@@ -610,6 +624,28 @@ function CheckoutSteps(props) {
           </Accordion.Item>
         </Accordion>
       </div>
+      {showModal ? (
+          isSignIn && !forgotPwd ? (
+            <SignIn
+              setShowModal={setShowModal}
+              setForgotPwd={setForgotPwd}
+              setIsSignIn={setIsSignIn}
+            />
+          ) : (
+            <SignUp setShowModal={setShowModal} setIsSignIn={setIsSignIn} />
+          )
+        ) : (
+          ""
+        )}
+        {showModal && forgotPwd ? (
+          <ForgetPassword
+            setIsSignIn={setIsSignIn}
+            setForgotPwd={setForgotPwd}
+            setShowModal={setShowModal}
+          />
+        ) : (
+          ""
+        )}
     </React.Fragment>
   );
 }
@@ -633,4 +669,5 @@ export default connect(mapStateToProps, {
   createData,
   deleteData,
   updateData,
+  logoutUser
 })(CheckoutSteps);

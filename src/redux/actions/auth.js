@@ -9,7 +9,8 @@ import toast from "react-hot-toast";
  * @param {*} decoded doceded
  * @returns {*}
  */
-export const setCurrentUser = (decoded) => ({
+export const setCurrentUser = (decoded) => (
+{
   type: ActionTypes.SET_CURRENT_USER,
   payload: decoded,
 });
@@ -26,6 +27,16 @@ export const setAuthToken = (token) => {
   }
 };
 
+ export const getUser = (user_id) => {
+  return new Promise((resolve) => { 
+    axios
+      .get(`/user/${user_id}`)
+      .then((res) => {
+       resolve(res);
+      })
+    });
+};
+
 /**
  * Login User
  * @constant
@@ -40,10 +51,13 @@ export const loginUser = (user) => (dispatch) => {
         const { token } = res.data;
         localStorage.setItem("jwtToken", token);
         setAuthToken(token);
-        const decoded = jwtDecode(token);
-        dispatch(setCurrentUser({ decoded, token }));
-        toast.success("Logged In");
-        resolve(true);
+        let decode=jwtDecode(token);
+        getUser(decode._id).then(res=>{
+          dispatch(setCurrentUser({ decoded:res.data, token: token }));
+          toast.success("Logged In");
+          resolve(true);
+        })
+       
       })
       .catch((err) => {
         dispatch({
@@ -63,6 +77,7 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
+  dispatch({type: `${ActionTypes.GET_ORDERS}_SUCCESS`,payload:{data:null}})
 };
 
 /**

@@ -5,11 +5,19 @@ import Product from "../Products/Product";
 import Select from "react-select";
 
 function CategoryContainer(props) {
-  const { products, info, categoryData, handleOnFilterChange } = props;
+  const { products, info, categoryData, handleOnFilterChange, shops, brands } = props;
   const { resourceBundle } = categoryData || {};
 
-  const [filterData, setFilterData] = useState({limit:10,page:1,sort_by:"newest"});
 
+  let Shops=shops.map(shop=>({label:shop.i18nResourceBundle.name,value:shop._id}));
+  let Brands=brands.map(brand=>({label:brand.i18nResourceBundle.name,value:brand._id}));
+  console.log("Shops",Shops);
+  console.log("Brands",Brands);
+  const [filterData, setFilterData] = useState({limit:10,page:1,sort_by:"newest",brand_id:"",shop_id:""});
+
+  // const [shops,setShops]=useState([]);
+  // const [brands,setBrands]=useState([]);
+  const [selectedFilter,setSelectedFilter]=useState("");
   const handlePageClick = data => {
     let page=data.selected+1;
     setFilterData({...filterData,page:page});
@@ -38,11 +46,11 @@ function CategoryContainer(props) {
     { value: "brand", label: "Brand" }
   ];
 
+  console.log("SelectedFilter",selectedFilter)
   let offset=(filterData.page-1)*filterData.limit;
   return (
     <>
       <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-        {products?.length > 0 ? (
           <div className="col-12 col-sm-12 col-md-12 col-lg-12 pt-4 ">
             <h4 className="p-0 m-0">{title}</h4>
               <p className="p-0 m-0">{`${info?.totalNumber} Results for ${title}`}</p>
@@ -50,17 +58,20 @@ function CategoryContainer(props) {
               <div className="d-flex flex-row align-items-center">
               <span className="mx-2">Filter By:</span>
               <Select
-                // value={options.find(opt=>opt.value==filterData.sort_by)}
-                onChange={(data) => handleOnChange("sort_by", data?.value)}
+                placeholder="Shop/Brand"
+                value={selectedFilter}
+                onChange={(data) => setSelectedFilter(data)}
                 options={filterOptions}
                 className="sortby-select"
               />
               <Select
-                // value={options.find(opt=>opt.value==filterData.sort_by)}
-                onChange={(data) => handleOnChange("sort_by", data?.value)}
-                options={filterOptions}
-                className="sortby-select"
+                placeholder="Select Item"
+                value={selectedFilter.value=="shop"?Shops.find(opt=>opt.value==filterData.shop_id):Brands.find(opt=>opt.value==filterData.brand_id) || ""}
+                onChange={(data) => handleOnChange(selectedFilter.value=="shop"?"shop_id":"brand_id", data?.value)}
+                options={selectedFilter.value=="shop"?Shops:selectedFilter.value=="brand"?Brands:[]}
+                className="sortby-select filter-select"
               />
+              <button className="btn btn-danger reset-btn" onClick={()=>setFilterData({...filterData,brand_id:"",shop_id:""})} >Reset</button>
               </div>
               <Select
                 value={options.find(opt=>opt.value==filterData.sort_by)}
@@ -83,6 +94,9 @@ function CategoryContainer(props) {
                 }
               /> */}
             </div>
+            {products.length>0 ? <>
+
+            
             <div className="p-4 border p-2 d-flex flex-row">
               {/* Title of Product Container */}
 
@@ -130,12 +144,14 @@ function CategoryContainer(props) {
                 handlePageClick={handlePageClick}
               />
             </div>
+            </>:
+            (
+              <div className="col-12 bg-white d-flex flex-row justify-content-center flex-wrap flex-md-wrap">
+                No data found
+              </div>
+            )
+            }
           </div>
-        ) : (
-          <div className="col-12 bg-white d-flex flex-row justify-content-center flex-wrap flex-md-wrap">
-            No data found
-          </div>
-        )}
       </div>
     </>
   );

@@ -10,10 +10,13 @@ function CategoryListHolder(props) {
     productReducer,
     categoryId,
     cateogryReducer,
+    brandReducer,
+    shopReducer
   } = props;
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY_DETAILS, `/category/${categoryId}`);
+    propsGetData(ActionTypes.GET_BRANDS, "/brand", {})
     // propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
     //   category_id: categoryId,
     // });
@@ -32,6 +35,8 @@ function CategoryListHolder(props) {
       products={productReducer?.data?.products || []}
       info={productReducer?.data?.info || {}}
       categoryData={cateogryReducer?.data || {}}
+      brands={brandReducer?.data?.brands || []}
+      shops={shopReducer?.data?.shops || []}
       handleOnFilterChange={handleOnFilterChange}
     />
   );
@@ -40,6 +45,8 @@ function CategoryListHolder(props) {
 const mapStateToProps = (state) => ({
   productReducer: state.getAllProductsReducer,
   cateogryReducer: state.getCategoryDetailsReducer,
+  shopReducer:state.getAllShopsReducer,
+  brandReducer:state.getAllBrandsReducer,
 });
 
 export default connect(mapStateToProps, {

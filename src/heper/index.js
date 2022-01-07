@@ -28,3 +28,23 @@ export const removeCartFromLocalStorage = (variant_id) => {
   console.log({ variant_id, data });
   localStorage.setItem("cart", JSON.stringify(data));
 };
+
+export const validatePasswords = ({ password, confirm_password }, setError) => {
+  if (!new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$").test(password)) {
+    setError("password", {
+      type: "manual",
+      message:
+        "Password should be of 8 character with atleast one uppercase and lowercase letter, number and special character",
+    });
+    return false;
+  }
+
+  if (confirm_password && password !== confirm_password) {
+    setError("confirm_password", {
+      type: "manual",
+      message: "Password does not match",
+    });
+    return false;
+  }
+  return true;
+};

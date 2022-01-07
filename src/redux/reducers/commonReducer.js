@@ -18,7 +18,6 @@ export default function commonReducers(TYPE) {
   return (state = initialState, action) => {
     const SUCCESS = `${TYPE}_SUCCESS`;
     const FAIL = `${TYPE}_FAIL`;
-
     switch (action.type) {
       case TYPE:
         return { ...state, loading: true };
