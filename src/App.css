@@ -511,3 +511,21 @@ li.label-item.page-item a {
   border-radius: 0px;
   margin-left:1px !important;
 }
+
+@media (max-width: 768px) {  
+  .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
+    justify-content: center !important;
+    margin-top: 5px !important;
+ }
+ .p-0.w-75.dropdown-content {
+  margin-right: 5px !important;
+}
+
+.filter-container .sortby-select{
+ min-width: 100px;
+}
+.sorting-container{
+  margin-top:10px !important;
+  margin-inline: auto !important;
+}
+}

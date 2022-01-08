@@ -17,7 +17,6 @@ function Address(props) {
 
     delete address._id;
     if (selectedAddressIndexRef.current !== selectedAddressIndex) {
-      console.log({ address });
       selectedAddressIndexRef.current = selectedAddressIndex;
       onChange(address);
     }

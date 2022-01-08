@@ -178,7 +178,6 @@ function CheckoutSteps(props) {
         return;
       }
     }else{
-      console.log("unathenticated user",unAuthenticatedUser)
       if (!unAuthenticatedUser.firstName || !unAuthenticatedUser.lastName) {
         errorsData.customer_name = "Name is required";
       }

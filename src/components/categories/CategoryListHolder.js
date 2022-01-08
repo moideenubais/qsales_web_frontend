@@ -16,10 +16,6 @@ function CategoryListHolder(props) {
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY_DETAILS, `/category/${categoryId}`);
-    propsGetData(ActionTypes.GET_BRANDS, "/brand", {})
-    // propsGetData(ActionTypes.GET_PRODUCTS, "/product", {
-    //   category_id: categoryId,
-    // });
   }, [propsGetData, categoryId]);
 
   const handleOnFilterChange = (filter) => {
@@ -28,7 +24,6 @@ function CategoryListHolder(props) {
       ...filter,
     });
   };
-
   return (
     <CategoryContainer
       key={categoryId}
@@ -38,6 +33,7 @@ function CategoryListHolder(props) {
       brands={brandReducer?.data?.brands || []}
       shops={shopReducer?.data?.shops || []}
       handleOnFilterChange={handleOnFilterChange}
+      loading={productReducer.loading}
     />
   );
 }

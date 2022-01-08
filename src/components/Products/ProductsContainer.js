@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
+import { NavLink } from "react-bootstrap";
 
 function ProductsContainer(props) {
   const { getData: propsGetData, datas } = props;
@@ -13,7 +14,6 @@ function ProductsContainer(props) {
 
   useEffect(() => {
     if (!datas) return;
-
     const query = { user_type: "user", category_id: datas._id };
     if (!datas._id) {
       query[datas.type] = true;
@@ -34,7 +34,6 @@ function ProductsContainer(props) {
     { width: 1450, itemsToShow: 5 },
     { width: 1750, itemsToShow: 6 },
   ];
-
   return (
     <>
       {productsData ? (
@@ -43,8 +42,9 @@ function ProductsContainer(props) {
             {/* Product Container */}
             <div className="p-4 bg-white">
               {/* Title of Product Container */}
-              <div className="py-4">
+              <div className="py-4 d-flex flex-row justify-content-between">
                 <h4 className="p-0 m-0">{datas.i18nResourceBundle.name}</h4>
+                {datas._id ?<a style={{textDecoration:"none"}} href={`/category/${datas._id}`}>View All</a>:""}
               </div>
               {/* List of product */}
               <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap">

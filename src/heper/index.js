@@ -25,7 +25,6 @@ export const saveCartToLocalStorage = (data) => {
 export const removeCartFromLocalStorage = (variant_id) => {
   const data = getCartInLocalStorage();
   delete data[variant_id];
-  console.log({ variant_id, data });
   localStorage.setItem("cart", JSON.stringify(data));
 };
 

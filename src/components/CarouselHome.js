@@ -16,21 +16,21 @@ function CarouselHome(props) {
   useEffect(() => {
     propsGetData(ActionTypes.GET_ADS, "/ad");
   }, [propsGetData]);
-  console.log("yoyo", adsReducer?.data?.ads);
   return (
     <div className="col-lg-12 col-md-12 col-sm-12">
       {showBannerAds && (
         <div className="col-12  m-1">
-          {/* <span
+          <span
             style={{
               position: "absolute",
-              right: "15%",
+              right: "0%",
+              top:"-1%",
               zIndex: 100,
             }}
             onClick={() => setShowBannerAds(false)}
           >
             <img src="./assets/images/close-svg.svg" height={20} width={20} />
-          </span> */}
+          </span>
           {/* <Carousel
             ref={carouselRef}
             itemsToShow={1}
@@ -58,10 +58,11 @@ function CarouselHome(props) {
           </Carousel> */}
           <Slider
           // dots={true}
+          arrows={false}
           slidesToShow={1}
           slidesToScroll={1}
-           autoplay={true}
-           autoplaySpeed={2000}
+          autoplay={true}
+          autoplaySpeed={2000}
             
           >
             {adsReducer?.data?.ads?.map((ad, index) => (
@@ -69,7 +70,7 @@ function CarouselHome(props) {
               <img
                 src={`${imageBaseUrl}${ad?.ad_url}`}
                 className="w-100 ads-img"
-                style={{ height: "50px" }}
+                style={{ height: "40px" }}
                 alt={ad?.name}
               />
                </div>

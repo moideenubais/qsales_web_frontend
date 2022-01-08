@@ -25,7 +25,6 @@ const SubscriptionForm = () => {
                 );
             }
         }).catch(error=>{
-            console.log("error",error)
             toast.error(error.err || "Failed to Subscribe"
             , {
                 style: {

@@ -20,7 +20,6 @@ const SellerForm = (props) => {
     });
   };
 
-  console.log(errors);
 
   return (
     <React.Fragment>

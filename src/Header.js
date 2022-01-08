@@ -40,10 +40,6 @@ function Header(props) {
   };
 
   useEffect(() => {
-    console.log({cartInLocal});
-  }, [cartInLocal]);
-
-  useEffect(() => {
     if (!localStorage.jwtToken && userToken) {
       setAuthToken(userToken);
       localStorage.setItem("jwtToken", userToken);
@@ -190,15 +186,16 @@ function Header(props) {
         setSearchReponse(searchedProducts);
       });
   }, [searchText]);
-console.log("Suggestion Active...",suggestionActive);
+
   return (
     <>
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
-        <div className="col-12 col-md-9 col-lg-9  mx-auto py-3 d-flex flex-row justify-content-around">
-          <div className="col-2 d-flex flex-row align-items-center justify-content-start">
+        <div className="col-md-9  mx-auto py-1">
+          <div className="row">
+          <div className="col-md-8 d-flex flex-row align-items-center justify-content-between">
+          <div className="">
             <Link
               className="text-decoration-none"
-              style={{ top: "64px", position: "absolute" }}
               to={{ pathname: `/` }}
             >
               {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
@@ -206,12 +203,11 @@ console.log("Suggestion Active...",suggestionActive);
                 src="../assets/images/4.png"
                 height="70px"
                 width="70px"
-                className="position-absolute"
                 alt="images"
               />
             </Link>
           </div>
-          <div className="col-md-5 col-lg-5 p-0 dropdown-content">
+          <div className="p-0 w-75 dropdown-content">
             <input
               ref={searchRef}
               type="text"
@@ -254,7 +250,9 @@ console.log("Suggestion Active...",suggestionActive);
                 </p>:""}
             </div>
           </div>
-          <div className="col-3 col-md-3 col-lg-3 d-flex flex-row align-items-center justify-content-center p-0">
+          </div>
+          <div className="col-md-4 d-flex flex-row align-items-center justify-content-end header-btn-group">
+          <div className="d-flex flex-row align-items-center justify-content-center p-0">
             {user?.name ? (
               <div className="d-flex flex-row align-items-center px-3 border-right">
                 <p
@@ -282,11 +280,11 @@ console.log("Suggestion Active...",suggestionActive);
                 <img src="../assets/images/user.svg" alt="userIcon" />
               </div>
             )}
-            <div className="d-flex flex-row align-items-center px-3">
+            <div className="d-flex flex-row align-items-center pointer px-3">
               <img
-                src="../assets/images/translate.svg"
+                src="../assets/images/translation.png"
                 alt="translateIcon"
-                style={{ width: 20, height: 20 }}
+                style={{ width: 30, height: 30 }}
                 onClick={() => switchLanguage()}
               />
             </div>
@@ -323,6 +321,9 @@ console.log("Suggestion Active...",suggestionActive);
             }
             
           </div>
+          </div>
+          
+        </div>
         </div>
       </header>
 

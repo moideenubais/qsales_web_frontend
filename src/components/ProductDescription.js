@@ -58,7 +58,6 @@ function ProductDescription(props) {
 
   useEffect(() => {
     const data = productDetailsReducer?.data;
-    console.log({ data, productDetailsReducer });
     if (!data || data._id !== productId) return setInitialLoading(true);
     setInitialLoading(false);
     setProductDetails(data || {});
@@ -191,16 +190,20 @@ function ProductDescription(props) {
       if (isBuyNow) {
         history.push("/checkout");
       }
-
       return;
     }
 
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
     }).then((res) => {
-      if (!res.error) toast.success("Added To Cart",{ 
-        className:"cart-toast"
-      });
+      if (!res.error){
+        toast.success("Added To Cart",{ 
+          className:"cart-toast"
+        });
+        if (isBuyNow) {
+          history.push("/checkout");
+        }
+      } 
       else
         toast.error("Something went wrong", {
           style: {

@@ -1,16 +1,19 @@
 import React, {useState,useEffect} from "react";
 import { useForm } from "react-hook-form";
-import { loginUser } from "../../redux/actions/auth";
+import { loginUser, setAuthToken, setCurrentUser, getUser } from "../../redux/actions/auth";
 import { createData, updateData, getData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
 import axios from "axios";
 import { isEmptyObj, validatePasswords,getCartInLocalStorage } from "../../heper";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { GoogleLogin } from "react-google-login";
+import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
 
 const SignIn = (props) => {
   const { loginUser, updateData,errors: userErrors, authReducer } = props;
-  console.log("auth",authReducer);
+  const dispatch= useDispatch();
   const {
     register,
     handleSubmit,
@@ -54,6 +57,23 @@ const SignIn = (props) => {
     if (!userErrors?.msg) return;
     setError("email", { type: "manual", message: userErrors.msg });
   }, [setError,userErrors]);
+
+  const responseGoogle = (response) => {
+    axios
+      .post("/login/google", { tokenId: response.tokenId })
+      .then((res) => {
+        let decoded = jwtDecode(res.data.token);
+        getUser(decoded._id).then((result) => {
+          dispatch(
+            setCurrentUser({ decoded: result.data, token: res.data.token })
+          );
+          localStorage.setItem("jwtToken", res.data.token);
+          setAuthToken(res.data.token);
+          props.setShowModal(false);
+        });
+      })
+      .catch((err) => {});
+  };
 
   return (
     <div className="shadow-lg col-12 bg-transparent-full">
@@ -121,6 +141,18 @@ const SignIn = (props) => {
             </Link>
           </div>
         </div>
+        <hr className="text-secondary my-2" />
+        <div>
+          <GoogleLogin
+            clientId={process.env.GOOGLE_CLIENT_ID}
+            buttonText="Login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            fetchBasicProfile={true}
+            cookiePolicy={'single_host_origin'}
+            disabled={false}
+          />
+          </div>
         <hr className="text-secondary my-2" />
         <div className="">
           <p className="small m-0 p-0">

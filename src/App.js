@@ -14,6 +14,8 @@ const ProductPage = lazy(() => import("./pages/ProductPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
+const ShopPage = lazy(() => import("./pages/ShopPage"));
+const BrandPage = lazy(() => import("./pages/BrandPage"));
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -27,7 +29,7 @@ i18n
     interpolation: { escapeValue: false },
   });
 
-if (localStorage.jwtToken) {
+if (localStorage.jwtToken && !localStorage.user) {
   setAuthToken(localStorage.jwtToken);
   const decoded = jwtDecode(localStorage.jwtToken);
   const cartData = Object.values(getCartInLocalStorage());
@@ -75,6 +77,14 @@ function App() {
             <Route
               path="/category/:categoryId"
               component={WaitingComponent(CategoryPage)}
+            />
+            <Route
+              path="/shop/:shopId"
+              component={WaitingComponent(ShopPage)}
+            />
+            <Route
+              path="/brand/:brandId"
+              component={WaitingComponent(BrandPage)}
             />
             <Route>
               <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">

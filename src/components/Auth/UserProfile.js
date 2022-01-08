@@ -41,16 +41,19 @@ const UserProfile = (props) => {
   const updateUser = (userData) => {
     if (isEmptyObj(errors)) return;
     let id = userData._id;
-    delete userData._id;
-    delete userData.role;
-    delete userData.iat;
+    userData?.shop_id==null && delete userData?.shop_id
+    userData?.address?.length && delete userData?.address[0]?._id;
+    userData?._id && delete userData?._id;
+    userData?.role && delete userData?.role;
+    userData?.iat && delete userData?.iat;
+    userData?.cart && delete userData?.cart;
     props
       .updateData(ActionTypes.CREATE_USER, `/user/${id}`, {
         ...userData,
       })
       .then((result) => {
         if (result?.error) return;
-        props.getUser(id).then(res=>{
+        getUser(id).then(res=>{
         dispatch(setCurrentUser({ decoded:res.data, token: result.payload.data.token }));
         toast.success("Profile Updated");
         props.setIsSignIn(true);
@@ -166,5 +169,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getData,
   updateData,
-  getUser
 })(UserProfile);

@@ -27,7 +27,7 @@ export const setAuthToken = (token) => {
   }
 };
 
- export const getUser = (user_id) => {
+ export const getUser = (user_id) =>  {
   return new Promise((resolve) => { 
     axios
       .get(`/user/${user_id}`)

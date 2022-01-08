@@ -41,7 +41,6 @@ const middlewareConfig = {
           return Promise.resolve(res);
         },
         error(func, error) {
-          console.log("API ERROR", error);
           return Promise.reject(error);
         },
       },

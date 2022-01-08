@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Footer from "../Footer";
 import ProductsListHolder from "../components/Products/ProductsListHolder";
 import FloatingButton from "../components/whatsappFloatingButton/FloatingButton";
+import BrandsContainer from "../components/Brands/BrandsContainer";
 // import CategoriesList from '../components/CategoriesList';
 
 function Home() {
@@ -18,6 +19,7 @@ function Home() {
       <Navigation />
       
       {/* <CategoriesList /> */}
+      <BrandsContainer />
       <ProductsListHolder />
       <Footer />
       <FloatingButton />
