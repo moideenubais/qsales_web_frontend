@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import Navigation from "../components/Navigation";
 import Header from "../Header";
 import Footer from "../Footer";
+import FloatingButton from "../components/whatsappFloatingButton/FloatingButton";
 
 function CategoryPage() {
   const { categoryId } = useParams();
@@ -17,6 +18,7 @@ function CategoryPage() {
         <CategoryListHolder categoryId={categoryId} />
       </Layout>
       <Footer />
+      <FloatingButton />
     </React.Fragment>
   );
 }

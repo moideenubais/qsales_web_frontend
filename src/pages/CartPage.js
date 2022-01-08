@@ -3,6 +3,7 @@ import CartComponent from "../components/Cart";
 import Navigation from "../components/Navigation";
 import Header from "../Header";
 import Footer from "../Footer";
+import FloatingButton from "../components/whatsappFloatingButton/FloatingButton";
 
 export default function CartPage() {
   return (
@@ -11,6 +12,7 @@ export default function CartPage() {
       <Navigation />
       <CartComponent />
       <Footer />
+      <FloatingButton />
     </>
   );
 }

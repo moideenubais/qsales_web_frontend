@@ -5,6 +5,7 @@ import Navigation from "../components/Navigation";
 import Header from "../Header";
 import Footer from "../Footer";
 import BrandsListing from '../components/Brands/BrandsListing';
+import FloatingButton from '../components/whatsappFloatingButton/FloatingButton';
 
 const BrandPage = () => {
     const { brandId } = useParams();
@@ -17,6 +18,7 @@ const BrandPage = () => {
         <BrandsListing brandId={brandId} />
       </Layout>
       <Footer />
+      <FloatingButton />
     </React.Fragment>
   );
 }

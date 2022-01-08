@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 import ProductDescription from "../components/ProductDescription";
 import Header from "../Header";
 import Footer from "../Footer";
+import FloatingButton from "../components/whatsappFloatingButton/FloatingButton";
 
 function ProductPage() {
   return (
@@ -14,6 +15,7 @@ function ProductPage() {
         <ProductDescription />
       </Layout>
       <Footer />
+      <FloatingButton />
     </div>
   );
 }

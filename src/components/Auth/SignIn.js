@@ -63,12 +63,13 @@ const SignIn = (props) => {
       .post("/login/google", { tokenId: response.tokenId })
       .then((res) => {
         let decoded = jwtDecode(res.data.token);
+        localStorage.setItem("jwtToken", res.data.token);
+        setAuthToken(res.data.token);
         getUser(decoded._id).then((result) => {
           dispatch(
             setCurrentUser({ decoded: result.data, token: res.data.token })
           );
-          localStorage.setItem("jwtToken", res.data.token);
-          setAuthToken(res.data.token);
+          
           props.setShowModal(false);
         });
       })

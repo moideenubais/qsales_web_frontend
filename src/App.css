@@ -511,6 +511,10 @@ li.label-item.page-item a {
   border-radius: 0px;
   margin-left:1px !important;
 }
+.App{
+  overflow-x: hidden;
+  overflow-y: visible;
+}
 
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
