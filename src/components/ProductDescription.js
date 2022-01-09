@@ -365,6 +365,7 @@ function ProductDescription(props) {
                   )}
                 </div>
               </div>
+              <p className="return-policy">3 days return policy</p>
               <hr className="my-4" />
               <div className="d-flex flex-row ">
                 <button

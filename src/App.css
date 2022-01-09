@@ -515,6 +515,15 @@ li.label-item.page-item a {
   overflow-x: hidden;
   overflow-y: visible;
 }
+.return-policy{
+  padding: 5px 10px !important;
+  background-color: var(--primary);
+  color: white;
+  width:fit-content;
+  border:1px solid;
+  border-radius: 6px;
+  font-weight: 500;
+}
 
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{

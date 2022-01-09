@@ -192,7 +192,7 @@ function Header(props) {
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
         <div className="col-md-9  mx-auto py-1">
           <div className="row">
-          <div className="col-md-8 d-flex flex-row align-items-center justify-content-between">
+          <div className="col-lg-7 col-md-6 d-flex flex-row align-items-center justify-content-between">
           <div className="">
             <Link
               className="text-decoration-none"
@@ -251,7 +251,7 @@ function Header(props) {
             </div>
           </div>
           </div>
-          <div className="col-md-4 d-flex flex-row align-items-center justify-content-end header-btn-group">
+          <div className="col-lg-5 col-md-6 d-flex flex-row align-items-center justify-content-end header-btn-group">
           <div className="d-flex flex-row align-items-center justify-content-center p-0">
             {user?.name ? (
               <div className="d-flex flex-row align-items-center px-3 border-right">
