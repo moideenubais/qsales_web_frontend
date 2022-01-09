@@ -513,7 +513,7 @@ li.label-item.page-item a {
 }
 .App{
   overflow-x: hidden;
-  overflow-y: visible;
+  /* overflow-y: visible; */
 }
 .return-policy{
   padding: 5px 10px !important;
@@ -528,7 +528,9 @@ li.label-item.page-item a {
 .text-right{
   text-align: right !important;
 }
-
+.ad-container{
+  height:40px !important;
+}
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;

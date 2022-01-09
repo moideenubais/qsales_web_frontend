@@ -19,7 +19,7 @@ function CarouselHome(props) {
   return (
     <div className="col-lg-12 col-md-12 col-sm-12">
       {showBannerAds && (
-        <div className="col-12  m-1">
+        <div className="col-12 pointer">
           <span
             style={{
               position: "absolute",
@@ -66,11 +66,11 @@ function CarouselHome(props) {
             
           >
             {adsReducer?.data?.ads?.map((ad, index) => (
-              <div key={index}>
+              <div key={index} className="ad-container">
               <img
                 src={`${imageBaseUrl}${ad?.ad_url}`}
                 className="w-100 ads-img"
-                style={{ height: "40px" }}
+                style={{ height: "46px" }}
                 alt={ad?.name}
               />
                </div>
