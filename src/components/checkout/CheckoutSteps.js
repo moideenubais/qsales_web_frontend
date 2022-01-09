@@ -397,7 +397,7 @@ function CheckoutSteps(props) {
               </div>
               <div className="d-flex flex-row justify-content-end small gap-2">
                 <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={() => {
                     setExpandedKey("1");
                   }}
@@ -480,7 +480,7 @@ function CheckoutSteps(props) {
                 <div className="d-flex flex-row justify-content-end small gap-2">
                   {isAuthenticated && (
                     <button
-                      className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                      className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                       onClick={() => {
                         setAddresses([
                           ...addresses,
@@ -575,7 +575,7 @@ function CheckoutSteps(props) {
               </div>
               <div className="d-flex flex-row justify-content-end small gap-2">
                 <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={() => {
                     setExpandedKey("4");
                   }}
@@ -592,7 +592,7 @@ function CheckoutSteps(props) {
               <CartComponent checkoutPage />
               <div className="d-flex flex-row justify-content-end small gap-2">
                 <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={() => {
                     setExpandedKey("5");
                   }}
@@ -627,7 +627,7 @@ function CheckoutSteps(props) {
               </div>
               <div className="d-flex flex-row justify-content-end small gap-2">
                 <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={placeOrder}
                 >
                   {t("placeOrder")}

@@ -24,7 +24,7 @@ function Product(props) {
           <h6
             className="p-0 m-0 mb-1 text-dark "
           >
-            {productName.length >16?`${productName?.substring(0,16)}...`:productName}
+            {productName.length >16?`${productName?.substring(0,13)}...`:productName}
           </h6>
           <p className="p-0 m-0 text-secondary fs-12">{description}</p>
         </div>
