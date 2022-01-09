@@ -19,7 +19,7 @@ function CarouselHome(props) {
     }
   }, [propsGetData]);
   return (
-    <div className={betweenCategories ?"col-lg-9 col-md-9 col-sm-12 mx-auto pt-4":"col-lg-12 col-md-12 col-sm-12"}>
+    <div className={betweenCategories ?"col-lg-9 col-md-9 col-sm-12 mx-auto pt-2":"col-lg-12 col-md-12 col-sm-12"}>
       {showBannerAds && (
         <div className="col-12 pointer position-relative">
           <span

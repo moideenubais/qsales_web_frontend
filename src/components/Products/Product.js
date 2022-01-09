@@ -23,9 +23,8 @@ function Product(props) {
         <div className="pt-3 product-description">
           <h6
             className="p-0 m-0 mb-1 text-dark "
-            style={{ width: "150px",whitespace:"normal" }}
           >
-            {productName}
+            {productName.length >16?`${productName?.substring(0,16)}...`:productName}
           </h6>
           <p className="p-0 m-0 text-secondary fs-12">{description}</p>
         </div>

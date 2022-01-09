@@ -38,7 +38,7 @@ function ProductsContainer(props) {
     <>
       {productsData ? (
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-          <div className="col-12 col-sm-12 col-md-9 col-lg-9 mx-auto pt-4 ">
+          <div className="col-12 col-sm-12 col-md-9 col-lg-9 mx-auto pt-2 ">
             {/* Product Container */}
             <div className="p-4 bg-white">
               {/* Title of Product Container */}

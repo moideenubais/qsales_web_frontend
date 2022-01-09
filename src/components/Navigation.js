@@ -20,7 +20,7 @@ function Navigation(props) {
       <div className="col-lg-12 col-md-12 col-sm-12 bg-light">
         <div className="col-lg-9 col-md-9 col-sm-12 mx-auto d-flex align-items-center flex-row  flex-wrap justify-content-start">
           {/* Catagories DropDown */}
-          <div className="nav-list p-3 small navdropdown">
+          <div className="nav-list p-2 small navdropdown">
             <DropdownButton id="dropdown-basic-button" title="All Categories">
               <Dropdown.Item href="/">All Categories</Dropdown.Item>
               {categories.map((cat) => (
@@ -43,7 +43,7 @@ function Navigation(props) {
             </div>
           </div>
           {/* Brands DropDown */}
-          <div className="nav-list p-3 small navdropdown">
+          <div className="nav-list p-2 small navdropdown">
             <DropdownButton id="dropdown-basic-button" title="Brands">
               {allBrands?.map((brand) => (
                 <Dropdown.Item href={`/brand/${brand.value}`}>
@@ -53,7 +53,7 @@ function Navigation(props) {
             </DropdownButton>
           </div>
           {/* Catagories DropDown */}
-          <div className="nav-list p-3 small navdropdown">
+          <div className="nav-list p-2 small navdropdown">
             <DropdownButton id="dropdown-basic-button" title="Shops">
               {allShops?.map((shop) => (
                 <Dropdown.Item href={`/shop/${shop.value}`}>
@@ -82,7 +82,7 @@ function Navigation(props) {
                 pathname: `/category/${cat._id}`,
               }}
             >
-              <div className="nav-list p-3 small">
+              <div className="nav-list p-2 small">
                 <h6 style={{ fontSize: 14 }}>{cat.i18nResourceBundle.name}</h6>
               </div>
             </Link>

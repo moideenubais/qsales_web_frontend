@@ -130,7 +130,7 @@ body {
 .product h6 {
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: wrap;
 }
 
 .product p {
