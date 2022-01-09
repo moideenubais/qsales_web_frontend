@@ -525,6 +525,10 @@ li.label-item.page-item a {
   font-weight: 500;
 }
 
+.text-right{
+  text-align: right !important;
+}
+
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;

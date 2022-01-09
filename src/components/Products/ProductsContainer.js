@@ -27,7 +27,7 @@ function ProductsContainer(props) {
   }, [propsGetData, datas]);
 
   const breakPoints = [
-    { width: 1, itemsToShow: 2 },
+    { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 3, itemsToScroll: 2, pagination: false },
     { width: 850, itemsToShow: 4 },
     { width: 1150, itemsToShow: 7, itemsToScroll: 2 },

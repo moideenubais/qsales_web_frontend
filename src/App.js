@@ -36,7 +36,6 @@ if (localStorage.jwtToken && !localStorage.user) {
   decoded.cart = decoded.cart ? [...decoded.cart, ...cartData] : cartData;
   store.dispatch(setCurrentUser({ decoded, token: localStorage.jwtToken }));
 }
-
 function WaitingComponent(Component) {
   return (props) => (
     <Suspense
@@ -60,6 +59,12 @@ function WaitingComponent(Component) {
 
 function App() {
   const { t } = useTranslation();
+
+  // React.useEffect(() => {
+  //   let dir=i18n.language=="en"?"ltr":"rtl";
+  //   document?.getElementsByTagName("html")[0]?.setAttribute("dir", dir);
+  //   },[i18n.language])
+
   return (
     <div className="App">
         <Router>

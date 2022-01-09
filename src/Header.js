@@ -25,7 +25,7 @@ function Header(props) {
   const { errors: userErrors, history, user, token: userToken, } = props;
   const { cartInLocal } = useCartContext();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const searchRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -187,6 +187,7 @@ function Header(props) {
       });
   }, [searchText]);
 
+  // console.log("Language",i18n.language)
   return (
     <>
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
@@ -211,8 +212,8 @@ function Header(props) {
             <input
               ref={searchRef}
               type="text"
-              placeholder="What are you looking for ?"
-              className="search border px-2 py-1 rounded w-100"
+              placeholder={t("searchBox")}
+              className={`search border px-2 py-1 rounded w-100 ${i18n.language=="ar"?"text-right":""}`}
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />

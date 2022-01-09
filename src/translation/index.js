@@ -55,6 +55,7 @@ export const englishTranslations = {
   edit: "Edit",
   delete: "Delete",
   addNew: "Add New",
+  searchBox:"What are you looking for ?"
 };
 
 export const arabicTranslations = {
@@ -114,4 +115,5 @@ export const arabicTranslations = {
   edit: "",
   delete: "",
   addNew: "",
+  searchBox:"عما تبحث ؟"
 };
