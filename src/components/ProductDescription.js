@@ -227,9 +227,10 @@ function ProductDescription(props) {
       )}
       {productDetails && !initialLoading && (
         <>
-          <div className="col-12 d-flex flex-row py-5">
+          <div className="col-12 py-5">
             {/* Product Image */}
-            <div className="col-6 p-0 m-0 h-100">
+            <div className="row">
+            <div className="col-md-6 col-sm-12 p-0 m-0 h-100">
               <ReactImageMagnify
                 className="product-magnify"
                 style={{ zIndex: 9 }}
@@ -278,7 +279,7 @@ function ProductDescription(props) {
             </div>
 
             {/* Product Description */}
-            <div className="col-6 d-flex flex-column px-5 ">
+            <div className="col-md-6 col-sm-12 d-flex flex-column px-5 ">
               <h5>{productDetails.i18nResourceBundle?.name} </h5>
               {/* {brand && (
                 <p className="small m-0 mt-3">
@@ -363,7 +364,7 @@ function ProductDescription(props) {
                   )}
                 </div>
               </div>
-              <p className="return-policy">3 days return policy</p>
+              {/* <p className="return-policy">3 days return policy</p> */}
               <hr className="my-4" />
               <div className="d-flex flex-row ">
                 <button
@@ -386,7 +387,7 @@ function ProductDescription(props) {
                 </button>
               </div>
             </div>
-
+            </div>
             {/* Checkout Section */}
             {/* <div className="col-3 border p-3 rounded-3 card">
               <h6 className="">Checkout</h6>

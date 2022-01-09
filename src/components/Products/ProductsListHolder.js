@@ -3,6 +3,7 @@ import ProductsContainer from "./ProductsContainer";
 import { connect } from "react-redux";
 import { getData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
+import CarouselHome from "../CarouselHome";
 
 const otherCategories = [
   {
@@ -47,7 +48,12 @@ function ProductsListHolder(props) {
     <>
       {allCategories?.map((data, index) => {
         return (
+          <>
           <ProductsContainer key={index} title={data.title} datas={data} />
+          {(index+1)%4==0 ?
+          <CarouselHome betweenCategories={true} />
+          :""}
+          </>
         );
       })}
     </>

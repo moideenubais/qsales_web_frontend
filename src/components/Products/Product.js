@@ -23,7 +23,7 @@ function Product(props) {
         <div className="pt-3 product-description">
           <h6
             className="p-0 m-0 mb-1 text-dark "
-            style={{ width: "150px", textOverflow: "ellipsis" }}
+            style={{ width: "150px",whitespace:"normal" }}
           >
             {productName}
           </h6>

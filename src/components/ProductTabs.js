@@ -24,6 +24,7 @@ function ProductTabs(props) {
         <TabList>
           <Tab>Overview</Tab>
           <Tab>Review</Tab>
+          <Tab>Refund Policy/Warrenty</Tab>
         </TabList>
 
         <TabPanel>
@@ -63,6 +64,9 @@ function ProductTabs(props) {
           ) : (
             <div>{reviewReducer.data?.msg}</div>
           )}
+        </TabPanel>
+        <TabPanel>
+          3 days return policy
         </TabPanel>
       </Tabs>
     </div>

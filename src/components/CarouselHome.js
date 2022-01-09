@@ -6,7 +6,7 @@ import { getData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
 
 function CarouselHome(props) {
-  const { getData: propsGetData, adsReducer } = props;
+  const { getData: propsGetData, adsReducer,betweenCategories } = props;
   const [showBannerAds, setShowBannerAds] = useState(true);
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
   const carouselRef = useRef(null);
@@ -14,17 +14,19 @@ function CarouselHome(props) {
   let resetTimeout;
 
   useEffect(() => {
-    propsGetData(ActionTypes.GET_ADS, "/ad");
+    if(!!!adsReducer?.data?.ads.length){
+      propsGetData(ActionTypes.GET_ADS, "/ad");
+    }
   }, [propsGetData]);
   return (
-    <div className="col-lg-12 col-md-12 col-sm-12">
+    <div className={betweenCategories ?"col-lg-9 col-md-9 col-sm-12 mx-auto pt-4":"col-lg-12 col-md-12 col-sm-12"}>
       {showBannerAds && (
-        <div className="col-12 pointer">
+        <div className="col-12 pointer position-relative">
           <span
             style={{
               position: "absolute",
               right: "0%",
-              top:"-1%",
+              top:"-7%",
               zIndex: 100,
             }}
             onClick={() => setShowBannerAds(false)}
@@ -61,8 +63,8 @@ function CarouselHome(props) {
           arrows={false}
           slidesToShow={1}
           slidesToScroll={1}
-          autoplay={true}
-          autoplaySpeed={2000}
+          // autoplay={true}
+          // autoplaySpeed={2000}
             
           >
             {adsReducer?.data?.ads?.map((ad, index) => (

@@ -6,17 +6,19 @@ import Carousel from "react-elastic-carousel";
 import { Link } from "react-router-dom";
 
 const BrandsContainer = (props) => {
-    const { getData: propsGetData, brandReducer } = props;
+    const { getData: propsGetData, shopReducer } = props;
 
-    const [allBrands, setAllBrands] = useState([]);
+    const [allShops, setAllShops] = useState([]);
   
     useEffect(() => {
-      propsGetData(ActionTypes.GET_BRANDS, "/brand");
+        if(!!!shopReducer?.data?.shops.length){
+            propsGetData(ActionTypes.GET_SHOPS, "/shop");
+        }
     }, [propsGetData]);
   
     useEffect(() => {
-      setAllBrands(brandReducer?.data?.brands || [])
-    }, [brandReducer]);
+        setAllShops(shopReducer?.data?.shops || [])
+    }, [shopReducer]);
   
     const breakPoints = [
         { width: 1, itemsToShow: 1 },
@@ -29,35 +31,35 @@ const BrandsContainer = (props) => {
 
     return (
       <>
-       {allBrands ? (
+       {allShops ? (
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">
           <div className="col-12 col-sm-12 col-md-9 col-lg-9 mx-auto pt-4 ">
             <div className="p-4 bg-white">
               <div className="py-4">
-                <h4 className="p-0 m-0">Brands</h4>
+                <h4 className="p-0 m-0">Shops</h4>
               </div>
               <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap">
                 <Carousel breakPoints={breakPoints} pagination={false}>
-                  {allBrands?.map(
+                  {allShops?.map(
                     (
-                      brand,
+                      shop,
                       index
                     ) => {
                       return (
                         <Link
-                          key={brand._id}
+                          key={shop._id}
                           className="text-decoration-none"
                           to={{
-                            pathname: `brand/${brand._id}`,
-                            query: { id: brand._id },
+                            pathname: `shop/${shop._id}`,
+                            query: { id: shop._id },
                           }}
                         >
                           <>
                             <div className=" product p-3 rounded mx-1">
                               <div className="d-flex justify-content-center">
                                 <img
-                                  src={`${process.env.REACT_APP_IMAGE_URL}/${brand?.logo_url}`}
-                                  alt="product"
+                                  src={`${process.env.REACT_APP_IMAGE_URL}/${shop?.logo_url}`}
+                                  alt="shop"
                                   className="img-fluid product-image"
                                 />
                               </div>
@@ -70,9 +72,8 @@ const BrandsContainer = (props) => {
                                     textAlign: "center",
                                   }}
                                 >
-                                  {brand?.i18nResourceBundle.name}
+                                  {shop?.i18nResourceBundle.name}
                                 </h6>
-                                {/* <p className="p-0 m-0 text-secondary fs-12">{description}</p> */}
                               </div>
                             </div>
                           </>
@@ -93,7 +94,7 @@ const BrandsContainer = (props) => {
   }
   
   const mapStateToProps = (state) => ({
-    brandReducer:state.getAllBrandsReducer
+    shopReducer:state.getAllShopsReducer
   });
   
   export default connect(mapStateToProps, {
