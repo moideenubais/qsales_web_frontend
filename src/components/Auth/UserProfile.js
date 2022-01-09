@@ -55,7 +55,9 @@ const UserProfile = (props) => {
         if (result?.error) return;
         getUser(id).then(res=>{
         dispatch(setCurrentUser({ decoded:res.data, token: result.payload.data.token }));
-        toast.success("Profile Updated");
+        toast.success("Profile Updated",{ 
+          className:"my-toast"
+        });
         props.setIsSignIn(true);
         });
         

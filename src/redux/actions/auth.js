@@ -54,7 +54,9 @@ export const loginUser = (user) => (dispatch) => {
         let decode=jwtDecode(token);
         getUser(decode._id).then(res=>{
           dispatch(setCurrentUser({ decoded:res.data, token: token }));
-          toast.success("Logged In");
+          toast.success("Logged In",{ 
+            className:"my-toast"
+          });
           resolve(true);
         })
        
@@ -91,7 +93,9 @@ export const resetPassword = (data) => (dispatch) => {
     axios
       .post("/login/resetPassword", data)
       .then((response) => {
-        toast.success("Mail has been send");
+        toast.success("Mail has been send",{ 
+          className:"my-toast"
+        });
         resolve(response);
       })
       .catch((err) => {

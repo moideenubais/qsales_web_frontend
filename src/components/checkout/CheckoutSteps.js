@@ -126,7 +126,9 @@ function CheckoutSteps(props) {
     ).then((res) => {
       if (!res.error) {
         getAddressData();
-      } else toast.error("Error on deleting address");
+      } else toast.error("Error on deleting address",{ 
+        className:"my-toast"
+      });
     });
   };
 
@@ -138,10 +140,14 @@ function CheckoutSteps(props) {
       addresses[index]
     ).then((res) => {
       if (!res.error) {
-        toast.success("Address updated");
+        toast.success("Address updated",{ 
+          className:"my-toast"
+        });
         setSelectedAddressIndex(index);
         getAddressData();
-      } else toast.error("Error on updating address");
+      } else toast.error("Error on updating address",{ 
+        className:"my-toast"
+      });
     });
   };
 
@@ -174,7 +180,9 @@ function CheckoutSteps(props) {
       }
       if (Object.keys(errorsData).length) {
         setErrors(errorsData);
-        toast.error(errorsData[Object.keys(errorsData)[0]]);
+        toast.error(errorsData[Object.keys(errorsData)[0]],{ 
+          className:"my-toast"
+        });
         return;
       }
     }else{
@@ -204,7 +212,9 @@ function CheckoutSteps(props) {
       }
       if (Object.keys(errorsData).length) {
         setErrors(errorsData);
-        toast.error(errorsData[Object.keys(errorsData)[0]]);
+        toast.error(errorsData[Object.keys(errorsData)[0]],{ 
+          className:"my-toast"
+        });
         return;
       }
     }
@@ -244,14 +254,18 @@ function CheckoutSteps(props) {
       };
     }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
-      if (res.error) toast.error("Error while creating order");
+      if (res.error) toast.error("Error while creating order",{ 
+        className:"my-toast"
+      });
       else {
         propsUpdateData("UPDATE_CART", `/user/cart`, {
           clear: true,
         }).then((res) => {
           history.push("/");
         });
-        toast.success("Order placed");
+        toast.success("Order placed",{ 
+          className:"my-toast"
+        });
         localStorage.removeItem("cart");
         setCartInLocal({});
       }

@@ -15,24 +15,16 @@ const SubscriptionForm = () => {
         axios.post(`/subscriber`,data).then(res=>{
             if(res && res.status==200) {
                  toast.success("Successfully Subscribed"
-                , {
-                    style: {
-                      border: "1px solid #713200",
-                      padding: "16px",
-                      color: "#713200",
-                    },
-                  }
+                , { 
+                  className:"my-toast"
+                }
                 );
             }
         }).catch(error=>{
             toast.error(error.err || "Failed to Subscribe"
-            , {
-                style: {
-                  border: "1px solid #713200",
-                  padding: "16px",
-                  color: "#713200",
-                },
-              })
+            , { 
+              className:"my-toast"
+            })
         })
       }
 

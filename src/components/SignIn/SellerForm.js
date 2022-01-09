@@ -14,9 +14,11 @@ const SellerForm = (props) => {
   const notify = () => {
     toast.success("Qsales will be contacting you soon!", {
       duration: 5000,
+      className:"my-toast"
     });
     toast.success("Registered Successfully!", {
       duration: 1000,
+      className:"my-toast"
     });
   };
 

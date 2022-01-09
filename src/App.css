@@ -463,7 +463,7 @@ a.dropdown-item {
 .nowrap{
   white-space: nowrap;
 }
-.cart-toast {
+.my-toast {
   padding: 17px !important;
   border-radius: 0px;
 }

@@ -184,7 +184,7 @@ function ProductDescription(props) {
     setCartInLocal(cart);
     if (!user?._id) {
       toast.success("Added To Cart",{ 
-        className:"cart-toast"
+        className:"my-toast"
       });
 
       if (isBuyNow) {
@@ -198,17 +198,15 @@ function ProductDescription(props) {
     }).then((res) => {
       if (!res.error){
         toast.success("Added To Cart",{ 
-          className:"cart-toast"
+          className:"my-toast"
         });
         if (isBuyNow) {
           history.push("/checkout");
         }
       } 
       else
-        toast.error("Something went wrong", {
-          style: {
-            padding: "30px !important",
-          },
+        toast.error("Something went wrong", { 
+          className:"my-toast"
         });
     });
   };
@@ -515,7 +513,9 @@ function ProductDescription(props) {
                     (res) => {
                       if (res.error) toast.error("Error while creating order");
                       else {
-                        toast.success("Order placed");
+                        toast.success("Order placed",{ 
+                          className:"my-toast"
+                        });
                         setShow(false);
                       }
                     }

@@ -151,7 +151,9 @@ const CartComponent = (props) => {
     if(cartItems.length>0){
     history.push("/checkout")
     }else{
-      toast.error("Cart is Empty")
+      toast.error("Cart is Empty",{ 
+        className:"my-toast"
+      })
     }
   }
 
