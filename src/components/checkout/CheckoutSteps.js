@@ -521,7 +521,7 @@ function CheckoutSteps(props) {
                   {t("deliveryNote")}
                 </p>
                 <input
-                  className="p-2 mb-2"
+                  className="p-2 mb-2 overflow-hidden"
                   onChange={(e) => {
                     if (isAuthenticated) {
                       return setOrderContent({
@@ -546,7 +546,7 @@ function CheckoutSteps(props) {
                   {t("deliveryTime")}
                 </p>
                 <select
-                  className="p-2"
+                  className="p-2 delivery-option"
                   name="delivery_time"
                   onChange={(e) => {
                     if (isAuthenticated) {

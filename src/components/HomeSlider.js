@@ -19,7 +19,7 @@ function CarouselHome(props) {
   return (
     <div className="col-md-9 col-lg-9 mx-auto col-sm-12">
       {showBannerAds && (
-        <div className="col-12 pointer">
+        <div className="col-12 pointer home-slider">
           {/* <span
             style={{
               position: "absolute",
@@ -60,13 +60,14 @@ function CarouselHome(props) {
            dots={true}
           arrows={true}
           slidesToShow={1}
+          adaptiveHeight={true}
           slidesToScroll={1}
           autoplay={true}
           autoplaySpeed={2000}
             
           >
             {adsReducer?.data?.ads?.map((ad, index) => (
-                <div>
+                <div className="slide">
               <img
                 src={`${imageBaseUrl}${ad?.ad_url}`}
                 className="w-100 "
