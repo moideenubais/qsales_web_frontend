@@ -9,9 +9,7 @@ import {
   createData,
   deleteData,
 } from "../../redux/actions";
-import {
-  logoutUser
-} from "../../redux/actions/auth.js";
+import { logoutUser } from "../../redux/actions/auth.js";
 import CartComponent from "../../components/Cart";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router";
@@ -59,15 +57,18 @@ function CheckoutSteps(props) {
     delivery_time: "Any time",
   });
 
-  const [location,setLocation]=useState({latitude:"",longitude:""})
+  const [location, setLocation] = useState({ latitude: "", longitude: "" });
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(handleLocation);
     }
-  }, [])
-  const handleLocation=(postion)=>{
-    setLocation({latitude:postion.coords.latitude,longitude:postion.coords.longitude});
-  }
+  }, []);
+  const handleLocation = (postion) => {
+    setLocation({
+      latitude: postion.coords.latitude,
+      longitude: postion.coords.longitude,
+    });
+  };
   const [unAuthenticatedUser, setUnAuthenticatedUser] = useState({
     firstName: "",
     lastName: "",
@@ -126,9 +127,10 @@ function CheckoutSteps(props) {
     ).then((res) => {
       if (!res.error) {
         getAddressData();
-      } else toast.error("Error on deleting address",{ 
-        className:"my-toast"
-      });
+      } else
+        toast.error("Error on deleting address", {
+          className: "my-toast",
+        });
     });
   };
 
@@ -140,14 +142,15 @@ function CheckoutSteps(props) {
       addresses[index]
     ).then((res) => {
       if (!res.error) {
-        toast.success("Address updated",{ 
-          className:"my-toast"
+        toast.success("Address updated", {
+          className: "my-toast",
         });
         setSelectedAddressIndex(index);
         getAddressData();
-      } else toast.error("Error on updating address",{ 
-        className:"my-toast"
-      });
+      } else
+        toast.error("Error on updating address", {
+          className: "my-toast",
+        });
     });
   };
 
@@ -158,12 +161,13 @@ function CheckoutSteps(props) {
       if (!orderContent.customer_name) {
         errorsData.customer_name = "Name is required";
       }
-      
+
       if (!orderContent.mobile) {
         errorsData.mobile = "mobile is required";
-      } else if (orderContent.mobile.length !== 10) {
-        errorsData.mobile = "Mobile length should be 10 characters";
       }
+      // else if (orderContent.mobile.length !== 10) {
+      //   errorsData.mobile = "Mobile length should be 10 characters";
+      // }
 
       if (!addresses[selectedAddressIndex].building_no) {
         errorsData.building_no = "Address (building no) is required";
@@ -175,27 +179,27 @@ function CheckoutSteps(props) {
         errorsData.zone_no = "Address (zone no) is required";
       }
 
-      if (!orderContent.delivery_note) {
-        errorsData.delivery_note = "Note is required";
-      }
+      // if (!orderContent.delivery_note) {
+      //   errorsData.delivery_note = "Note is required";
+      // }
       if (Object.keys(errorsData).length) {
         setErrors(errorsData);
-        toast.error(errorsData[Object.keys(errorsData)[0]],{ 
-          className:"my-toast"
+        toast.error(errorsData[Object.keys(errorsData)[0]], {
+          className: "my-toast",
         });
         return;
       }
-    }else{
+    } else {
       if (!unAuthenticatedUser.firstName || !unAuthenticatedUser.lastName) {
         errorsData.customer_name = "Name is required";
       }
-      
+
       if (!unAuthenticatedUser.mobile) {
         errorsData.mobile = "mobile is required";
-      } else if (unAuthenticatedUser.mobile.length !== 10) {
-        errorsData.mobile = "Mobile length should be 10 characters";
       }
-
+      // else if (unAuthenticatedUser.mobile.length !== 10) {
+      //   errorsData.mobile = "Mobile length should be 10 characters";
+      // }
 
       if (!unAuthenticatedUser.address.building_no) {
         errorsData.building_no = "Address (building no) is required";
@@ -207,13 +211,13 @@ function CheckoutSteps(props) {
         errorsData.zone_no = "Address (zone no) is required";
       }
 
-      if (!unAuthenticatedUser.delivery_note) {
-        errorsData.delivery_note = "Note is required";
-      }
+      // if (!unAuthenticatedUser.delivery_note) {
+      //   errorsData.delivery_note = "Note is required";
+      // }
       if (Object.keys(errorsData).length) {
         setErrors(errorsData);
-        toast.error(errorsData[Object.keys(errorsData)[0]],{ 
-          className:"my-toast"
+        toast.error(errorsData[Object.keys(errorsData)[0]], {
+          className: "my-toast",
         });
         return;
       }
@@ -223,7 +227,7 @@ function CheckoutSteps(props) {
     if (isAuthenticated) {
       orderData = {
         products: Object.values(getCartInLocalStorage()), //An array of objects
-        location:location, 
+        location: location,
         customer_id: user._id,
         mobile: user.mobile,
         customer_name: user.name,
@@ -239,7 +243,7 @@ function CheckoutSteps(props) {
     } else {
       orderData = {
         products: Object.values(getCartInLocalStorage()),
-        location:location, 
+        location: location,
         mobile: unAuthenticatedUser.mobile,
         customer_name:
           unAuthenticatedUser.firstName + " " + unAuthenticatedUser.lastName,
@@ -253,18 +257,22 @@ function CheckoutSteps(props) {
         payment_method: paymentMethod,
       };
     }
+    if(orderData.delivery_note===""){
+      delete orderData.delivery_note;
+    }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
-      if (res.error) toast.error("Error while creating order",{ 
-        className:"my-toast"
-      });
+      if (res.error)
+        toast.error("Error while creating order", {
+          className: "my-toast",
+        });
       else {
         propsUpdateData("UPDATE_CART", `/user/cart`, {
           clear: true,
         }).then((res) => {
           history.push("/");
         });
-        toast.success("Order placed",{ 
-          className:"my-toast"
+        toast.success("Order placed", {
+          className: "my-toast",
         });
         localStorage.removeItem("cart");
         setCartInLocal({});
@@ -354,9 +362,9 @@ function CheckoutSteps(props) {
 
                       <div className="d-flex flex-row justify-content-between mt-2 ">
                         <p className="fw-normal primary-color p-2 px-0 w-50 pointer">
-                          <u
-                          onClick={()=>props.logoutUser()}
-                          >{t("signInToAnotherAccount")}</u>
+                          <u onClick={() => props.logoutUser()}>
+                            {t("signInToAnotherAccount")}
+                          </u>
                         </p>
                       </div>
                     </div>
@@ -388,7 +396,7 @@ function CheckoutSteps(props) {
                     <br />
                     <button
                       className="mr-3 mt-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
-                      onClick={()=>setShowModal(true)}
+                      onClick={() => setShowModal(true)}
                     >
                       {t("login")}
                     </button>
@@ -532,7 +540,7 @@ function CheckoutSteps(props) {
                     handleChangeForUnAuthenticatedUser(e);
                   }}
                   name="delivery_note"
-                  placeholder=""
+                  placeholder="Optional"
                   value={
                     isAuthenticated
                       ? orderContent.delivery_note
@@ -625,40 +633,40 @@ function CheckoutSteps(props) {
                 />
                 <p className="small ms-2">{t("netBanking")}</p>
               </div>
-              <div className="d-flex flex-row justify-content-end small gap-2">
-                <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
-                  onClick={placeOrder}
-                >
-                  {t("placeOrder")}
-                </button>
-              </div>
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+        <div className="d-flex flex-row justify-content-end small gap-2">
+          <button
+            className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
+            onClick={placeOrder}
+          >
+            {t("placeOrder")}
+          </button>
+        </div>
       </div>
       {showModal ? (
-          isSignIn && !forgotPwd ? (
-            <SignIn
-              setShowModal={setShowModal}
-              setForgotPwd={setForgotPwd}
-              setIsSignIn={setIsSignIn}
-            />
-          ) : (
-            <SignUp setShowModal={setShowModal} setIsSignIn={setIsSignIn} />
-          )
-        ) : (
-          ""
-        )}
-        {showModal && forgotPwd ? (
-          <ForgetPassword
-            setIsSignIn={setIsSignIn}
-            setForgotPwd={setForgotPwd}
+        isSignIn && !forgotPwd ? (
+          <SignIn
             setShowModal={setShowModal}
+            setForgotPwd={setForgotPwd}
+            setIsSignIn={setIsSignIn}
           />
         ) : (
-          ""
-        )}
+          <SignUp setShowModal={setShowModal} setIsSignIn={setIsSignIn} />
+        )
+      ) : (
+        ""
+      )}
+      {showModal && forgotPwd ? (
+        <ForgetPassword
+          setIsSignIn={setIsSignIn}
+          setForgotPwd={setForgotPwd}
+          setShowModal={setShowModal}
+        />
+      ) : (
+        ""
+      )}
     </React.Fragment>
   );
 }
@@ -682,5 +690,5 @@ export default connect(mapStateToProps, {
   createData,
   deleteData,
   updateData,
-  logoutUser
+  logoutUser,
 })(CheckoutSteps);

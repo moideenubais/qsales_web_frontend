@@ -16,7 +16,7 @@ import ShopContainer from "../components/Shops/ShopContainer";
 function Home() {
   return (
     <div>
-      <CarouselHome />
+      {/* <CarouselHome /> */}
       <Header />
       <Navigation />
       <HomeSlider />

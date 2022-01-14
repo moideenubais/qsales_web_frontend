@@ -50,9 +50,9 @@ function ProductsListHolder(props) {
         return (
           <>
           <ProductsContainer key={index} title={data.title} datas={data} />
-          {(index+1)%4==0 ?
+          {/* {(index+1)%4==0 ?
           <CarouselHome betweenCategories={true} />
-          :""}
+          :""} */}
           </>
         );
       })}

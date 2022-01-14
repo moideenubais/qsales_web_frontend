@@ -49,11 +49,31 @@ function Footer() {
                 <img src="../assets/images/app-store.svg" className="" />
                 <img src="../assets/images/google-play.svg" className="ms-3" />
               </div>
-              <div className="mt-3">
-                <a href="http://instagram.com/_u/qsales2022/" target="_blank">
+              <div className="mt-3 d-flex flex-row">
+                <a className="mx-1" href="http://instagram.com/_u/qsales2022/" target="_blank">
                   <div className="floating-btn">
                     <img
                       src="../assets/images/insta.png"
+                      width="28"
+                      height="28"
+                      className="img-fluid"
+                    />
+                  </div>
+                </a>
+                <a className="mx-1" href="http://facebook.com" target="_blank">
+                  <div className="floating-btn">
+                    <img
+                      src="../assets/images/facebook.png"
+                      width="28"
+                      height="28"
+                      className="img-fluid"
+                    />
+                  </div>
+                </a>
+                <a className="mx-1" href="http://facebook.com" target="_blank">
+                  <div className="floating-btn">
+                    <img
+                      src="../assets/images/twitter.png"
                       width="28"
                       height="28"
                       className="img-fluid"
@@ -64,7 +84,36 @@ function Footer() {
             </div>
           </div>
         </div>
-
+        <div className="col-9 mx-auto">
+          <small className="d-block text-muted">Email: demo@mail.com</small>
+          <small className="d-block text-muted">Office Address: xxx xxx xxx xxx</small>
+        </div>
+        <div className="d-flex flex-row justify-content-between flex-wrap col-9 mx-auto py-3 border-top footer-features">
+          <div className="d-flex">
+          <img src="https://img.icons8.com/ios-glyphs/30/000000/cash-.png" width="20" height="20"/>
+            <span>Cash on Delivery</span>
+          </div>
+          <div className="d-flex">
+          <img src="https://img.icons8.com/ios/50/000000/deliver-food.png" width="20" height="20"/>
+            <span>24 Hours Delivery</span>
+          </div>
+          <div className="d-flex">
+          <img src="https://img.icons8.com/ios-filled/50/000000/checkout.png" width="20" height="20"/>
+            <span>Easy Checkout</span>
+          </div>
+          {/* <div className="d-flex">
+          <img src="https://img.icons8.com/ios/50/000000/home--v1.png" width="20" height="20"/>
+            <span>Home Delivery</span>
+          </div> */}
+          <div className="d-flex">
+          <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-support-ecommerce-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" width="20" height="20"/>
+            <span>24/7 Customer Support</span>
+          </div>
+          <div className="d-flex">
+          <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-quality-business-kiranshastry-lineal-kiranshastry-1.png" width="20" height="20"/>
+            <span>Premium Quality</span>
+          </div>
+        </div>
         <div className="d-flex flex-column col-9 mx-auto pt-3 border-top">
           <div className="col-6 d-flex flex-row flex-wrap justify-content-between text-decoration-none ">
             <Link

@@ -31,7 +31,7 @@ const BrandsContainer = (props) => {
       <>
        {allBrands ? (
         <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-          <div className="col-12 col-sm-12 col-md-9 col-lg-9 mx-auto pt-4 ">
+          <div className="col-12 mx-auto pt-2 ">
             <div className="p-4 bg-white">
               <div className="py-4">
                 <h4 className="p-0 m-0">Brands</h4>

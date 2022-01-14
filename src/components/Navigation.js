@@ -20,8 +20,8 @@ function Navigation(props) {
       <div className="col-lg-12 col-md-12 col-sm-12 bg-light">
         <div className="col-lg-9 col-md-9 col-sm-12 mx-auto d-flex align-items-center flex-row  flex-wrap justify-content-start">
           {/* Catagories DropDown */}
-          <div className="nav-list p-2 small navdropdown">
-            <DropdownButton id="dropdown-basic-button" title="All Categories">
+          <div className="nav-list p-2 small navdropdown" style={{backgroundColor:"#ffe049",borderRadius:"2px"}}>
+            <DropdownButton id="dropdown-basic-button" style={{color:"#fff"}} title="All Categories">
               <Dropdown.Item href="/">All Categories</Dropdown.Item>
               {categories.map((cat) => (
                 <Dropdown.Item href={`/category/${cat._id}`}>
