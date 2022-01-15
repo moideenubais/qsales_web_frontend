@@ -178,3 +178,28 @@ display: flex,
 align-items: center,
 justify-content: center,
 `;
+
+export const CheckoutPageSmallWrapper = styled.span`
+  width: 25px;
+  height: 25px;
+  background-color: #c0c0c0;
+  color: white;
+  border-radius: 13px;
+  padding: 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CheckoutPagePriceWrapper = styled.div`
+  background-color: #8f1d3f;
+  color: white;
+  height: 30px;
+  width: 80px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+`;

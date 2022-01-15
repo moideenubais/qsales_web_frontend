@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Accordion from "react-bootstrap/Accordion";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -10,7 +9,6 @@ import {
   deleteData,
 } from "../../redux/actions";
 import { logoutUser } from "../../redux/actions/auth.js";
-import CartComponent from "../../components/Cart";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router";
 import { getCartInLocalStorage } from "../../heper";
@@ -18,6 +16,11 @@ import { useCartContext } from "../../context/cartContext";
 import SignIn from "../../components/Auth/SignIn";
 import SignUp from "../../components/Auth/SignUp";
 import ForgetPassword from "../../components/Auth//ForgetPassword";
+import {
+  CheckoutPagePriceWrapper,
+  CheckoutPageSmallWrapper,
+} from "../Cart/styles";
+import useMediaQuery from "../../custom-hooks/useMediaQuery";
 
 const ADDRESS_FIELDS = [
   { label: "Building Number", name: "building_no" },
@@ -38,7 +41,7 @@ function CheckoutSteps(props) {
     userData,
   } = props;
 
-  ///LoginLogout STates
+  ///Login Logout States
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
   const [forgotPwd, setForgotPwd] = useState(false);
@@ -52,6 +55,8 @@ function CheckoutSteps(props) {
   const [editable, setEditable] = React.useState(null);
   const [paymentMethod, setPaymentMethod] = React.useState("cod");
   const [errors, setErrors] = React.useState({});
+  const [cartItems, setCartItems] = useState([]);
+  const isDesktop = useMediaQuery("(min-width: 500px)");
   const [orderContent, setOrderContent] = React.useState({
     delivery_note: "", // [OPTIONAL]
     delivery_time: "Any time",
@@ -85,6 +90,12 @@ function CheckoutSteps(props) {
 
   const onSubmit = (data) => setResult(JSON.stringify(data));
 
+  const getCartItems = () => {
+    propsGetData("GET_CARTS", "user/cart").then((res) => {
+      if (res.error) return;
+      setCartItems(res.payload.data.cart);
+    });
+  };
   const getAddressData = () => {
     propsGetData("GET_USER", `user/${user?._id}`).then((res) => {
       if (!res.error) setAddresses(res.payload.data.address);
@@ -93,6 +104,18 @@ function CheckoutSteps(props) {
 
   useEffect(() => {
     getAddressData();
+
+    if (!user?._id) {
+      const cart = getCartInLocalStorage();
+      propsCreateData("GET_CART_DETAILS", "user/cartDetails", {
+        cart: Object.values(cart),
+      }).then((res) => {
+        if (res.error) return;
+        setCartItems(res.payload.data.cart);
+      });
+    } else {
+      getCartItems();
+    }
   }, []);
 
   useEffect(() => {
@@ -152,6 +175,14 @@ function CheckoutSteps(props) {
           className: "my-toast",
         });
     });
+  };
+
+  const calcSubTotal = () => {
+    let subTotal = 0;
+    cartItems.forEach((item) => {
+      subTotal += item.product?.varient.unit_price * item.quantity;
+    });
+    return subTotal;
   };
 
   const placeOrder = () => {
@@ -257,7 +288,7 @@ function CheckoutSteps(props) {
         payment_method: paymentMethod,
       };
     }
-    if(orderData.delivery_note===""){
+    if (orderData.delivery_note === "") {
       delete orderData.delivery_note;
     }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
@@ -311,339 +342,339 @@ function CheckoutSteps(props) {
     return setUnAuthenticatedUser({ ...unAuthenticatedUser, [name]: value });
   };
 
+  const OrderSummaryComponent = () => (
+    <div
+      className={`${
+        !isDesktop ? "mt-2" : "p-4"
+      } d-flex flex-column col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4`}
+    >
+      <div className="mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <h3>{t("shoppingCart")}</h3>
+      </div>
+      <div className="col-12 mb-3 border">
+        {cartItems.length > 0 &&
+          cartItems.map((item, index) => (
+            <div className="d-flex flex-column p-3 border-bottom">
+              <div className="d-flex flex-row justify-content-between">
+                <span className="col-9">
+                  {item.product?.i18nResourceBundle.name}
+                </span>
+                <CheckoutPagePriceWrapper className="col-3">
+                  {t("riyalText")} {item.product?.varient.unit_price}
+                </CheckoutPagePriceWrapper>
+              </div>
+              <CheckoutPageSmallWrapper>
+                x {item.quantity}
+              </CheckoutPageSmallWrapper>
+            </div>
+          ))}
+        <div className={`d-flex flex-column p-3 border-bottom`}>
+          <div className="d-flex flex-row justify-content-between">
+            <span className="col-9">{t("subTotal")}</span>
+            <CheckoutPagePriceWrapper className="col-3">
+              {t("riyalText")} {calcSubTotal()}
+            </CheckoutPagePriceWrapper>
+          </div>
+          {/* <span style={{ height: 25 }}></span> */}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <React.Fragment>
-      <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 p-4 ">
-        <Accordion
-          defaultActiveKey="0"
-          activeKey={expandedKey}
-          onSelect={(e) => {
-            setExpandedKey(e);
-          }}
+      <div className="row" style={{ backgroundColor: "white" }}>
+        <div className="col-12 mb-3">
+          <div className="d-flex justify-content-center mt-3">
+            <h2>Checkout</h2>
+          </div>
+        </div>
+        <div
+          className={`${
+            isDesktop && "d-flex flex-column align-items-center"
+          } col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 p-4`}
         >
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>{t("userDetails")}</Accordion.Header>
-            <Accordion.Body className="p-3">
-              <div className="col-12">
-                {isAuthenticated ? (
-                  <div className="">
-                    <div className="d-flex flex-column">
-                      <span className="fw-normal ">
-                        {t("name")}{" "}
-                        <input
-                          type="text"
-                          name="customer_name"
-                          className="p-2 mb-2"
-                          value={orderContent.customer_name}
-                          onChange={({ target }) => {
-                            setOrderContent({
-                              ...orderContent,
-                              customer_name: target.value,
-                            });
-                          }}
-                        />
-                        {errors.customer_name && <p>{errors.customer_name}</p>}
-                      </span>
-                      <span className="fw-normal mt-2">
-                        {t("phone")}{" "}
-                        <input
-                          className="p-2 mb-2"
-                          name="mobile"
-                          value={orderContent.mobile}
-                          onChange={({ target }) => {
-                            setOrderContent({
-                              ...orderContent,
-                              mobile: target.value,
-                            });
-                          }}
-                        />
-                        {errors.mobile && <p>{errors.mobile}</p>}
-                      </span>
+          <div className="mb-3 col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <h3>{t("billingAddress")}</h3>
+          </div>
+          <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            {isAuthenticated ? (
+              <div className="">
+                <div className="d-flex flex-column">
+                  <label className="w-100">{t("fullName")}</label>
+                  <input
+                    type="text"
+                    name="customer_name"
+                    className="p-2 mb-2"
+                    value={orderContent.customer_name}
+                    onChange={({ target }) => {
+                      setOrderContent({
+                        ...orderContent,
+                        customer_name: target.value,
+                      });
+                    }}
+                    placeholder={t("fullName")}
+                  />
+                  {errors.customer_name && <p>{errors.customer_name}</p>}
+                  <label className="w-100">{t("phone")}</label>
+                  <input
+                    className="p-2 mb-2"
+                    name="mobile"
+                    value={orderContent.mobile}
+                    onChange={({ target }) => {
+                      setOrderContent({
+                        ...orderContent,
+                        mobile: target.value,
+                      });
+                    }}
+                    placeholder={t("phone")}
+                  />
+                  {errors.mobile && <p>{errors.mobile}</p>}
 
-                      <div className="d-flex flex-row justify-content-between mt-2 ">
-                        <p className="fw-normal primary-color p-2 px-0 w-50 pointer">
-                          <u onClick={() => props.logoutUser()}>
-                            {t("signInToAnotherAccount")}
-                          </u>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <input
-                      className="p-2 mb-2 me-2"
-                      name="firstName"
-                      value={unAuthenticatedUser.firstName}
-                      onChange={handleChangeForUnAuthenticatedUser}
-                      placeholder="First name"
-                    />
-                    <input
-                      className="p-2 mb-2"
-                      name="lastName"
-                      value={unAuthenticatedUser.lastName}
-                      onChange={handleChangeForUnAuthenticatedUser}
-                      placeholder="Last name"
-                    />
-                    <br />
-                    <input
-                      className="p-2 mb-2"
-                      name="mobile"
-                      value={unAuthenticatedUser.phone}
-                      onChange={handleChangeForUnAuthenticatedUser}
-                      placeholder="Mobile Number"
-                    />
-                    <br />
-                    <button
-                      className="mr-3 mt-3 btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
-                      onClick={() => setShowModal(true)}
-                    >
-                      {t("login")}
-                    </button>
-                  </>
-                )}
+                  {/* <div className="d-flex flex-row justify-content-between mt-2 ">
+                  <p className="fw-normal primary-color p-2 px-0 w-50 pointer">
+                    <u onClick={() => props.logoutUser()}>
+                      {t("signInToAnotherAccount")}
+                    </u>
+                  </p>
+                </div> */}
+                </div>
               </div>
-              <div className="d-flex flex-row justify-content-end small gap-2">
-                <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
-                  onClick={() => {
-                    setExpandedKey("1");
-                  }}
-                >
-                  {t("continue")}
-                </button>
+            ) : (
+              <div className="d-flex flex-column">
+                <div className="d-flex">
+                  <label className="w-100">{t("firstName")}</label>
+                  <label className="w-100">{t("lastName")}</label>
+                </div>
+                <div className="d-flex">
+                  <input
+                    className="p-2 mb-2 col-6"
+                    name="firstName"
+                    value={unAuthenticatedUser.firstName}
+                    onChange={handleChangeForUnAuthenticatedUser}
+                    placeholder={t("firstName")}
+                  />
+                  <input
+                    className="p-2 mb-2 ms-1 col-6"
+                    name="lastName"
+                    value={unAuthenticatedUser.lastName}
+                    onChange={handleChangeForUnAuthenticatedUser}
+                    placeholder={t("lastName")}
+                  />
+                </div>
+                <label className="w-100">{t("phone")}</label>
+                <input
+                  className="p-2 mb-2"
+                  name="mobile"
+                  value={unAuthenticatedUser.phone}
+                  onChange={handleChangeForUnAuthenticatedUser}
+                  placeholder={t("phone")}
+                />
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="mr-3 btn  btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                    onClick={() => setShowModal(true)}
+                  >
+                    {t("login")}
+                  </button>
+                </div>
               </div>
-            </Accordion.Body>
-          </Accordion.Item>
+            )}
+          </div>
 
-          <Accordion.Item eventKey="1" expanded={expandedKey === "1"}>
-            <Accordion.Header>{t("deliveryAddress")}</Accordion.Header>
-            <Accordion.Body className="p-3">
-              <div className="col-12 align-items-start justify-content-start">
-                {addresses?.map((address, i) => (
-                  <div className="mb-3 border-bottom py-2 align-items-start justify-content-start">
-                    <div className="align-items-start justify-content-start">
-                      <input
-                        className="form-check-input p-2 mt-1 me-3 ms-2 mb-2 align-self-start "
-                        type="radio"
-                        onChange={() => setSelectedAddressIndex(i)}
-                        name="flexRadioDefault"
-                        checked={selectedAddressIndex === i}
-                        id="flexRadioDefault1"
-                      />
-                      {ADDRESS_FIELDS.map(({ label, name }) => (
-                        <div className="d-flex">
-                          <label className="p-2 w-25">{label}</label>
-                          <input
-                            className="p-2 ml-5 w-75 mb-2"
-                            name={name}
-                            disabled={editable !== i}
-                            onChange={({ target }) =>
-                              handleAddressChange({ target }, i)
-                            }
-                            onBlur={() => updateAddress(i)}
-                            value={address[name] || ""}
-                            placeholder={`Enter your ${name.replace("_", " ")}`}
-                          />
-                        </div>
-                      ))}
-                      <div className="d-flex gap-3 ms-2">
-                        <p
-                          style={{
-                            cursor: "pointer",
-                          }}
-                          className="p-0 primary-color gap-1"
-                          onClick={() => {
-                            setEditable(i);
-                          }}
-                        >
-                          {t("edit")}
-                        </p>
-                        <p
-                          style={{ cursor: "pointer" }}
-                          className="p-0 m-0 primary-color "
-                          onClick={() => deletAddress(i)}
-                        >
-                          {t("delete")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {!isAuthenticated &&
-                  ADDRESS_FIELDS.map(({ label, name }) => (
+          <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 align-items-start justify-content-start">
+            {addresses?.map((address, i) => (
+              <div className="mb-3 border-bottom py-2 align-items-start justify-content-start">
+                <div className="align-items-start justify-content-start">
+                  <input
+                    className="form-check-input p-2 mt-1 me-3 ms-2 mb-2 align-self-start "
+                    type="radio"
+                    onChange={() => setSelectedAddressIndex(i)}
+                    name="flexRadioDefault"
+                    checked={selectedAddressIndex === i}
+                    id="flexRadioDefault1"
+                  />
+                  {ADDRESS_FIELDS.map(({ label, name }) => (
                     <div className="d-flex">
                       <label className="p-2 w-25">{label}</label>
                       <input
                         className="p-2 ml-5 w-75 mb-2"
                         name={name}
-                        onChange={(e) =>
-                          handleChangeForUnAuthenticatedUser(e, true)
+                        disabled={editable !== i}
+                        onChange={({ target }) =>
+                          handleAddressChange({ target }, i)
                         }
-                        value={unAuthenticatedUser.address[name] || ""}
+                        onBlur={() => updateAddress(i)}
+                        value={address[name] || ""}
                         placeholder={`Enter your ${name.replace("_", " ")}`}
                       />
                     </div>
                   ))}
-                <div className="d-flex flex-row justify-content-end small gap-2">
-                  {isAuthenticated && (
-                    <button
-                      className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
+                  <div className="d-flex gap-3 ms-2">
+                    <p
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      className="p-0 primary-color gap-1"
                       onClick={() => {
-                        setAddresses([
-                          ...addresses,
-                          {
-                            building_no: "",
-                            street_no: "",
-                            zone_no: "",
-                          },
-                        ]);
-                        setEditable(addresses.length);
+                        setEditable(i);
                       }}
                     >
-                      {t("addNew")}
-                    </button>
-                  )}
-                  {addresses.length ? (
-                    <button
-                      className="btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
-                      onClick={() => {
-                        setExpandedKey("3");
-                      }}
+                      {t("edit")}
+                    </p>
+                    <p
+                      style={{ cursor: "pointer" }}
+                      className="p-0 m-0 primary-color "
+                      onClick={() => deletAddress(i)}
                     >
-                      {t("continue")}
-                    </button>
-                  ) : (
-                    <></>
-                  )}
+                      {t("delete")}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="3">
-            <Accordion.Header>{t("deliveryPreferences")}</Accordion.Header>
-            <Accordion.Body className="p-3">
-              <div className="d-flex">
-                <p className="small fw-normal text-dark mb-1 col-2">
-                  {t("deliveryNote")}
-                </p>
-                <input
-                  className="p-2 mb-2 overflow-hidden"
-                  onChange={(e) => {
-                    if (isAuthenticated) {
-                      return setOrderContent({
-                        ...orderContent,
-                        delivery_note: e.target.value,
-                      });
+            ))}
+            {!isAuthenticated &&
+              ADDRESS_FIELDS.map(({ label, name }) => (
+                <div className="d-flex flex-column mt-2 ">
+                  <label className="w-100">{label}</label>
+                  <input
+                    className="p-2 ml-5 mb-2"
+                    name={name}
+                    onChange={(e) =>
+                      handleChangeForUnAuthenticatedUser(e, true)
                     }
-                    handleChangeForUnAuthenticatedUser(e);
-                  }}
-                  name="delivery_note"
-                  placeholder="Optional"
-                  value={
-                    isAuthenticated
-                      ? orderContent.delivery_note
-                      : unAuthenticatedUser.delivery_note
-                  }
-                />
-                {errors.delivery_note && <p>{errors.delivery_note}</p>}
-              </div>
-              <div className="d-flex">
-                <p className="small fw-normal text-dark mb-1 col-2">
-                  {t("deliveryTime")}
-                </p>
-                <select
-                  className="p-2 delivery-option"
-                  name="delivery_time"
-                  onChange={(e) => {
-                    if (isAuthenticated) {
-                      return setOrderContent({
-                        ...orderContent,
-                        delivery_time: e.target.value,
-                      });
-                    }
-                    handleChangeForUnAuthenticatedUser(e);
-                  }}
-                  value={
-                    isAuthenticated
-                      ? orderContent.delivery_time
-                      : unAuthenticatedUser.delivery_time
-                  }
-                >
-                  {[
-                    "Any time",
-                    "Morning (8am - 12pm)",
-                    "Noon (12pm - 4pm)",
-                    "Evening (4pm - 8pm)",
-                  ].map((v) => (
-                    <option value={v}>{v}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="d-flex flex-row justify-content-end small gap-2">
+                    value={unAuthenticatedUser.address[name] || ""}
+                    placeholder={`Enter your ${name.replace("_", " ")}`}
+                  />
+                </div>
+              ))}
+            <div className="d-flex flex-row justify-content-end small gap-2">
+              {isAuthenticated && (
                 <button
                   className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={() => {
-                    setExpandedKey("4");
+                    setAddresses([
+                      ...addresses,
+                      {
+                        building_no: "",
+                        street_no: "",
+                        zone_no: "",
+                      },
+                    ]);
+                    setEditable(addresses.length);
+                  }}
+                >
+                  {t("addNew")}
+                </button>
+              )}
+              {addresses.length ? (
+                <button
+                  className="btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
+                  onClick={() => {
+                    setExpandedKey("3");
                   }}
                 >
                   {t("continue")}
                 </button>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
 
-          <Accordion.Item eventKey="4">
-            <Accordion.Header>{t("orderSummarySmall")}</Accordion.Header>
-            <Accordion.Body className="p-3">
-              <CartComponent checkoutPage />
-              <div className="d-flex flex-row justify-content-end small gap-2">
-                <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
-                  onClick={() => {
-                    setExpandedKey("5");
-                  }}
-                >
-                  {t("proceedToPay")}
-                </button>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
+          <div className="d-flex flex-column col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <label className="w-100">{t("deliveryNote")}</label>
 
-          <Accordion.Item eventKey="5">
-            <Accordion.Header>{t("paymentOptions")}</Accordion.Header>
-            <Accordion.Body className="p-3">
-              <div className="d-flex flex-row align-items-center mb-1">
+            <input
+              className="p-2 mb-2 overflow-hidden"
+              onChange={(e) => {
+                if (isAuthenticated) {
+                  return setOrderContent({
+                    ...orderContent,
+                    delivery_note: e.target.value,
+                  });
+                }
+                handleChangeForUnAuthenticatedUser(e);
+              }}
+              name="delivery_note"
+              placeholder="Optional"
+              value={
+                isAuthenticated
+                  ? orderContent.delivery_note
+                  : unAuthenticatedUser.delivery_note
+              }
+            />
+            {errors.delivery_note && <p>{errors.delivery_note}</p>}
+          </div>
+          <div className="d-flex flex-column col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <label className="w-100">{t("deliveryTime")}</label>
+            <select
+              className="p-2"
+              name="delivery_time"
+              onChange={(e) => {
+                if (isAuthenticated) {
+                  return setOrderContent({
+                    ...orderContent,
+                    delivery_time: e.target.value,
+                  });
+                }
+                handleChangeForUnAuthenticatedUser(e);
+              }}
+              value={
+                isAuthenticated
+                  ? orderContent.delivery_time
+                  : unAuthenticatedUser.delivery_time
+              }
+            >
+              {[
+                "Any time",
+                "Morning (8am - 12pm)",
+                "Noon (12pm - 4pm)",
+                "Evening (4pm - 8pm)",
+              ].map((v) => (
+                <option value={v}>{v}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="d-flex flex-column mt-2 col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <label className="w-100">{t("paymentOptions")}</label>
+            <div className="d-flex mt-1">
+              <div className="d-flex align-items-center me-3">
                 <input
                   type="radio"
                   value="cod"
                   checked={paymentMethod === "cod"}
                   onChange={() => setPaymentMethod("cod")}
                 />
-                <p className="small ms-2">{t("cashOnDelivery")}</p>
+                <label className="ms-2">{t("cashOnDelivery")}</label>
               </div>
 
-              <div className="d-flex flex-row align-items-center">
+              <div className="d-flex align-items-center">
                 <input
                   type="radio"
                   value="card"
                   checked={paymentMethod === "card"}
                   onChange={() => setPaymentMethod("card")}
                 />
-                <p className="small ms-2">{t("netBanking")}</p>
+                <label className="ms-2">{t("netBanking")}</label>
               </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
-        <div className="d-flex flex-row justify-content-end small gap-2">
-          <button
-            className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
-            onClick={placeOrder}
-          >
-            {t("placeOrder")}
-          </button>
+            </div>
+          </div>
+          {!isDesktop && <OrderSummaryComponent />}
+
+          <div className="d-flex flex-row justify-content-end small gap-2 col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <button
+              className={`${
+                !isDesktop ? "w-50" : "w-25"
+              } mr-3 btn  btn-sm btn-qs-primary fw-normal p-2 small`}
+              onClick={placeOrder}
+            >
+              {t("placeOrder")}
+            </button>
+          </div>
         </div>
+        {isDesktop && <OrderSummaryComponent />}
       </div>
       {showModal ? (
         isSignIn && !forgotPwd ? (
