@@ -291,6 +291,9 @@ function CheckoutSteps(props) {
     if (orderData.delivery_note === "") {
       delete orderData.delivery_note;
     }
+    if (orderData.location.longitude === "" || orderData.location.latitude === "") {
+      delete orderData.location;
+    }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
       if (res.error)
         toast.error("Error while creating order", {
