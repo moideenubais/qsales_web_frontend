@@ -135,10 +135,12 @@ const CartComponent = (props) => {
     // debugger;
     removeCartFromLocalStorage(varient_id);
     const cart = getCartInLocalStorage();
-    
+
     const clear = !Object.values(cart).length;
     setCartInLocal(Object.values(cart));
-    setCartItems(cartItems.filter(product=>product.varient_id!==varient_id))
+    setCartItems(
+      cartItems.filter((product) => product.varient_id !== varient_id)
+    );
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
       clear,
@@ -147,15 +149,15 @@ const CartComponent = (props) => {
     });
   };
 
-  const handleCheckout=()=>{
-    if(cartItems.length>0){
-    history.push("/checkout")
-    }else{
-      toast.error("Cart is Empty",{ 
-        className:"my-toast"
-      })
+  const handleCheckout = () => {
+    if (cartItems.length > 0) {
+      history.push("/checkout");
+    } else {
+      toast.error("Cart is Empty", {
+        className: "my-toast",
+      });
     }
-  }
+  };
 
   const getAttributesValue = (varient) => {
     if (varient == null) return <></>;
@@ -187,10 +189,7 @@ const CartComponent = (props) => {
                   {t("shoppingCart")} ({cartItems.length})
                 </TopText>
               </TopTexts>
-              <TopButton
-                type="filled"
-                onClick={() => handleCheckout()}
-              >
+              <TopButton type="filled" onClick={() => handleCheckout()}>
                 {t("checkoutNow")}
               </TopButton>
             </Top>
@@ -216,7 +215,9 @@ const CartComponent = (props) => {
                     <PriceDetail>
                       <ProductAmountContainer>
                         <CartPlusIcon />
-                        <ProductAmount>Quantity: {item.quantity}</ProductAmount>
+                        <ProductAmount>
+                          {t("quantity")}: {item.quantity}
+                        </ProductAmount>
                         <CartMinusIcon />
                       </ProductAmountContainer>
                       <ProductPrice>

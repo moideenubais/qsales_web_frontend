@@ -51,11 +51,16 @@ export const englishTranslations = {
   orderSummarySmall: "Order Summary",
   proceedToPay: "Proceed to pay",
   paymentOptions: "Payment Options",
-  placeOrder: "Place order",
+  placeOrder: "Place Order",
   edit: "Edit",
   delete: "Delete",
   addNew: "Add New",
-  searchBox:"What are you looking for ?"
+  searchBox: "What are you looking for ?",
+  billingAddress: "Billing Address",
+  fullName: "Full Name",
+  firstName: "First Name",
+  lastName: "Last Name",
+  quantity: "Quantity",
 };
 
 export const arabicTranslations = {
@@ -115,5 +120,10 @@ export const arabicTranslations = {
   edit: "",
   delete: "",
   addNew: "",
-  searchBox:"عما تبحث ؟"
+  searchBox: "عما تبحث ؟",
+  billingAddress: "",
+  fullName: "",
+  firstName: "",
+  lastName: "",
+  quantity: "",
 };

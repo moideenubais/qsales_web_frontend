@@ -11,9 +11,7 @@ function CheckoutPage() {
     <React.Fragment>
       <Header />
       <Navigation />
-      <Layout>
-        <CheckoutSteps />
-      </Layout>
+      <CheckoutSteps />
       <Footer />
       <FloatingButton />
     </React.Fragment>
