@@ -30,6 +30,7 @@ function Product(props) {
         </div>
         <div className="d-flex flex-column">
           <ReactStars
+            className={"rating"}
             count={5}
             onChange={ratingChanged}
             size={20}

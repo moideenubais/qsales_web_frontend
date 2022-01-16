@@ -17,7 +17,7 @@ import {
 } from "../heper";
 import toast from "react-hot-toast";
 import { useCartContext } from "../context/cartContext";
-
+import Strings from '../Constants'
 function ProductDescription(props) {
   const history = useHistory();
   const { productId } = useParams();
@@ -381,9 +381,9 @@ function ProductDescription(props) {
                   className="btn btn-qs-primary w-100 p-2 ms-1 small "
                   type="button"
                   disabled={selectedAttribute.quantity <= 0}
-                  onClick={() => addToCart(true)}
+                  onClick={() => window.open(Strings.whatsappUrl,'_blank').focus()}
                 >
-                  {selectedAttribute.quantity > 0 ? "Buy Now" : " Out of Stock"}
+                  {selectedAttribute.quantity > 0 ? "Order By WhatsApp" : " Out of Stock"}
                 </button>
               </div>
             </div>
@@ -490,6 +490,8 @@ function ProductDescription(props) {
             <ProductTabs
               description={productDetails.i18nResourceBundle?.description}
               product_id={productId}
+              warranty={productDetails.i18nResourceBundle?.warranty}
+              policy={productDetails.i18nResourceBundle?.return_policy}
             />
           </div>
           <FloatingButton />

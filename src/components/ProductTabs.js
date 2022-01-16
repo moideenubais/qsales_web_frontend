@@ -12,6 +12,8 @@ function ProductTabs(props) {
     reviewReducer,
     description,
     product_id,
+    policy,
+    warranty
   } = props;
 
   useEffect(() => {
@@ -24,7 +26,7 @@ function ProductTabs(props) {
         <TabList>
           <Tab>Overview</Tab>
           <Tab>Review</Tab>
-          <Tab>Refund Policy/Warrenty</Tab>
+          <Tab>Refund Policy/Warranty</Tab>
         </TabList>
 
         <TabPanel>
@@ -66,7 +68,26 @@ function ProductTabs(props) {
           )}
         </TabPanel>
         <TabPanel>
-          3 days return policy
+          <table className="table table-light table-responsive table-borderless">
+            <tbody>
+            <tr>
+              <td>Product Policy:</td>
+              <td>
+              {
+                policy ? policy :"No Policy"
+              }
+              </td>
+            </tr>
+            <tr>
+              <td>Warranty:</td>
+              <td>
+              {
+                warranty ? warranty :"No Warranty Available"
+              }
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </TabPanel>
       </Tabs>
     </div>

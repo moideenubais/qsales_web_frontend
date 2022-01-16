@@ -585,6 +585,39 @@ margin-right:5px !important;
 .product{
   max-width: 250px;
 }
+.message {
+  color:rgba(0,0,0,0.7) !important;
+  text-decoration: none !important;
+  background: #ffffff;
+  padding: 13px 31px !important;
+  border-radius: 12px;
+  position: absolute;
+  right: 62px;
+  top: 3px;
+  white-space: nowrap;
+  box-shadow: -10px 7px 19px -11px rgba(115,115,115,0.57);
+  -webkit-box-shadow: -10px 7px 19px -11px rgba(115,115,115,0.57);
+  -moz-box-shadow: -10px 7px 19px -11px rgba(115,115,115,0.57);
+}
+.message::after {
+  content: '';
+    position: absolute;
+    right: -10px;
+    top: 29%;
+    border-top: 10px solid rgb(255 255 255 / 0%);
+    border-left: 15px solid #ffffff;
+    border-bottom: 10px solid #ffffff00;
+}
+.lang-change > div > div{
+  border-radius:0px;
+
+}
+.lang-change  .css-319lph-ValueContainer{
+  padding:2px !important;
+}
+/* .nav-list h6{
+  font-weight: 400 !important;
+} */
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;
@@ -617,4 +650,10 @@ margin-right:5px !important;
 .footer-features div{
   margin-block: 5px !important;
   }
+.rating span {
+  font-size:16px !important;
+}
+.react-tabs li{
+  font-size: 12px !important;
+}
 }

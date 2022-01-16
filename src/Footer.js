@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import SellerForm from "./components/SignIn/SellerForm";
 import Modal from "react-bootstrap/Modal";
 import SubscriptionForm from "./components/SubscriptionForm/SubscriptionForm";
+import Strings from "./Constants";
 
 function Footer() {
   const { t } = useTranslation();
@@ -41,6 +42,11 @@ function Footer() {
                 </div>
               </div>
               <SubscriptionForm />
+             
+              <div className="pt-2">
+               <small className="d-block text-muted">Email: demo@mail.com</small>
+               <small className="d-block text-muted">Office Address: xxx xxx xxx xxx</small>
+              </div>
             </div>
             <div className="col-md-6 col-sm-9 mx-auto border-start border-4 px-2 mt-md-0 mt-sm-2  d-flex flex-column">
               <h6 className="fs-5 fw-bold mb-2">{t("downloadOurApp")}</h6>
@@ -49,7 +55,14 @@ function Footer() {
                 <img src="../assets/images/app-store.svg" className="" />
                 <img src="../assets/images/google-play.svg" className="ms-3" />
               </div>
-              <div className="mt-3 d-flex flex-row">
+              <div className="py-2 my-1 d-flex flex-row">
+                <img width="45" height="45" src="../assets/images/support.png" />
+                <div>
+                  <p className="text-muted small">For Sales and Support Queries</p>
+                  <h4 className="text-muted">{Strings.contactNumber}</h4>
+                </div>
+              </div>
+              <div className=" d-flex flex-row">
                 <a className="mx-1" href="http://instagram.com/_u/qsales2022/" target="_blank">
                   <div className="floating-btn">
                     <img
@@ -81,13 +94,15 @@ function Footer() {
                   </div>
                 </a>
               </div>
+              {/* <div className="pt-3">
+                <h6 className="text-muted">- FREE DELIVERY FOR ORDERS ABOVE QR 100 </h6>
+                <h6 className="text-muted">- 24 HOURS DELIVERY IN QATAR</h6>
+              </div> */}
+
             </div>
           </div>
         </div>
-        <div className="col-9 mx-auto">
-          <small className="d-block text-muted">Email: demo@mail.com</small>
-          <small className="d-block text-muted">Office Address: xxx xxx xxx xxx</small>
-        </div>
+        
         <div className="d-flex flex-row justify-content-between flex-wrap col-9 mx-auto py-3 border-top footer-features">
           <div className="d-flex">
           <img src="https://img.icons8.com/ios-glyphs/30/000000/cash-.png" width="20" height="20"/>
@@ -97,10 +112,10 @@ function Footer() {
           <img src="https://img.icons8.com/ios/50/000000/deliver-food.png" width="20" height="20"/>
             <span>24 Hours Delivery</span>
           </div>
-          <div className="d-flex">
+          {/* <div className="d-flex">
           <img src="https://img.icons8.com/ios-filled/50/000000/checkout.png" width="20" height="20"/>
             <span>Easy Checkout</span>
-          </div>
+          </div> */}
           {/* <div className="d-flex">
           <img src="https://img.icons8.com/ios/50/000000/home--v1.png" width="20" height="20"/>
             <span>Home Delivery</span>

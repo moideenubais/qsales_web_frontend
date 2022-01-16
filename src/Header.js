@@ -17,6 +17,7 @@ import SignIn from "./components/Auth/SignIn";
 import UserProfile from "./components/Auth/UserProfile";
 import SignUp from "./components/Auth/SignUp";
 import ForgetPassword from "./components/Auth/ForgetPassword";
+import ReactSelect from "react-select";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
@@ -66,10 +67,10 @@ function Header(props) {
     return true;
   };
 
-  const switchLanguage = () => {
-    const lang = i18n.language === "en" ? "ar" : "en";
-    localStorage.setItem("lang", lang);
-    return i18n.changeLanguage(lang);
+  const switchLanguage = ({label,value}) => {
+    // const lang = i18n.language === "en" ? "ar" : "en";
+    localStorage.setItem("lang", value);
+    return i18n.changeLanguage(value);
   };
 
   // FORGOT PASSWORD COMPONENT
@@ -188,6 +189,7 @@ function Header(props) {
   }, [searchText]);
 
   // console.log("Language",i18n.language)
+  const languages=[{label:"English",value:"en"},{label:"Arabic",value:"ar"}]
   return (
     <>
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
@@ -204,7 +206,7 @@ function Header(props) {
                 src="../assets/images/4.png"
                 height="70px"
                 width="70px"
-                alt="images"
+                alt="logo"
               />
             </Link>
           </div>
@@ -281,12 +283,18 @@ function Header(props) {
                 <img src="../assets/images/user.svg" alt="userIcon" />
               </div>
             )}
-            <div className="d-flex flex-row align-items-center pointer px-3">
-              <img
+            <div className="d-flex flex-row align-items-center pointer px-3 lang-change">
+              {/* <img
                 src="../assets/images/translation.png"
                 alt="translateIcon"
                 style={{ width: 30, height: 30 }}
                 onClick={() => switchLanguage()}
+              /> */}
+              <ReactSelect 
+              value={languages.find(lan=>lan.value==i18n.language)}
+              options={languages}
+              onChange={switchLanguage}
+              isSearchable={false}
               />
             </div>
             <div className="d-flex flex-row align-items-center px-3 pointer"
