@@ -283,7 +283,7 @@ function Header(props) {
                 <img src="../assets/images/user.svg" alt="userIcon" />
               </div>
             )}
-            <div className="d-flex flex-row align-items-center pointer px-3 lang-change">
+            <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
               {/* <img
                 src="../assets/images/translation.png"
                 alt="translateIcon"
@@ -295,6 +295,7 @@ function Header(props) {
               options={languages}
               onChange={switchLanguage}
               isSearchable={false}
+              styles={{control: styles => ({ ...styles, backgroundColor: '#8f1d3f',color:"white" })}}
               />
             </div>
             <div className="d-flex flex-row align-items-center px-3 pointer"

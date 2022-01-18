@@ -618,6 +618,21 @@ margin-right:5px !important;
 /* .nav-list h6{
   font-weight: 400 !important;
 } */
+div#react-select-7-placeholder {
+  white-space: nowrap;
+}
+ .language-selector .css-qc6sy-singleValue {
+  color: white;
+}
+.language-selector .css-1dlie74-control {
+ border:none;
+}
+.language-selector span.css-1okebmr-indicatorSeparator {
+  width: 0px;
+}
+/*.language-selector .css-1s2u09g-control {
+  background-color: #8f1d3f !important;
+} */
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;
