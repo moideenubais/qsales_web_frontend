@@ -72,6 +72,7 @@ function CategoryContainer(props) {
                 onChange={(data) => {handleOnChange(selectedFilter.value=="shop"?"shop_id":"brand_id", data?.value);setSelectedSubFilter(data);}}
                 options={selectedFilter.value=="shop"?Shops:selectedFilter.value=="brand"?Brands:[]}
                 className="sortby-select filter-select"
+                styles={{control: styles => ({ ...styles, whiteSpace:"nowrap" })}}
               />
               <button className="btn btn-danger reset-btn" onClick={()=>{setFilterData({...filterData,brand_id:"",shop_id:""});setSelectedSubFilter("")}} >Reset</button>
               </div>
@@ -82,6 +83,7 @@ function CategoryContainer(props) {
                 onChange={(data) => handleOnChange("sort_by", data?.value)}
                 options={options}
                 className="sortby-select"
+                styles={{control: styles => ({ ...styles, whiteSpace:"nowrap" })}}
               />
               </div>
             </div>

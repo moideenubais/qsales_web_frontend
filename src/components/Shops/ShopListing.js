@@ -90,6 +90,7 @@ const ShopListing = (props) => {
                   onChange={(data) => setSelectedFilter(data)}
                   options={filterOptions}
                   className="sortby-select"
+                  styles={{control: styles => ({ ...styles, whiteSpace:"nowrap" })}}
                 />
                 <Select
                   placeholder="Select Item"
@@ -110,6 +111,7 @@ const ShopListing = (props) => {
                       : []
                   }
                   className="sortby-select filter-select"
+                  styles={{control: styles => ({ ...styles, whiteSpace:"nowrap" })}}
                 />
                 <button
                   className="btn btn-danger reset-btn"

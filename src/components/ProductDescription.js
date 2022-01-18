@@ -6,7 +6,7 @@ import Carousel from "react-elastic-carousel";
 import ProductTabs from "./ProductTabs";
 import Address from "./Address";
 import FloatingButton from "./whatsappFloatingButton/FloatingButton";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getData, updateData, createData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
@@ -18,6 +18,9 @@ import {
 import toast from "react-hot-toast";
 import { useCartContext } from "../context/cartContext";
 import Strings from '../Constants'
+import Product from "./Products/Product";
+import axios from "axios";
+
 function ProductDescription(props) {
   const history = useHistory();
   const { productId } = useParams();
@@ -211,6 +214,23 @@ function ProductDescription(props) {
     });
   };
 
+  const [similarProdcuts,setSimilarProducts]=useState([])
+
+  useEffect(()=>{
+    if(productDetails?.category_id){
+      axios.get(`/product?category_id${"1"}&limit=4`).then(res=>{
+        setSimilarProducts(res?.data?.data || [])
+      })
+    }
+  },[productDetails?.category_id])
+  const breakPoints = [
+    { width: 1, itemsToShow: 2 },
+    { width: 550, itemsToShow: 4, itemsToScroll: 2, pagination: false },
+    // { width: 850, itemsToShow: 5 },
+    // { width: 1150, itemsToShow: 6, itemsToScroll: 2 },
+    // { width: 1450, itemsToShow: 6 },
+    // { width: 1750, itemsToShow: 7 },
+  ];
   return (
     <>
       {initialLoading && (
@@ -494,6 +514,55 @@ function ProductDescription(props) {
               policy={productDetails.i18nResourceBundle?.return_policy}
             />
           </div>
+          {
+            similarProdcuts.length > 0 && 
+            <div className="p-2 bg-white">
+            {/* Title of Product Container */}
+            <div className="py-2">
+              <h4 className="p-0 m-0">Similar Products</h4>
+            </div>
+            {/* List of product */}
+            <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap card-group">
+              <Carousel breakPoints={breakPoints} pagination={false}>
+                {similarProdcuts.map(
+                  (
+                    {
+                      name,
+                      rating,
+                      description,
+                      price,
+                      product_image_small_url,
+                      _id,
+                    },
+                    index
+                  ) => {
+                    return (
+                      <Link
+                        key={_id}
+                        className="text-decoration-none h-100"
+                        to={{
+                          pathname: `product/${_id}`,
+                          query: { id: _id },
+                        }}
+                      >
+                        <Product
+                          key={index}
+                          productName={name}
+                          rating={rating}
+                          description={description}
+                          productImage={product_image_small_url}
+                          price={price?.unit_price}
+                        />
+                      </Link>
+                    );
+                  }
+                )}
+              </Carousel>
+            </div>
+          </div>
+          }
+
+
           <FloatingButton />
         </>
       )}
