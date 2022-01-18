@@ -218,8 +218,9 @@ function ProductDescription(props) {
 
   useEffect(()=>{
     if(productDetails?.category_id){
-      axios.get(`/product?category_id${"1"}&limit=4`).then(res=>{
-        setSimilarProducts(res?.data?.data || [])
+      axios.get(`/product?category_id=${productDetails?.category_id}&limit=4&user_type=user`
+      ).then(res=>{
+        setSimilarProducts(res?.data?.products || [])
       })
     }
   },[productDetails?.category_id])
@@ -514,9 +515,11 @@ function ProductDescription(props) {
               policy={productDetails.i18nResourceBundle?.return_policy}
             />
           </div>
+         
           {
             similarProdcuts.length > 0 && 
-            <div className="p-2 bg-white">
+            <div className="py-4 bg-white w-100">
+               <hr/>
             {/* Title of Product Container */}
             <div className="py-2">
               <h4 className="p-0 m-0">Similar Products</h4>
