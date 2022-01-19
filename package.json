@@ -10,6 +10,7 @@
     "bootstrap": "^5.0.2",
     "dotenv": "^10.0.0",
     "formik": "^2.2.9",
+    "html-react-parser": "^1.4.5",
     "i18next": "^21.5.3",
     "jwt-decode": "^3.1.2",
     "pure-react-carousel": "^1.27.6",

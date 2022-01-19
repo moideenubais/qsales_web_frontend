@@ -6,11 +6,21 @@ import SellerForm from "./components/SignIn/SellerForm";
 import Modal from "react-bootstrap/Modal";
 import SubscriptionForm from "./components/SubscriptionForm/SubscriptionForm";
 import Strings from "./Constants";
+import CustomModal from "./components/Common/CustomModal";
 
 function Footer() {
   const { t } = useTranslation();
   const [showModal, setShowModal] = React.useState(false);
   const [show, setShow] = React.useState(false);
+
+  //
+  const [privacyModal,setPrivacyModal]=React.useState(false);
+  const [modalTitle,setModalTitle]=React.useState("");
+  const setShowPrivacyModal=(title)=>{
+    setPrivacyModal(true);
+    setModalTitle(title);
+  }
+console.log(privacyModal,modalTitle,"---")
   return (
     <React.Fragment>
       {/* This is for displaying seller form*/}
@@ -31,21 +41,21 @@ function Footer() {
               <h5 className="fs-5 fw-bold mb-2">{t("helpHeading")}</h5>
               <p className="small text-secondary">{t("reachOutText")}</p>
 
-              <div className="small mt-4 d-flex flex-row">
+              <div className="small mt-4 d-flex flex-wrap flex-row">
                 <div className=" border-start border-4 ps-3">
                   <h6 className="small fw-normal">{t("helpCenter")}</h6>
-                  <p className="small text-secondary">help.qsales.com</p>
+                  <p className="small text-secondary">customersupport@qsales2022.com</p>
                 </div>
-                <div className="ms-5 border-start border-4 ps-3">
+                <div className="ms-5 border-start border-4 ps-3 support-2nd">
                   <h6 className="small fw-normal">{t("customerSupport")}</h6>
-                  <p className="small text-secondary">customer.qsales.com</p>
+                  <p className="small text-secondary">support@qsales2022.com</p>
                 </div>
               </div>
               <SubscriptionForm />
              
               <div className="pt-2">
-               <small className="d-block text-muted">Email: demo@mail.com</small>
-               <small className="d-block text-muted">Office Address: xxx xxx xxx xxx</small>
+               <small className="d-block text-muted">Email: contact@qsales2022.com/info@qsales2022.com</small>
+               <small className="d-block text-muted">Office Address: Office no. 8, Building 84,street 205,zone 56</small>
               </div>
             </div>
             <div className="col-md-6 col-sm-9 mx-auto border-start border-4 px-2 mt-md-0 mt-sm-2  d-flex flex-column">
@@ -73,7 +83,7 @@ function Footer() {
                     />
                   </div>
                 </a>
-                <a className="mx-1" href="http://facebook.com" target="_blank">
+                <a className="mx-1" href="https://facebook.com/qsales2022/" target="_blank">
                   <div className="floating-btn">
                     <img
                       src="../assets/images/facebook.png"
@@ -83,7 +93,7 @@ function Footer() {
                     />
                   </div>
                 </a>
-                <a className="mx-1" href="http://facebook.com" target="_blank">
+                {/* <a className="mx-1" href="http://facebook.com" target="_blank">
                   <div className="floating-btn">
                     <img
                       src="../assets/images/twitter.png"
@@ -92,7 +102,7 @@ function Footer() {
                       className="img-fluid"
                     />
                   </div>
-                </a>
+                </a> */}
               </div>
               {/* <div className="pt-3">
                 <h6 className="text-muted">- FREE DELIVERY FOR ORDERS ABOVE QR 100 </h6>
@@ -132,13 +142,14 @@ function Footer() {
         <div className="d-flex flex-column col-9 mx-auto pt-3 border-top">
           <div className="col-6 d-flex flex-row flex-wrap justify-content-between text-decoration-none ">
             <Link
-              to="/Product"
+              // to="/Product"
+              onClick={() =>setShowPrivacyModal("privacyPolicy")}
               className="small text-secondary text-decoration-none"
             >
               <p className="small">{t("privacyPolicy")}</p>
             </Link>
             <Link
-              to="/Product"
+              onClick={() =>setShowPrivacyModal("termsOfUse")}
               className="small text-secondary text-decoration-none"
             >
               <p className="small text-decoration-none">{t("termsOfUse")}</p>
@@ -156,7 +167,7 @@ function Footer() {
                 {t("warrantyPolicy")}
               </p>
             </Link>
-            <Link to="" className="small text-secondary text-decoration-none">
+            <Link onClick={() =>setShowPrivacyModal("termsOfSale")} className="small text-secondary text-decoration-none">
               <p className="small text-decoration-none">{t("termsOfSale")}</p>
             </Link>
           </div>
@@ -167,6 +178,33 @@ function Footer() {
           </div>
         </div>
       </div>
+      {
+        (privacyModal && modalTitle==="privacyPolicy" )?
+        <CustomModal 
+        title={t("privacyPolicy")}
+        setShowModal={setPrivacyModal}
+         >
+        {Strings.privacyPolicy}
+        </CustomModal>:
+        (privacyModal && modalTitle==="termsOfSale" )?
+        
+        <CustomModal 
+        title={t("termsOfSale")}
+        setShowModal={setPrivacyModal}
+         >
+        {Strings.termsAndConditions}
+        </CustomModal>
+        :
+        (privacyModal && modalTitle==="termsOfUse" )?
+        <CustomModal 
+        title={t("termsOfUse")}
+        setShowModal={setPrivacyModal}
+         >
+        {Strings.infringementPolicy}
+        </CustomModal>
+        :""
+      }
+      
     </React.Fragment>
   );
 }

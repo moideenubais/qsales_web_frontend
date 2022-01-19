@@ -633,6 +633,12 @@ margin-right:5px !important;
 /*.language-selector .css-1s2u09g-control {
   background-color: #8f1d3f !important;
 } */
+.custom-modal{
+  height: 90%;
+  width:80%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;
@@ -670,5 +676,8 @@ margin-right:5px !important;
 }
 .react-tabs li{
   font-size: 12px !important;
+}
+.support-2nd{
+margin:0px !important;
 }
 }
