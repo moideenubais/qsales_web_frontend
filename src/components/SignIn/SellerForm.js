@@ -51,7 +51,7 @@ const SellerForm = (props) => {
         }}
       />
       <div className="shadow-lg col-12 bg-transparent-full">
-        <div className="signIn-model col-3 col-xs-10 col-sm-8 col-md-6 col-lg-3 col-xl-3 p-4 bg-white rounded shadow-lg border">
+        <div className="signIn-model seller-Modal col-3 col-xs-10 col-sm-8 col-md-6 col-lg-3 col-xl-3 p-4 bg-white rounded shadow-lg border">
           <div className="my-2 d-flex flex-row justify-content-between">
             <Modal.Header closeButton className="w-100 border-0 p-0 m-0">
               <div className="">
