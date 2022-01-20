@@ -1,13 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useFormik } from 'formik';
+import { useFormik } from "formik";
 import { Toaster } from "react-hot-toast";
 import { Link, withRouter } from "react-router-dom";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { loginUser, resetPassword, setAuthToken, logoutUser } from "./redux/actions/auth";
+import {
+  loginUser,
+  resetPassword,
+  setAuthToken,
+  logoutUser,
+} from "./redux/actions/auth";
 import { createData, updateData, getData } from "./redux/actions";
 import { ActionTypes } from "./redux/contants/action-types";
 import axios from "axios";
@@ -18,12 +23,14 @@ import UserProfile from "./components/Auth/UserProfile";
 import SignUp from "./components/Auth/SignUp";
 import ForgetPassword from "./components/Auth/ForgetPassword";
 import ReactSelect from "react-select";
+import { useCallback } from "react";
+import OrderDetail from "./components/Auth/OrderDetail";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
 function Header(props) {
-  const { errors: userErrors, history, user, token: userToken, } = props;
+  const { errors: userErrors, history, user, token: userToken } = props;
   const { cartInLocal } = useCartContext();
 
   const { t, i18n } = useTranslation();
@@ -34,7 +41,7 @@ function Header(props) {
   const [forgotPwd, setForgotPwd] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResponse, setSearchReponse] = useState([]);
-  const [suggestionActive,setSuggestionActive] = useState(false);
+  const [suggestionActive, setSuggestionActive] = useState(false);
 
   const isEmptyObj = (v) => {
     return typeof value === "object" && Object.keys(v).length === 0;
@@ -67,7 +74,7 @@ function Header(props) {
     return true;
   };
 
-  const switchLanguage = ({label,value}) => {
+  const switchLanguage = ({ label, value }) => {
     // const lang = i18n.language === "en" ? "ar" : "en";
     localStorage.setItem("lang", value);
     return i18n.changeLanguage(value);
@@ -164,7 +171,6 @@ function Header(props) {
   //   );
   // };
 
-
   useEffect(() => {
     if (searchText === "") {
       setSuggestionActive(false);
@@ -189,181 +195,218 @@ function Header(props) {
   }, [searchText]);
 
   // console.log("Language",i18n.language)
-  const languages=[{label:"English",value:"en"},{label:"Arabic",value:"ar"}]
+  const languages = [
+    { label: "English", value: "en" },
+    { label: "Arabic", value: "ar" },
+  ];
+
+  const [showOrderModal, setOrderModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const setOrderModalShow = useCallback((order) => {
+    setSelectedOrder(order);
+    setOrderModal(true);
+  },[setSelectedOrder,setOrderModal])
+
+  useEffect(()=>{
+    if(isSignIn || showOrderModal) {
+    setOrderModal(false);
+    setShowProfile(false);
+    
+  }
+  },[history?.location?.pathname])
+
   return (
     <>
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
         <div className="col-md-9  mx-auto py-1">
           <div className="row">
-          <div className="col-lg-7 col-md-6 d-flex flex-row align-items-center justify-content-between">
-          <div className="">
-            <Link
-              className="text-decoration-none"
-              to={{ pathname: `/` }}
-            >
-              {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
-              <img
-                src="../assets/images/4.png"
-                height="70px"
-                width="70px"
-                alt="logo"
-              />
-            </Link>
-          </div>
-          <div className="p-0 w-75 dropdown-content">
-            <input
-              ref={searchRef}
-              type="text"
-              placeholder={t("searchBox")}
-              className={`search border px-2 py-1 rounded w-100 ${i18n.language=="ar"?"text-right":""}`}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-            <div
-              style={{
-                width: searchRef?.current?.offsetWidth,
-              }}
-            >
-              {suggestionActive ?
-                searchResponse.length > 0 ?
-                searchResponse.map((item) => {
-                  return (
-                    <a
-                      className="dropdown-list-item"
-                      onClick={() => history.push(`/product/${item._id}`)}
-                    >
-                      <img
-                        alt="img"
-                        src={`${process.env.REACT_APP_IMAGE_URL}/${item.imageUrl}`}
-                        width={40}
-                        height={40}
-                        style={{ borderRadius: 20 }}
-                      />
-                      <span
-                        style={{ textOverflow: "ellipsis" }}
-                        className="dropdown-list-item-text"
-                      >
-                        {item.name}
-                      </span>
-                    </a>
-                  );
-                }):
-                <p>
-                  No product Found
-                </p>:""}
+            <div className="col-lg-7 col-md-6 d-flex flex-row align-items-center justify-content-between">
+              <div className="">
+                <Link className="text-decoration-none" to={{ pathname: `/` }}>
+                  {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
+                  <img
+                    src="../assets/images/4.png"
+                    height="70px"
+                    width="70px"
+                    alt="logo"
+                  />
+                </Link>
+              </div>
+              <div className="p-0 w-75 dropdown-content">
+                <input
+                  ref={searchRef}
+                  type="text"
+                  placeholder={t("searchBox")}
+                  className={`search border px-2 py-1 rounded w-100 ${
+                    i18n.language == "ar" ? "text-right" : ""
+                  }`}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                />
+                <div
+                  style={{
+                    width: searchRef?.current?.offsetWidth,
+                  }}
+                >
+                  {suggestionActive ? (
+                    searchResponse.length > 0 ? (
+                      searchResponse.map((item) => {
+                        return (
+                          <a
+                            className="dropdown-list-item"
+                            onClick={() => history.push(`/product/${item._id}`)}
+                          >
+                            <img
+                              alt="img"
+                              src={`${process.env.REACT_APP_IMAGE_URL}/${item.imageUrl}`}
+                              width={40}
+                              height={40}
+                              style={{ borderRadius: 20 }}
+                            />
+                            <span
+                              style={{ textOverflow: "ellipsis" }}
+                              className="dropdown-list-item-text"
+                            >
+                              {item.name}
+                            </span>
+                          </a>
+                        );
+                      })
+                    ) : (
+                      <p>No product Found</p>
+                    )
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-          </div>
-          <div className="col-lg-5 col-md-6 d-flex flex-row align-items-center justify-content-end header-btn-group">
-          <div className="d-flex flex-row align-items-center justify-content-center p-0">
-            {user?.name ? (
-              <div className="d-flex flex-row align-items-center px-3 border-right">
-                <p
-                  className="text-white small p-0 m-0 me-2 nowrap"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setShowProfile(true);
-                  }}
-                >
-                  {user.name || "Profile"}
-                </p>
-                <img src="../assets/images/user.svg" alt="userIcon" />
-              </div>
-            ) : (
-              <div className="d-flex flex-row align-items-center px-3 border-right">
-                <p
-                  className="text-white small p-0 m-0 mr-2 me-2 nowrap"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setShowModal(true);
-                  }}
-                >
-                  Sign In
-                </p>
-                <img src="../assets/images/user.svg" alt="userIcon" />
-              </div>
-            )}
-            <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
-              {/* <img
+            <div className="col-lg-5 col-md-6 d-flex flex-row align-items-center justify-content-end header-btn-group">
+              <div className="d-flex flex-row align-items-center justify-content-center p-0">
+                {user?.name ? (
+                  <div className="d-flex flex-row align-items-center px-3 border-right">
+                    <p
+                      className="text-white small p-0 m-0 me-2 nowrap"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setShowProfile(true);
+                      }}
+                    >
+                      {user.name || "Profile"}
+                    </p>
+                    <img src="../assets/images/user.svg" alt="userIcon" />
+                  </div>
+                ) : (
+                  <div className="d-flex flex-row align-items-center px-3 border-right">
+                    <p
+                      className="text-white small p-0 m-0 mr-2 me-2 nowrap"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setShowModal(true);
+                      }}
+                    >
+                      Sign In
+                    </p>
+                    <img src="../assets/images/user.svg" alt="userIcon" />
+                  </div>
+                )}
+                <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
+                  {/* <img
                 src="../assets/images/translation.png"
                 alt="translateIcon"
                 style={{ width: 30, height: 30 }}
                 onClick={() => switchLanguage()}
               /> */}
-              <ReactSelect 
-              value={languages.find(lan=>lan.value==i18n.language)}
-              options={languages}
-              onChange={switchLanguage}
-              isSearchable={false}
-              styles={{control: styles => ({ ...styles, backgroundColor: '#8f1d3f',color:"white" })}}
-              />
-            </div>
-            <div className="d-flex flex-row align-items-center px-3 pointer"
-            onClick={() => {
-              history.push("/cart");
-            }}
-            >
-              <p
-                className="text-white small p-0 m-0 mr-2 me-2"
-                style={{ cursor: "pointer" }}
-              >
-                {t("cart")}
-              </p>
-              <div style={{ position: "relative" }}>
-                <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
-                <span
-                  className="text-white small"
-                  style={{
-                    paddingBottom: "14px !important",
-                    position: "absolute",
-                    left: 20,
+                  <ReactSelect
+                    value={languages.find((lan) => lan.value == i18n.language)}
+                    options={languages}
+                    onChange={switchLanguage}
+                    isSearchable={false}
+                    styles={{
+                      control: (styles) => ({
+                        ...styles,
+                        backgroundColor: "#8f1d3f",
+                        color: "white",
+                      }),
+                    }}
+                  />
+                </div>
+                <div
+                  className="d-flex flex-row align-items-center px-3 pointer"
+                  onClick={() => {
+                    history.push("/cart");
                   }}
                 >
-                  {Object.keys(cartInLocal)?.length}
-                </span>
+                  <p
+                    className="text-white small p-0 m-0 mr-2 me-2"
+                    style={{ cursor: "pointer" }}
+                  >
+                    {t("cart")}
+                  </p>
+                  <div style={{ position: "relative" }}>
+                    <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
+                    <span
+                      className="text-white small"
+                      style={{
+                        paddingBottom: "14px !important",
+                        position: "absolute",
+                        left: 20,
+                      }}
+                    >
+                      {Object.keys(cartInLocal)?.length}
+                    </span>
+                  </div>
+                </div>
+                {user?.name && (
+                  <div className="px-3 pointer text-white">
+                    <p className="nowrap" onClick={() => props.logoutUser()}>
+                      Sign Out
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
-            {
-              user?.name && 
-              <div className="px-3 pointer text-white">
-                <p className="nowrap" onClick={()=>props.logoutUser()}>Sign Out</p>
-            </div>
-            }
-            
           </div>
-          </div>
-          
-        </div>
         </div>
       </header>
 
       <Toaster />
 
-      
-      {showProfile && 
-      <UserProfile  
-      setShowProfile={setShowProfile}
-      setIsSignIn={setIsSignIn}
-      user={user} 
-      />}
+      {showProfile && (
+        <UserProfile
+          setShowProfile={setShowProfile}
+          setIsSignIn={setIsSignIn}
+          user={user}
+          setOrderModalShow={setOrderModalShow}
+        />
+      )}
 
-      {showModal ? isSignIn && !forgotPwd ? 
-      <SignIn 
-      setShowModal={setShowModal}
-      setForgotPwd={setForgotPwd}
-      setIsSignIn={setIsSignIn}
+      {showModal ? (
+        isSignIn && !forgotPwd ? (
+          <SignIn
+            setShowModal={setShowModal}
+            setForgotPwd={setForgotPwd}
+            setIsSignIn={setIsSignIn}
+          />
+        ) : (
+          <SignUp setShowModal={setShowModal} setIsSignIn={setIsSignIn} />
+        )
+      ) : (
+        ""
+      )}
+      {showModal && forgotPwd ? (
+        <ForgetPassword
+          setIsSignIn={setIsSignIn}
+          setForgotPwd={setForgotPwd}
+          setShowModal={setShowModal}
+        />
+      ) : (
+        ""
+      )}
 
-      /> : 
-      <SignUp 
-      setShowModal={setShowModal}
-      setIsSignIn={setIsSignIn}
-      /> : ""}
-      {showModal && forgotPwd ? 
-      <ForgetPassword
-      setIsSignIn={setIsSignIn}
-      setForgotPwd={setForgotPwd}
-      setShowModal={setShowModal}
-      /> : ""}
+      {showOrderModal && (
+        <OrderDetail order={selectedOrder} setShowModal={setOrderModal} />
+      )}
     </>
   );
 }
@@ -375,7 +418,7 @@ function Header(props) {
  */
 const mapStateToProps = (state) => ({
   ...state.authReducer,
-  orderReducer:state.getAllOrdersReducer
+  orderReducer: state.getAllOrdersReducer,
 });
 
 /**

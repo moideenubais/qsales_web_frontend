@@ -40,12 +40,20 @@ function ProductTabs(props) {
         </TabPanel>
         <TabPanel>
           {reviewReducer.data?.reviews ? (
-            <div className="d-flex flex-row  flex-wrap flex-md-nowrap">
+            <div className="w-100">
               {reviewReducer.data?.reviews.map(
                 ({ customer_name, createdAt, rating, comment }) => (
-                  <div className=" p-3 rounded mx-1">
-                    <div className="p-2 d-flex justify-content-between">
-                      <div className="pt-1">{customer_name}</div>
+                  <div class="card w-100 my-2">
+                    <div className="card-header p-1">
+                    {customer_name}
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text p-1">
+                      {comment}
+                      </p>
+                      
+                    </div>
+                    <div class="card-footer d-flex flex-row justify-content-between p-1">
                       <ReactStars
                         style={{ marginLeft: "10px" }}
                         count={5}
@@ -54,12 +62,21 @@ function ProductTabs(props) {
                         size={20}
                         color2={"#ffd700"}
                       />
-                    </div>
-                    <div className="p-2">
+                      <div>
                       {new Date(createdAt).toDateString()}
+                      </div>
                     </div>
-                    <div className="p-2">{comment}</div>
                   </div>
+                  // <div className=" p-3 rounded mx-1">
+                  //   <div className="p-2 d-flex justify-content-between">
+                  //     <div className="pt-1">{customer_name}</div>
+                  //     
+                  //   </div>
+                  //   <div className="p-2">
+                  //     {new Date(createdAt).toDateString()}
+                  //   </div>
+                  //   <div className="p-2">{comment}</div>
+                  // </div>
                 )
               )}
             </div>
@@ -70,22 +87,14 @@ function ProductTabs(props) {
         <TabPanel>
           <table className="table table-light table-responsive table-borderless">
             <tbody>
-            <tr>
-              <td>Product Policy:</td>
-              <td>
-              {
-                policy ? policy :"No Policy"
-              }
-              </td>
-            </tr>
-            <tr>
-              <td>Warranty:</td>
-              <td>
-              {
-                warranty ? warranty :"No Warranty Available"
-              }
-              </td>
-            </tr>
+              <tr>
+                <td>Product Policy:</td>
+                <td>{policy ? policy : "No Policy"}</td>
+              </tr>
+              <tr>
+                <td>Warranty:</td>
+                <td>{warranty ? warranty : "No Warranty Available"}</td>
+              </tr>
             </tbody>
           </table>
         </TabPanel>

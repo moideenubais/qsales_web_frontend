@@ -8,6 +8,7 @@ import { connect, useDispatch } from "react-redux";
 import { getUser, setCurrentUser } from "../../redux/actions/auth";
 import jwtDecode from "jwt-decode";
 import toast from "react-hot-toast";
+import OrderDetail from "./OrderDetail";
 
 const UserProfile = (props) => {
   const { user, errors: userErrors, orderReducer } = props;
@@ -64,10 +65,11 @@ const UserProfile = (props) => {
       });
   };
 
-  console.log("orderReducer", user);
+
+
   return (
     <div className="shadow-lg col-12 bg-transparent-full">
-      <div className="signIn-model col-lg-3 col-md-5 col-sm-8 p-4 bg-white rounded shadow-lg border">
+      <div className="signIn-model col-lg-5 col-md-7 col-sm-8 p-4 bg-white rounded shadow-lg border">
         <div className="my-2 d-flex flex-row justify-content-between">
           <div className="">
             <h6 className="mb-2">Profile</h6>
@@ -143,6 +145,7 @@ const UserProfile = (props) => {
               <thead>
                 <th>Order Code</th>
                 <th>Status</th>
+                <th>Detail</th>
               </thead>
               <tbody>
                 {orders?.length > 0 &&
@@ -151,6 +154,8 @@ const UserProfile = (props) => {
                       <tr>
                         <td>{order.order_code}</td>
                         <td>{order.order_status}</td>
+                        <td onClick={()=>props.setOrderModalShow(order)}><a href="#">Details</a></td>
+                        {/* <td>{order.order_status}</td> */}
                       </tr>
                     </>
                   ))}

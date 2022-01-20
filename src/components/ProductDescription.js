@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useHistory,useLocation } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
 import ReactStars from "react-stars";
 import Carousel from "react-elastic-carousel";
@@ -20,9 +20,11 @@ import { useCartContext } from "../context/cartContext";
 import Strings from '../Constants'
 import Product from "./Products/Product";
 import axios from "axios";
+import ReviewForm from "./ReviewForm";
 
 function ProductDescription(props) {
   const history = useHistory();
+  const location = useLocation();
   const { productId } = useParams();
   const {
     getData: propsGetData,
@@ -232,6 +234,13 @@ function ProductDescription(props) {
     // { width: 1450, itemsToShow: 6 },
     // { width: 1750, itemsToShow: 7 },
   ];
+
+  useLayoutEffect(()=>{
+    if(location?.state?.order && !initialLoading)
+    {
+      document.getElementById("review-form").scrollIntoView();
+    }
+  },[location,initialLoading])
   return (
     <>
       {initialLoading && (
@@ -515,7 +524,14 @@ function ProductDescription(props) {
               policy={productDetails.i18nResourceBundle?.return_policy}
             />
           </div>
-         
+          <div id="review-form" className="w-100">
+          {
+            location?.state?.order &&
+            <ReviewForm order={location?.state?.order} productId={productId} />
+          }
+          </div>
+          
+            
           {
             similarProdcuts.length > 0 && 
             <div className="py-4 bg-white w-100">
@@ -544,7 +560,7 @@ function ProductDescription(props) {
                         key={_id}
                         className="text-decoration-none h-100"
                         to={{
-                          pathname: `product/${_id}`,
+                          pathname: `${_id}`,
                           query: { id: _id },
                         }}
                       >
