@@ -721,6 +721,25 @@ button#dropdown-basic-button {
   max-width:200px;
 }
 /*************/
+
+.seperator {
+  width: 75%; 
+  text-align: center; 
+  border-bottom: 1px solid #000; 
+  line-height: 0.1em;
+ 
+} 
+
+.seperator span { 
+   background:#fff; 
+   padding:0 10px; 
+}
+
+@media (max-width: 1198px) {  
+  .support-2nd{
+    margin:0px !important;
+    }
+}
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;
@@ -759,9 +778,7 @@ button#dropdown-basic-button {
 .react-tabs li{
   font-size: 12px !important;
 }
-.support-2nd{
-margin:0px !important;
-}
+
 .d-flex.flex-row.align-items-center.justify-content-center.p-0 {
   font-size: 0.7rem;
 }

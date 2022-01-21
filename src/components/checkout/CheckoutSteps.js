@@ -387,10 +387,32 @@ function CheckoutSteps(props) {
   return (
     <React.Fragment>
       <div className="row" style={{ backgroundColor: "white" }}>
-        <div className="col-12 mb-3">
+        <div>
+          {!isAuthenticated ?
+          <>
+           <div className="d-flex flex-column justify-content-center align-items-center">
+             <h2 className="text-muted py-2 pt-4">Hello, Returning Customer ?</h2>
+             <span className="text-muted pb-4">Login to Qsales2022.com or <a href="#"
+              onClick={()=>{setShowModal(true);setIsSignIn(false)}}
+              >Create an account</a>
+              </span>
+                  <button
+                    className="mr-3 btn  btn-sm btn-qs-primary fw-normal px-4 py-2  small"
+                    onClick={() => {setShowModal(true);setIsSignIn(true)}}
+                  >
+                    {t("login")}
+                  </button>
+                  <h4 className="seperator mt-4"><span className="px-2 text-muted">OR</span></h4>
+                  <h2 className="text-muted py-2">Checkout as a Guest</h2>
+                </div>
+          </>:
+          <>
+          <div className="col-12 mb-3">
           <div className="d-flex justify-content-center mt-3">
-            <h2>Checkout</h2>
+            <h2 >Checkout</h2>
           </div>
+        </div>
+          </>}
         </div>
         <div
           className={`${
@@ -473,14 +495,7 @@ function CheckoutSteps(props) {
                   onChange={handleChangeForUnAuthenticatedUser}
                   placeholder={t("phone")}
                 />
-                <div className="d-flex justify-content-end">
-                  <button
-                    className="mr-3 btn  btn-sm btn-qs-primary fw-normal p-2 w-25 small"
-                    onClick={() => setShowModal(true)}
-                  >
-                    {t("login")}
-                  </button>
-                </div>
+               
               </div>
             )}
           </div>

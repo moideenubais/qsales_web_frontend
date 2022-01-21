@@ -27,7 +27,7 @@ import {
   SmallButton,
   ButtonWrapper,
 } from "./styles";
-import { getCartInLocalStorage, removeCartFromLocalStorage } from "../../heper";
+import { getCartInLocalStorage, removeCartFromLocalStorage,updateCartToLocalStorage } from "../../heper";
 import { getData, updateData, createData } from "../../redux/actions/index";
 import { useCartContext } from "../../context/cartContext";
 import toast from "react-hot-toast";
@@ -149,6 +149,39 @@ const CartComponent = (props) => {
     });
   };
 
+  const increaseItemInCart = (item) => {
+    updateCartToLocalStorage({
+      product_id: item.product_id,
+      varient_id: item.varient_id,
+      quantity: ++item.quantity,
+    });
+    const cart = getCartInLocalStorage();
+    setCartInLocal(cart);
+    const clear = !Object.values(cart).length;
+    propsUpdateData("UPDATE_CART", `/user/cart`, {
+      cart: Object.values(cart),
+      clear
+    }).then((res) => {
+
+    });
+  };
+
+  const decreaseItemInCart = (item) => {
+    updateCartToLocalStorage({
+      product_id: item.product_id,
+      varient_id: item.varient_id,
+      quantity: item.quantity <=0?0:--item.quantity,
+    });
+    const cart = getCartInLocalStorage();
+    setCartInLocal(cart);
+
+    propsUpdateData("UPDATE_CART", `/user/cart`, {
+      cart: Object.values(cart),
+    }).then((res) => {
+
+    });
+  };
+
   const handleCheckout = () => {
     if (cartItems.length > 0) {
       history.push("/checkout");
@@ -215,11 +248,24 @@ const CartComponent = (props) => {
                     </ProductDetail>
                     <PriceDetail>
                       <ProductAmountContainer>
-                        <CartPlusIcon />
+                        {/* <CartPlusIcon /> */}
                         <ProductAmount>
-                          {t("quantity")}: {item.quantity}
+                          <div className="cart-buttons">
+                          <button className="btn btn-qs-primary rounded-0 p-2 mx-2"
+                          onClick={() =>decreaseItemInCart(item)}
+                          >
+                            -
+                          </button>
+                          {item.quantity}
+                          <button className="btn btn-qs-primary rounded-0 p-2 mx-2"
+                          onClick={() =>increaseItemInCart(item)}
+                          >
+                            +
+                          </button>
+                          </div>
+                          {/* {t("quantity")}:  */}
                         </ProductAmount>
-                        <CartMinusIcon />
+                        {/* <CartMinusIcon /> */}
                       </ProductAmountContainer>
                       <ProductPrice>
                         {t("riyalText")} {item.product?.varient.unit_price}

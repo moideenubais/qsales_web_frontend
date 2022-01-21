@@ -76,7 +76,7 @@ console.log(privacyModal,modalTitle,"---")
                 <a className="mx-1" href="http://instagram.com/_u/qsales2022/" target="_blank">
                   <div className="floating-btn">
                     <img
-                      src="../assets/images/insta.png"
+                      src="../assets/images/Insta2.png"
                       width="28"
                       height="28"
                       className="img-fluid"
@@ -87,6 +87,16 @@ console.log(privacyModal,modalTitle,"---")
                   <div className="floating-btn">
                     <img
                       src="../assets/images/facebook.png"
+                      width="28"
+                      height="28"
+                      className="img-fluid"
+                    />
+                  </div>
+                </a>
+                <a className="mx-1" href="https://www.linkedin.com/company/qsales2022" target="_blank">
+                  <div className="floating-btn">
+                    <img
+                      src="../assets/images/linkdin.png"
                       width="28"
                       height="28"
                       className="img-fluid"

@@ -22,6 +22,15 @@ export const saveCartToLocalStorage = (data) => {
   localStorage.setItem("cart", JSON.stringify(updateData));
 };
 
+export const updateCartToLocalStorage = (data) => {
+  let updateData = { [data.varient_id]: data };
+  const oldData = getCartInLocalStorage();
+  if (!isEmptyObj(oldData)) {
+    updateData = { ...oldData, [data.varient_id]: data };
+  }
+  localStorage.setItem("cart", JSON.stringify(updateData));
+};
+
 export const removeCartFromLocalStorage = (variant_id) => {
   const data = getCartInLocalStorage();
   delete data[variant_id];
