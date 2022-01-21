@@ -216,20 +216,16 @@ function Header(props) {
   }
   },[history?.location?.pathname])
 
-  // useEffect(()=>{
-  //   document.addEventListener("click", (e) => {
-  //     debugger;
-  //     var parent = document.querySelector("#main-search-content"),
-  //       child = e;
-  //     if (parent?.querySelector(child.target.id) !== null) {
-  //       console.log("Dont go")
-  //       // .. it's a child
-  //     }else{
-  //       console.log("please go")
-  //     }
-  //     // console.log(e, "clicked");
-  //   });
-  // },[])
+  useEffect(()=>{
+    document.addEventListener("click", (e) => {
+      var parent = document.querySelector("#main-search-content"),
+      if (parent?.contains(e.target)) {
+      }else{
+        setSearchText("");
+        setSuggestionActive(false)
+      }
+    });
+  },[])
 
   return (
     <>
@@ -271,7 +267,7 @@ function Header(props) {
                       searchResponse.map((item) => {
                         return (
                           <a
-                            className="dropdown-list-item"
+                            className="dropdown-list-item pointer"
                             onClick={() => history.push(`/product/${item._id}`)}
                           >
                             <img
