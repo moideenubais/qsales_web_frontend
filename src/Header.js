@@ -218,7 +218,7 @@ function Header(props) {
 
   useEffect(()=>{
     document.addEventListener("click", (e) => {
-      var parent = document.querySelector("#main-search-content"),
+      var parent = document.querySelector("#main-search-content");
       if (parent?.contains(e.target)) {
       }else{
         setSearchText("");
