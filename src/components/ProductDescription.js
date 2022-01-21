@@ -234,6 +234,9 @@ function ProductDescription(props) {
     // { width: 1450, itemsToShow: 6 },
     // { width: 1750, itemsToShow: 7 },
   ];
+  useEffect(()=>{
+    document?.getElementById("navigation")?.scrollIntoView()
+  },[location])
 
   useLayoutEffect(()=>{
     if(location?.state?.order && !initialLoading)

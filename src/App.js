@@ -59,7 +59,6 @@ function WaitingComponent(Component) {
 
 function App() {
   const { t } = useTranslation();
-
   // React.useEffect(() => {
   //   let dir=i18n.language=="en"?"ltr":"rtl";
   //   document?.getElementsByTagName("html")[0]?.setAttribute("dir", dir);

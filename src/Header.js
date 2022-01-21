@@ -216,6 +216,21 @@ function Header(props) {
   }
   },[history?.location?.pathname])
 
+  // useEffect(()=>{
+  //   document.addEventListener("click", (e) => {
+  //     debugger;
+  //     var parent = document.querySelector("#main-search-content"),
+  //       child = e;
+  //     if (parent?.querySelector(child.target.id) !== null) {
+  //       console.log("Dont go")
+  //       // .. it's a child
+  //     }else{
+  //       console.log("please go")
+  //     }
+  //     // console.log(e, "clicked");
+  //   });
+  // },[])
+
   return (
     <>
     <TopBar switchLanguage={switchLanguage} />
@@ -234,7 +249,7 @@ function Header(props) {
                   />
                 </Link>
               </div>
-              <div className="p-0 w-75 dropdown-content">
+              <div className="p-0 w-75 dropdown-content" id="main-search-content">
                 <input
                   ref={searchRef}
                   type="text"
