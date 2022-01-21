@@ -30,7 +30,7 @@ function ProductsContainer(props) {
     { width: 1, itemsToShow: 2 },
     { width: 550, itemsToShow: 4, itemsToScroll: 2, pagination: false },
     { width: 850, itemsToShow: 5 },
-    { width: 1150, itemsToShow: 6, itemsToScroll: 2 },
+    { width: 1150, itemsToShow: 5, itemsToScroll: 2 },
     { width: 1450, itemsToShow: 6 },
     { width: 1750, itemsToShow: 7 },
   ];

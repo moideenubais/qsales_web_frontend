@@ -409,9 +409,10 @@ function ProductDescription(props) {
                 </button>
                 <button
                   className="btn btn-qs-primary w-100 p-2 ms-1 small "
+                  style={{backgroundColor: "#45904e"}}
                   type="button"
                   disabled={selectedAttribute.quantity <= 0}
-                  onClick={() => window.open(Strings.whatsappUrl,'_blank').focus()}
+                  onClick={() => window.open(`${Strings.whatsappUrl}&text=${window.location.href}`,'_blank').focus()}
                 >
                   {selectedAttribute.quantity > 0 ? "Order By WhatsApp" : " Out of Stock"}
                 </button>

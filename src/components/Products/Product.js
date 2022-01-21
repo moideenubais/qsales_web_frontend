@@ -39,7 +39,7 @@ function Product(props) {
             value={ratingValue}
           />
           <div className="d-flex flex-row mt-1  align-items-center justify-content-between">
-            <p className="primary-color p-0 m-0 small">QR {price}</p>
+            <p className="primary-color p-0 m-0 small"><strong>QR {price}</strong></p>
             {/* <div className="d-flex align-items-center justify-content-center">
               {/* Cart icon */}
               {/* <button className="btn-cart d-flex align-items-center justify-content-center">

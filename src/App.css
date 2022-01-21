@@ -92,15 +92,15 @@ body {
   z-index: 9999;
 }
 
-.search:focus {
+ .search:focus {
   color: black;
   outline: none !important;
   border: 1px solid #b8b6b6 !important;
-  box-shadow: inset 0px 6px 8px rgba(143, 29, 63) !important;
+  /* box-shadow: inset 0px 6px 8px rgba(143, 29, 63) !important;
   background: #fff;
   border-radius: 40px;
-  transition: all 0.3s ease;
-}
+  transition: all 0.3s ease; */
+} 
 
 /* Carousel */
 
@@ -272,6 +272,11 @@ body {
 }
 .floating-btn{
   margin-block: 2px !important;
+  -webkit-box-shadow: -4px 3px 3px #ccc;
+    box-shadow: -4px 3px 3px #ccc;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
 }
 /* .floating-btn img{
   width:35px;
@@ -639,6 +644,83 @@ margin-right:5px !important;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
+.btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus {
+   box-shadow:none;
+}
+button#dropdown-basic-button {
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-list:hover {
+  background: #fcfcfca1;
+  transition: all 0.2s ease-in;
+  color: #a70e0e;
+  border: 1px solid #bcc0c3;
+}
+.css-x1dvmh-control {
+  border:none !important;
+  box-shadow:none !important;
+}
+
+/* Ticker Css for horizontal text animation */
+@-webkit-keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+ }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+ }
+}
+@keyframes ticker {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+ }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+ }
+}
+.ticker-wrap {
+  overflow: hidden;
+  padding-left: 100%;
+  box-sizing: content-box;
+}
+.ticker-wrap .ticker {
+  white-space: nowrap;
+  padding-right: 100%;
+  box-sizing: content-box;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-name: ticker;
+  animation-name: ticker;
+  -webkit-animation-duration:20s;
+  animation-duration: 20s;
+}
+.ticker-wrap .ticker__item {
+  display: inline-block;
+  color: white;
+}
+.css-26l3qy-menu{
+  z-index: 99;
+}
+/** End of Ticker Css **/
+
+
+/****** HomePage Redesign *******/
+.product.p-3.rounded.mx-1 {
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 0px !important;
+  min-width: 200px;
+  max-width:200px;
+}
+/*************/
 @media (max-width: 768px) {  
   .col-md-4.d-flex.flex-row.align-items-center.justify-content-end.header-btn-group{
     justify-content: center !important;
@@ -682,5 +764,23 @@ margin:0px !important;
 }
 .d-flex.flex-row.align-items-center.justify-content-center.p-0 {
   font-size: 0.7rem;
+}
+.floating-btns-container {
+  bottom: 20px;
+  right: 20px;
+}
+.ticker__item{
+    font-size: 12px;
+    text-align: center;
+}
+.orders-2{
+  order:2;
+}
+.orders-3{
+  order:3;
+}
+.product.p-3.rounded.mx-1 {
+  min-width: 130px;
+  max-width:130px;
 }
 }

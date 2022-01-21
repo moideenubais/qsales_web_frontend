@@ -570,7 +570,7 @@ function CheckoutSteps(props) {
                   {t("addNew")}
                 </button>
               )}
-              {addresses.length ? (
+              {/* {addresses.length ? (
                 <button
                   className="btn btn-sm btn-qs-primary fw-normal p-2 w-25 small"
                   onClick={() => {
@@ -581,7 +581,7 @@ function CheckoutSteps(props) {
                 </button>
               ) : (
                 <></>
-              )}
+              )} */}
             </div>
           </div>
 

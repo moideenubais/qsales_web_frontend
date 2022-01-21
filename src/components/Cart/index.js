@@ -198,6 +198,7 @@ const CartComponent = (props) => {
         {cartItems.length > 0 ? (
           <>
             {cartItems.map((item, i) => (
+              <>
               <Bottom>
                 <Info>
                   <Product>
@@ -232,6 +233,8 @@ const CartComponent = (props) => {
                   </Product>
                 </Info>
               </Bottom>
+              <hr className="mb-2 w-90 mx-auto" />
+              </>
             ))}
           </>
         ) : (

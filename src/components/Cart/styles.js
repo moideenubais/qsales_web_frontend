@@ -65,6 +65,9 @@ export const ProductDetail = styled.div`
 
 export const Image = styled.img`
   width: 200px;
+  @media (max-width: 768px) {
+    width: 150px;
+  }
 `;
 
 export const Details = styled.div`

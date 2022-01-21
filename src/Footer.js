@@ -113,31 +113,31 @@ console.log(privacyModal,modalTitle,"---")
           </div>
         </div>
         
-        <div className="d-flex flex-row  flex-wrap col-9 mx-auto py-3 border-top footer-features">
-          <div className="d-flex px-4">
+        <div className="d-flex flex-row justify-content-between  flex-wrap col-9 mx-auto py-3 border-top footer-features">
+          <div className="d-flex ">
           <img src="https://img.icons8.com/ios-glyphs/30/000000/cash-.png" width="20" height="20"/>
             <span>Cash on Delivery</span>
           </div>
-          <div className="d-flex px-4">
+          <div className="d-flex ">
           <img src="https://img.icons8.com/ios/50/000000/deliver-food.png" width="20" height="20"/>
             <span>24 Hours Delivery</span>
           </div>
-          {/* <div className="d-flex">
+          <div className="d-flex">
           <img src="https://img.icons8.com/ios-filled/50/000000/checkout.png" width="20" height="20"/>
             <span>Easy Checkout</span>
-          </div> */}
+          </div> 
           {/* <div className="d-flex">
           <img src="https://img.icons8.com/ios/50/000000/home--v1.png" width="20" height="20"/>
             <span>Home Delivery</span>
-          </div> */}
-          {/* <div className="d-flex">
+          </div>  */}
+           <div className="d-flex">
           <img src="https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-support-ecommerce-vitaliy-gorbachev-lineal-vitaly-gorbachev.png" width="20" height="20"/>
             <span>24/7 Customer Support</span>
           </div>
           <div className="d-flex">
           <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/64/000000/external-quality-business-kiranshastry-lineal-kiranshastry-1.png" width="20" height="20"/>
             <span>Premium Quality</span>
-          </div> */}
+          </div>
         </div>
         <div className="d-flex flex-column col-9 mx-auto pt-3 border-top">
           <div className="col-6 d-flex flex-row flex-wrap justify-content-between text-decoration-none ">

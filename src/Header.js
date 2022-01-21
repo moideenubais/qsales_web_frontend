@@ -25,6 +25,7 @@ import ForgetPassword from "./components/Auth/ForgetPassword";
 import ReactSelect from "react-select";
 import { useCallback } from "react";
 import OrderDetail from "./components/Auth/OrderDetail";
+import TopBar from "./components/TopBar";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
@@ -195,10 +196,10 @@ function Header(props) {
   }, [searchText]);
 
   // console.log("Language",i18n.language)
-  const languages = [
-    { label: "English", value: "en" },
-    { label: "Arabic", value: "ar" },
-  ];
+  // const languages = [
+  //   { label: "English", value: "en" },
+  //   { label: "Arabic", value: "ar" },
+  // ];
 
   const [showOrderModal, setOrderModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -217,6 +218,7 @@ function Header(props) {
 
   return (
     <>
+    <TopBar switchLanguage={switchLanguage} />
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
         <div className="col-md-9  mx-auto py-1">
           <div className="row">
@@ -242,6 +244,7 @@ function Header(props) {
                   }`}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
+                  onFocusCapture={()=>setSearchText("")}
                 />
                 <div
                   style={{
@@ -310,13 +313,7 @@ function Header(props) {
                     <img src="../assets/images/user.svg" alt="userIcon" />
                   </div>
                 )}
-                <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
-                  {/* <img
-                src="../assets/images/translation.png"
-                alt="translateIcon"
-                style={{ width: 30, height: 30 }}
-                onClick={() => switchLanguage()}
-              /> */}
+               {/* <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
                   <ReactSelect
                     value={languages.find((lan) => lan.value == i18n.language)}
                     options={languages}
@@ -327,10 +324,11 @@ function Header(props) {
                         ...styles,
                         backgroundColor: "#8f1d3f",
                         color: "white",
+                        border: "none"
                       }),
                     }}
                   />
-                </div>
+                </div>  */}
                 <div
                   className="d-flex flex-row align-items-center px-3 pointer"
                   onClick={() => {
@@ -346,11 +344,12 @@ function Header(props) {
                   <div style={{ position: "relative" }}>
                     <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
                     <span
-                      className="text-white small"
+                      className="small"
                       style={{
                         paddingBottom: "14px !important",
                         position: "absolute",
                         left: 20,
+                        color:"rgb(255, 224, 73)"
                       }}
                     >
                       {Object.keys(cartInLocal)?.length}
