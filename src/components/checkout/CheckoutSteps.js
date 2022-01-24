@@ -373,7 +373,7 @@ function CheckoutSteps(props) {
           ))}
         <div className={`d-flex flex-column p-3 border-bottom`}>
           <div className="d-flex flex-row justify-content-between">
-            <span className="col-9">{t("subTotal")}</span>
+            <span className="col-8">{t("subTotal")}</span>
             <CheckoutPagePriceWrapper className="col-3">
               {t("riyalText")} {calcSubTotal()}
             </CheckoutPagePriceWrapper>

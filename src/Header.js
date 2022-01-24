@@ -221,7 +221,7 @@ function Header(props) {
       var parent = document.querySelector("#main-search-content");
       if (parent?.contains(e.target)) {
       }else{
-        setSearchText("");
+        // setSearchText("");
         setSuggestionActive(false)
       }
     });
@@ -238,7 +238,7 @@ function Header(props) {
                 <Link className="text-decoration-none" to={{ pathname: `/` }}>
                   {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
                   <img
-                    src="../assets/images/4.png"
+                    src="../assets/images/42.png"
                     height="70px"
                     width="70px"
                     alt="logo"

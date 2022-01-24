@@ -65,7 +65,7 @@ const BrandsContainer = (props) => {
                                 <h6
                                   className="p-0 m-0 mb-1 text-dark "
                                   style={{
-                                    width: "150px",
+                                    // width: "150px",
                                     textOverflow: "ellipsis",
                                     textAlign: "center",
                                   }}

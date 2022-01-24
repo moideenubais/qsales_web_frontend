@@ -198,11 +198,12 @@ export const CheckoutPageSmallWrapper = styled.span`
 export const CheckoutPagePriceWrapper = styled.div`
   background-color: #8f1d3f;
   color: white;
-  height: 30px;
-  width: 80px;
+  white-space:nowrap;
+  height:fit-content;
   padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align:center;
   border-radius: 3px;
+  width: fit-content;
+  padding-inline: 10px !important;
+  min-width:85px;
 `;

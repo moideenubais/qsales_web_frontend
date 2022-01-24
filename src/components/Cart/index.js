@@ -170,7 +170,7 @@ const CartComponent = (props) => {
     updateCartToLocalStorage({
       product_id: item.product_id,
       varient_id: item.varient_id,
-      quantity: item.quantity <=0?0:--item.quantity,
+      quantity: item.quantity <=1?1:--item.quantity,
     });
     const cart = getCartInLocalStorage();
     setCartInLocal(cart);
