@@ -10,7 +10,7 @@ const TopBar = ({switchLanguage}) => {
       ];
     return (
       <div className="w-100 py-1 px-3 bg-dark  d-flex flex-row justify-content-between align-items-center flex-wrap">
-        <span className="text-white flex-1 orders-2 d-flex flex-row align-items-center " ><img alt="call" style={{marginRight:"4px !important"}} src="/assets/images/callIcon.png" width="24" /> <span>(31223030)</span></span>
+        <span className="text-white flex-1 orders-2 d-flex flex-row align-items-center " ><img alt="call" style={{marginRight:"4px !important"}} src="/assets/images/callIcon.png" width="24" /> <span>+974 7732 2358</span></span>
         <div class="ticker-wrap text-white flex-2">
           {/* <div class="ticker"> */}
             <div class="ticker__item"> FREE DELIVERY FOR ORDERS ABOVE QR 100 | DELIVERY IN 24 HRS ALL OVER

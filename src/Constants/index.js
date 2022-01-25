@@ -1,7 +1,7 @@
 
 const Strings={
-    whatsappUrl:"https://api.whatsapp.com/send?phone=+974 31223030",
-    contactNumber:"+974 31223030",
+    whatsappUrl:"https://api.whatsapp.com/send?phone=+974 7732 2358",
+    contactNumber:"+974 7732 2358",
     privacyPolicy:`<nobr><nowrap>
     <div class="pos" id="_0:0" style="top:0">
     </div>

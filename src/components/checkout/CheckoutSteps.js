@@ -668,7 +668,7 @@ function CheckoutSteps(props) {
                 <label className="ms-2">{t("cashOnDelivery")}</label>
               </div>
 
-              <div className="d-flex align-items-center">
+              {/* <div className="d-flex align-items-center">
                 <input
                   type="radio"
                   value="card"
@@ -676,7 +676,7 @@ function CheckoutSteps(props) {
                   onChange={() => setPaymentMethod("card")}
                 />
                 <label className="ms-2">{t("netBanking")}</label>
-              </div>
+              </div> */}
             </div>
           </div>
           {!isDesktop && <OrderSummaryComponent />}

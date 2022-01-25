@@ -734,7 +734,16 @@ button#dropdown-basic-button {
    background:#fff; 
    padding:0 10px; 
 }
-
+.cart-badge{
+    left: 17px;
+    font-size: xx-small;
+    color: rgb(255, 224, 73);
+    background-color: #dc3545;
+    font-weight: bold;
+    padding: 6px !important;
+    border-radius: 5px;
+    top: -13px;
+}
 @media (max-width: 1198px) {  
   .support-2nd{
     margin:0px !important;

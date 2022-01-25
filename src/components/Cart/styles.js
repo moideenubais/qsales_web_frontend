@@ -64,9 +64,11 @@ export const ProductDetail = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 200px;
+  width: 120px;
+  height:120px;
   @media (max-width: 768px) {
-    width: 150px;
+    width: 100px;
+    height:100px;
   }
 `;
 
@@ -77,7 +79,9 @@ export const Details = styled.div`
   justify-content: space-around;
 `;
 
-export const ProductName = styled.span``;
+export const ProductName = styled.span`
+font-weight:500;
+`;
 
 export const ProductId = styled.span``;
 
@@ -93,7 +97,7 @@ export const ProductSize = styled.span``;
 export const PriceDetail = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 `;
@@ -113,8 +117,7 @@ export const ProductAmount = styled.div`
 export const ProductPrice = styled.div`
   font-size: 24px;
   font-weight: 400;
-  margin-bottom: 10px !important;
-  ${mobile({ marginBottom: "20px !important" })}
+  
 `;
 
 export const Hr = styled.hr`

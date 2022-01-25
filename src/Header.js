@@ -355,7 +355,7 @@ function Header(props) {
                   <div style={{ position: "relative" }}>
                     <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
                     <span
-                      className="small"
+                      className="small cart-badge"
                       style={{
                         paddingBottom: "14px !important",
                         position: "absolute",

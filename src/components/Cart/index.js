@@ -219,13 +219,14 @@ const CartComponent = (props) => {
               </TopButton>
               <TopTexts>
                 <TopText>
-                  {t("shoppingCart")} ({cartItems.length})
+                  {t("shoppingCart")} ({cartItems.length} items)
                 </TopText>
               </TopTexts>
               <TopButton type="filled" onClick={() => handleCheckout()}>
                 {t("checkoutNow")}
               </TopButton>
             </Top>
+            <hr />
           </>
         )}
         {cartItems.length > 0 ? (
