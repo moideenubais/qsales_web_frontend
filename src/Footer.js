@@ -152,14 +152,15 @@ console.log(privacyModal,modalTitle,"---")
         <div className="d-flex flex-column col-9 mx-auto pt-3 border-top">
           <div className="col-6 d-flex flex-row flex-wrap justify-content-between text-decoration-none ">
             <Link
-              // to="/Product"
-              onClick={() =>setShowPrivacyModal("privacyPolicy")}
+               to="/policy/privacy-policy"
+              // onClick={() =>setShowPrivacyModal("privacyPolicy")}
               className="small text-secondary text-decoration-none"
             >
               <p className="small">{t("privacyPolicy")}</p>
             </Link>
             <Link
-              onClick={() =>setShowPrivacyModal("termsOfUse")}
+              to="/policy/terms-of-use"
+              // onClick={() =>setShowPrivacyModal("termsOfUse")}
               className="small text-secondary text-decoration-none"
             >
               <p className="small text-decoration-none">{t("termsOfUse")}</p>
@@ -177,7 +178,10 @@ console.log(privacyModal,modalTitle,"---")
                 {t("warrantyPolicy")}
               </p>
             </Link>
-            <Link onClick={() =>setShowPrivacyModal("termsOfSale")} className="small text-secondary text-decoration-none">
+            <Link 
+            to="/policy/terms-of-sale"
+            // onClick={() =>setShowPrivacyModal("termsOfSale")} 
+            className="small text-secondary text-decoration-none">
               <p className="small text-decoration-none">{t("termsOfSale")}</p>
             </Link>
           </div>

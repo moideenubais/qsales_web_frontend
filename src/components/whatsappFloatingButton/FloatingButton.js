@@ -4,6 +4,9 @@ import Strings from '../../Constants';
 
 function FloatingButton() {
 
+    const [toggleWhatsapp,setToggleWhatsapp]=React.useState(false);
+    const toggleHandler=()=>setToggleWhatsapp(!toggleWhatsapp);
+
 
     let buttonRef=React.useRef();
 
@@ -18,11 +21,11 @@ function FloatingButton() {
             {/*  https://wa.me/ */}
 
           <div className="floating-btns-container">
-          <a href={Strings.whatsappUrl} target="_blank">
-                <div ref={ref => buttonRef = ref} id="floating-btn" className="floating-btn" data-tip="Chat with us">
+                <div ref={ref => buttonRef = ref} onClick={() =>toggleHandler()} id="floating-btn" className="floating-btn pointer" data-tip="Chat with us">
                     <img src="../assets/images/whatsApp-icon.png" height="50" width="50" className="img-fluid"/>
                 </div>
-                <div className="whatsapp-message">
+            <a href={Strings.whatsappUrl} onClick={() =>toggleHandler()} target="_blank">
+                <div className={`whatsapp-message ${toggleWhatsapp ? 'whatsapp-show':'whatsapp-hidden'}`}>
                 <div className="message">
                     Chat with us
                 </div>
