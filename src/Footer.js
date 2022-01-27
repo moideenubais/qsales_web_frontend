@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import SellerForm from "./components/SignIn/SellerForm";
@@ -7,9 +7,11 @@ import Modal from "react-bootstrap/Modal";
 import SubscriptionForm from "./components/SubscriptionForm/SubscriptionForm";
 import Strings from "./Constants";
 import CustomModal from "./components/Common/CustomModal";
+import SummaryModal from "./components/SummaryModal";
 
 function Footer() {
   const { t } = useTranslation();
+  const location=useLocation();
   const [showModal, setShowModal] = React.useState(false);
   const [show, setShow] = React.useState(false);
 
@@ -20,7 +22,12 @@ function Footer() {
     setPrivacyModal(true);
     setModalTitle(title);
   }
-console.log(privacyModal,modalTitle,"---")
+ 
+  const [orderSummary,setOrderSummary]=React.useState(!!location?.state?.orderSummary)
+  const closeOrderSummary=()=>{
+    setOrderSummary(false);
+    window.history.replaceState({}, document.title);
+  }
   return (
     <React.Fragment>
       {/* This is for displaying seller form*/}
@@ -34,6 +41,20 @@ console.log(privacyModal,modalTitle,"---")
       >
         <SellerForm closeButton />
       </Modal>
+      {
+        orderSummary &&
+         <Modal
+         show={orderSummary}
+         aria-labelledby="example-modal-sizes-title-md"
+         size="md"
+         aria-labelledby="Order Summary"
+         centered
+         onHide={closeOrderSummary}
+         
+       >
+        <SummaryModal closeButton summary={location?.state?.orderSummary} />
+        </Modal>
+      }
       <div className="col-md-12 bg-light border py-5 mt-4">
         <div className="col-9 mx-auto  pb-4">
           <div className="row">

@@ -302,8 +302,8 @@ function CheckoutSteps(props) {
       else {
         propsUpdateData("UPDATE_CART", `/user/cart`, {
           clear: true,
-        }).then((res) => {
-          history.push("/");
+        }).then((result) => {
+          history.push("/",{orderSummary:res.payload.data});
         });
         toast.success("Order placed", {
           className: "my-toast",

@@ -804,6 +804,7 @@ button#dropdown-basic-button {
 
 .d-flex.flex-row.align-items-center.justify-content-center.p-0 {
   font-size: 0.7rem;
+  margin-right: 17px !important;
 }
 .floating-btns-container {
   bottom: 20px;
