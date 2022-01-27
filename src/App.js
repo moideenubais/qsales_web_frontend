@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
@@ -8,6 +8,7 @@ import { setCurrentUser, setAuthToken } from "./redux/actions/auth";
 import store from "./redux/store";
 import { getCartInLocalStorage } from "./heper";
 import { englishTranslations, arabicTranslations } from "./translation";
+import ScrollToTop from "./components/Common/ScrollToTop";
 
 const Home = lazy(() => import("./pages/Home"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
@@ -65,9 +66,11 @@ function App() {
   //   document?.getElementsByTagName("html")[0]?.setAttribute("dir", dir);
   //   },[i18n.language])
 
+
+ 
   return (
     <div className="App">
-        <Router>
+        <Router >
           <Switch>
             <Route exact path="/" component={WaitingComponent(Home)} />
             <Route

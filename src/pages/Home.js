@@ -11,11 +11,39 @@ import FloatingButton from "../components/whatsappFloatingButton/FloatingButton"
 import BrandsContainer from "../components/Brands/BrandsContainer";
 import HomeSlider from "../components/HomeSlider";
 import ShopContainer from "../components/Shops/ShopContainer";
+import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/Common/ScrollToTop";
 // import CategoriesList from '../components/CategoriesList';
 
 function Home() {
+
+  const location=useLocation();
+
+  // const [rendered,setRendered]=React.useState(false);
+  React.useLayoutEffect(()=>{
+
+    setTimeout(()=>{
+      window.scrollTo({
+        top: 100,
+        behavior: 'smooth'
+      })
+    },0)
+    // document.body.scrollTop = 0;
+    //   // document?.getElementById("top-bar")?.scrollIntoView()
+    // if(rendered){
+    //   window.scrollTo({
+    //     top: 100,
+    //     behavior: 'smooth'
+    //   })
+    // }
+    // else
+    // setRendered(true);
+   
+  },[location])
+
   return (
     <div>
+      {/* <ScrollToTop /> */}
       {/* <CarouselHome /> */}
       <Header />
       <Navigation />
