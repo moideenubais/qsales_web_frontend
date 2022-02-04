@@ -39,7 +39,7 @@ function Footer() {
         centered
         animation={false}
       >
-        <SellerForm closeButton />
+        <SellerForm closeButton onSubmit={() => setShow(false)} />
       </Modal>
       {
         orderSummary &&

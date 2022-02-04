@@ -4,6 +4,7 @@ import Carousel from "react-elastic-carousel";
 import { connect } from "react-redux";
 import { getData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
+import { Link } from "react-router-dom";
 
 function CarouselHome(props) {
   const { getData: propsGetData, adsReducer } = props;
@@ -67,12 +68,14 @@ function CarouselHome(props) {
             
           >
             {adsReducer?.data?.ads?.map((ad, index) => (
-                <div className="slide">
+            <div className="slide">
+            <Link to={{pathname:ad?.url?ad?.url:''}} >
               <img
                 src={`${imageBaseUrl}${ad?.ad_url}`}
                 className="w-100 "
                 alt={ad?.name}
               />
+            </Link>
               </div>
             ))}
           </Slider>

@@ -95,6 +95,7 @@ function CategoryContainer(props) {
 
               {/* List of product */}
               <div className="col-12 bg-white d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
+                {console.log(products)}
                 {products.map(
                   (
                     {
@@ -104,6 +105,8 @@ function CategoryContainer(props) {
                       price,
                       product_image_small_url,
                       _id,
+                      discount_type,
+                      discount_amount
                     },
                     index
                   ) => {
@@ -122,6 +125,8 @@ function CategoryContainer(props) {
                           description={description}
                           productImage={product_image_small_url}
                           price={price?.unit_price}
+                          discountAmount={discount_amount}
+                          discountType={discount_type}
                         />
                       </Link>
                     );

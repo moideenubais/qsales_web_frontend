@@ -1,0 +1,16 @@
+.time-card{
+    min-width: 55px;
+  }
+
+  @media (max-width: 768px) {  
+    .time-wrapper h5{
+        font-size: 0.65rem !important;
+    }
+    span.extra-small {
+        font-size: 0.7em !important;
+        font-weight: 400 !important;
+    }
+    .time-card {
+        margin-inline: 2px !important;
+    }
+  }

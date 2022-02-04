@@ -149,6 +149,8 @@ const ShopListing = (props) => {
                           price,
                           product_image_small_url,
                           _id,
+                          discount_type,
+                          discount_amount
                         },
                         index
                       ) => {
@@ -167,6 +169,8 @@ const ShopListing = (props) => {
                               description={description}
                               productImage={product_image_small_url}
                               price={price?.unit_price}
+                              discountAmount={discount_amount}
+                              discountType={discount_type}
                             />
                           </Link>
                         );

@@ -130,6 +130,8 @@ function ProductDescription(props) {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
             variant_id: variant._id,
+            discount_type:variant.discount_type,
+            discount_amount:variant.discount_amount
           };
           attributeData.forEach(({ name, values }) => {
             returnData[name] = values[0].value;
@@ -145,6 +147,8 @@ function ProductDescription(props) {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
             variant_id: variant._id,
+            discount_type:variant.discount_type,
+            discount_amount:variant.discount_amount
           };
         }
       }
@@ -263,58 +267,58 @@ function ProductDescription(props) {
           <div className="col-12 py-5">
             {/* Product Image */}
             <div className="row">
-            <div className="col-md-6 col-sm-12 p-0 m-0 h-100">
-              <ReactImageMagnify
-                className="product-magnify"
-                style={{ zIndex: 9 }}
-                {...{
-                  smallImage: {
-                    alt: `${productDetails.title}`,
-                    // isFluidWidth: true,
-                    src: selectedImage,
-                    width: 400,
-                    height: 400
-                  },
-                  largeImage: {
-                    src: selectedImage,
-                    alt: `${productDetails.title}`,
-                    width: 1200,
-                    height: 1200,
-                  },
-                  shouldUsePositiveSpaceLens: true,
-                }}
-              />
-              <div className="d-flex flex-row align-items-center py-4">
-                <Carousel
-                  itemsToShow={3}
-                  enableAutoPlay={false}
-                  itemPadding={[80, 80]}
-                  pagination={false}
-                  easing="cubic-bezier(1,.15,.55,1.54)"
-                  tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
-                  transitionMs={700}
-                  className="px-0"
-                >
-                  {productDetails.product_image_big_url?.map((imgUrl) => (
-                    <img
-                      src={`${imageBaseUrl}${imgUrl}`}
-                      height="80"
-                      width="80"
-                      alt=""
-                      className="rounded-3 border"
-                      onClick={() =>
-                        setSelectedImage(`${imageBaseUrl}${imgUrl}`)
-                      }
-                    />
-                  ))}
-                </Carousel>
+              <div className="col-md-6 col-sm-12 p-0 m-0 h-100">
+                <ReactImageMagnify
+                  className="product-magnify"
+                  style={{ zIndex: 9 }}
+                  {...{
+                    smallImage: {
+                      alt: `${productDetails.title}`,
+                      // isFluidWidth: true,
+                      src: selectedImage,
+                      width: 400,
+                      height: 400,
+                    },
+                    largeImage: {
+                      src: selectedImage,
+                      alt: `${productDetails.title}`,
+                      width: 1200,
+                      height: 1200,
+                    },
+                    shouldUsePositiveSpaceLens: true,
+                  }}
+                />
+                <div className="d-flex flex-row align-items-center py-4">
+                  <Carousel
+                    itemsToShow={3}
+                    enableAutoPlay={false}
+                    itemPadding={[80, 80]}
+                    pagination={false}
+                    easing="cubic-bezier(1,.15,.55,1.54)"
+                    tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
+                    transitionMs={700}
+                    className="px-0"
+                  >
+                    {productDetails.product_image_big_url?.map((imgUrl) => (
+                      <img
+                        src={`${imageBaseUrl}${imgUrl}`}
+                        height="80"
+                        width="80"
+                        alt=""
+                        className="rounded-3 border"
+                        onClick={() =>
+                          setSelectedImage(`${imageBaseUrl}${imgUrl}`)
+                        }
+                      />
+                    ))}
+                  </Carousel>
+                </div>
               </div>
-            </div>
 
-            {/* Product Description */}
-            <div className="col-md-6 col-sm-12 d-flex flex-column px-5 ">
-              <h5>{productDetails.i18nResourceBundle?.name} </h5>
-              {/* {brand && (
+              {/* Product Description */}
+              <div className="col-md-6 col-sm-12 d-flex flex-column px-5 ">
+                <h5>{productDetails.i18nResourceBundle?.name} </h5>
+                {/* {brand && (
                 <p className="small m-0 mt-3">
                   <span className="fw-normal text-dark">Brand :</span>
                   <span className="fw-normal text-black-50 ms-2">{brand}</span>
@@ -328,99 +332,137 @@ function ProductDescription(props) {
                   </span>
                 </p>
               )} */}
-              <div className="d-flex flex-row align-items-center mt-1 ">
-                <p className="medium fw-normal text-dark me-2">Ratings :</p>
-                <ReactStars
-                  count={5}
-                  value={ratingValue}
-                  edit={false}
-                  onChange={ratingChanged}
-                  size={20}
-                  color2={"#ffd700"}
-                />
-              </div>
-
-              {attributeArray.map(({ name, values }) => (
-                <div className="d-flex mb-2 mt-2 justify-content-between">
-                  <p className="medium fw-normal text-dark me-5">{name} :</p>
-                  <select
-                    className="py-2 px-3 form-select"
-                    style={{ width: "60%" }}
-                    aria-label="Default select example"
-                    onChange={(e) =>
-                      handleOnAttributeChagne(name, e.target.value)
-                    }
-                    value={selectedAttribute[name]}
-                  >
-                    {values.map(({ value: v, name: n }) => (
-                      <option value={v}>{n || v}</option>
-                    ))}
-                  </select>
-                </div>
-              ))}
-
-              <div className="d-flex flex-row align-items-start justify-content-between mt-3">
-                <div className="">
-                  <p className="medium fw-normal mb-1">Now at</p>
-                  <h5 className="primary-color p-0 m-0 ">
-                    QR {selectedAttribute.unit_price}
-                  </h5>
+                <div className="d-flex flex-row align-items-center mt-1 ">
+                  <p className="medium fw-normal text-dark me-2">Ratings :</p>
+                  <ReactStars
+                    count={5}
+                    value={ratingValue}
+                    edit={false}
+                    onChange={ratingChanged}
+                    size={20}
+                    color2={"#ffd700"}
+                  />
                 </div>
 
-                <div className="">
-                  {selectedAttribute.quantity > 0 ? (
-                    <>
-                      <p className="medium fw-normal text-dark mb-1">
-                        Quantity
+                {attributeArray.map(({ name, values }) => (
+                  <div className="d-flex mb-2 mt-2 justify-content-between">
+                    <p className="medium fw-normal text-dark me-5">{name} :</p>
+                    <select
+                      className="py-2 px-3 form-select"
+                      style={{ width: "60%" }}
+                      aria-label="Default select example"
+                      onChange={(e) =>
+                        handleOnAttributeChagne(name, e.target.value)
+                      }
+                      value={selectedAttribute[name]}
+                    >
+                      {values.map(({ value: v, name: n }) => (
+                        <option value={v}>{n || v}</option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+
+                <div className="d-flex flex-row align-items-start justify-content-between mt-3">
+                  <div className="">
+                    <p className="medium fw-normal mb-1">Now at</p>
+                    {selectedAttribute?.discount_type ? (
+                     <h5 className="primary-color p-0 m-0 ">
+                          QR{" "}
+                          {parseFloat(
+                            selectedAttribute?.discount_type == "flat"
+                              ? selectedAttribute.unit_price - selectedAttribute?.discount_amount
+                              : ((100 - parseFloat(selectedAttribute?.discount_amount)) / 100) *
+                                  parseFloat(selectedAttribute.unit_price)
+                          ).toFixed(2)}
+                     
+                        <small>
+                          &nbsp;&nbsp;
+                          <span className="text-muted ">
+                            <s>QR {selectedAttribute.unit_price}</s>
+                          </span>
+                          <span className="text-success">
+                            {" "}
+                            {selectedAttribute?.discount_type == "flat" ? "QR " : ""}
+                            {selectedAttribute?.discount_amount}
+                            {selectedAttribute?.discount_type == "flat" ? "" : "%"} off
+                          </span>
+                          
+                        </small>
+                      </h5>
+                    ) : (
+                      <h5 className="primary-color p-0 m-0 ">
+                      QR {selectedAttribute.unit_price}
+                      </h5>
+                    )}
+                    {/* <h5 className="primary-color p-0 m-0 ">
+                      QR {selectedAttribute.unit_price}
+                    </h5> */}
+                  </div>
+
+                  <div className="">
+                    {selectedAttribute.quantity > 0 ? (
+                      <>
+                        <p className="medium fw-normal text-dark mb-1">
+                          Quantity
+                        </p>
+                        <select
+                          className="py-1 px-3 form-select"
+                          aria-label="Default select example"
+                          onChange={(e) => setSelectedQuantity(e.target.value)}
+                          value={selectedQuantity}
+                        >
+                          <>
+                            {[
+                              ...Array(
+                                parseInt(selectedAttribute.quantity)
+                              ).keys(),
+                            ].map((v) => (
+                              <option value={v + 1}>{v + 1}</option>
+                            ))}
+                          </>
+                        </select>
+                      </>
+                    ) : (
+                      <p className="medium fw-normal text-black-50">
+                        Out of Stock
                       </p>
-                      <select
-                        className="py-1 px-3 form-select"
-                        aria-label="Default select example"
-                        onChange={(e) => setSelectedQuantity(e.target.value)}
-                        value={selectedQuantity}
-                      >
-                        <>
-                          {[
-                            ...Array(
-                              parseInt(selectedAttribute.quantity)
-                            ).keys(),
-                          ].map((v) => (
-                            <option value={v + 1}>{v + 1}</option>
-                          ))}
-                        </>
-                      </select>
-                    </>
-                  ) : (
-                    <p className="medium fw-normal text-black-50">
-                      Out of Stock
-                    </p>
-                  )}
+                    )}
+                  </div>
+                </div>
+                {/* <p className="return-policy">3 days return policy</p> */}
+                <hr className="my-4" />
+                <div className="d-flex flex-row ">
+                  <button
+                    className="btn btn-qs-primary w-100 p-2 small "
+                    type="button"
+                    disabled={selectedAttribute.quantity <= 0}
+                    onClick={() => addToCart(false)}
+                  >
+                    {selectedAttribute.quantity > 0
+                      ? "Add To Cart"
+                      : " Out of Stock"}
+                  </button>
+                  <button
+                    className="btn btn-qs-primary w-100 p-2 ms-1 small "
+                    style={{ backgroundColor: "#45904e" }}
+                    type="button"
+                    disabled={selectedAttribute.quantity <= 0}
+                    onClick={() =>
+                      window
+                        .open(
+                          `${Strings.whatsappUrl}&text=${window.location.href}`,
+                          "_blank"
+                        )
+                        .focus()
+                    }
+                  >
+                    {selectedAttribute.quantity > 0
+                      ? "Order By WhatsApp"
+                      : " Out of Stock"}
+                  </button>
                 </div>
               </div>
-              {/* <p className="return-policy">3 days return policy</p> */}
-              <hr className="my-4" />
-              <div className="d-flex flex-row ">
-                <button
-                  className="btn btn-qs-primary w-100 p-2 small "
-                  type="button"
-                  disabled={selectedAttribute.quantity <= 0}
-                  onClick={() => addToCart(false)}
-                >
-                  {selectedAttribute.quantity > 0
-                    ? "Add To Cart"
-                    : " Out of Stock"}
-                </button>
-                <button
-                  className="btn btn-qs-primary w-100 p-2 ms-1 small "
-                  style={{backgroundColor: "#45904e"}}
-                  type="button"
-                  disabled={selectedAttribute.quantity <= 0}
-                  onClick={() => window.open(`${Strings.whatsappUrl}&text=${window.location.href}`,'_blank').focus()}
-                >
-                  {selectedAttribute.quantity > 0 ? "Order By WhatsApp" : " Out of Stock"}
-                </button>
-              </div>
-            </div>
             </div>
             {/* Checkout Section */}
             {/* <div className="col-3 border p-3 rounded-3 card">
@@ -529,62 +571,63 @@ function ProductDescription(props) {
             />
           </div>
           <div id="review-form" className="w-100">
-          {
-            location?.state?.order &&
-            <ReviewForm order={location?.state?.order} productId={productId} />
-          }
+            {location?.state?.order && (
+              <ReviewForm
+                order={location?.state?.order}
+                productId={productId}
+              />
+            )}
           </div>
-          
-            
-          {
-            similarProdcuts.length > 0 && 
-            <div className="py-4 bg-white w-100">
-               <hr/>
-            {/* Title of Product Container */}
-            <div className="py-2">
-              <h4 className="p-0 m-0">Similar Products</h4>
-            </div>
-            {/* List of product */}
-            <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap card-group">
-              <Carousel breakPoints={breakPoints} pagination={false}>
-                {similarProdcuts.map(
-                  (
-                    {
-                      name,
-                      rating,
-                      description,
-                      price,
-                      product_image_small_url,
-                      _id,
-                    },
-                    index
-                  ) => {
-                    return (
-                      <Link
-                        key={_id}
-                        className="text-decoration-none h-100"
-                        to={{
-                          pathname: `${_id}`,
-                          query: { id: _id },
-                        }}
-                      >
-                        <Product
-                          key={index}
-                          productName={name}
-                          rating={rating}
-                          description={description}
-                          productImage={product_image_small_url}
-                          price={price?.unit_price}
-                        />
-                      </Link>
-                    );
-                  }
-                )}
-              </Carousel>
-            </div>
-          </div>
-          }
 
+          {similarProdcuts.length > 0 && (
+            <div className="py-4 bg-white w-100">
+              <hr />
+              {/* Title of Product Container */}
+              <div className="py-2">
+                <h4 className="p-0 m-0">Similar Products</h4>
+              </div>
+              {/* List of product */}
+              <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap card-group">
+                <Carousel breakPoints={breakPoints} pagination={false}>
+                  {similarProdcuts.map(
+                    (
+                      {
+                        name,
+                        rating,
+                        description,
+                        price,
+                        product_image_small_url,
+                        _id
+                      },
+                      index
+                    ) => {
+                      return (
+                        <Link
+                          key={_id}
+                          className="text-decoration-none h-100"
+                          to={{
+                            pathname: `${_id}`,
+                            query: { id: _id },
+                          }}
+                        >
+                          <Product
+                            key={index}
+                            productName={name}
+                            rating={rating}
+                            description={description}
+                            productImage={product_image_small_url}
+                            price={price?.unit_price}
+                            discountType={price?.discount_type}
+                            discountAmount={price?.discount_amount}
+                          />
+                        </Link>
+                      );
+                    }
+                  )}
+                </Carousel>
+              </div>
+            </div>
+          )}
 
           <FloatingButton />
         </>
@@ -608,8 +651,8 @@ function ProductDescription(props) {
                     (res) => {
                       if (res.error) toast.error("Error while creating order");
                       else {
-                        toast.success("Order placed",{ 
-                          className:"my-toast"
+                        toast.success("Order placed", {
+                          className: "my-toast",
                         });
                         setShow(false);
                       }

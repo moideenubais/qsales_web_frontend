@@ -12,14 +12,17 @@ const SellerForm = (props) => {
   } = useForm();
   const onSubmit = (data) => console.log(data);
   const notify = () => {
-    toast.success("Qsales will be contacting you soon!", {
+    props?.onSubmit?.();
+    toast.success(<p className="text-center">
+      Registered Successfully! <br/> Qsales will be contacting you soon!
+    </p>, {
       duration: 5000,
       className:"my-toast"
     });
-    toast.success("Registered Successfully!", {
-      duration: 1000,
-      className:"my-toast"
-    });
+    // toast.success("Registered Successfully!", {
+    //   duration: 1000,
+    //   className:"my-toast"
+    // });
   };
 
 

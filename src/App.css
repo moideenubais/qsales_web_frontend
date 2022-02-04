@@ -758,6 +758,13 @@ button#dropdown-basic-button {
 .terms-container nowrap{
   white-space:initial;
 }
+.extra-small{
+  font-size:0.7em !important;
+  font-weight: 600;
+}
+.time-card{
+  min-width: 55px;
+}
 @media (max-width: 1198px) {  
   .support-2nd{
     margin:0px !important;

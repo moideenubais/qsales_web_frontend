@@ -55,12 +55,17 @@ export const Info = styled.div`
 export const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
+  @media (max-width: 768px) {
+    flex-direction:column;
+  }
 `;
 
 export const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  @media (max-width: 768px) {
+    flex: 1;
+  }
 `;
 
 export const Image = styled.img`

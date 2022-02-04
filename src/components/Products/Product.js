@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactStars from "react-stars";
 
 function Product(props) {
-  const { productName, rating, description, price, productImage } = props;
+  const { productName, rating, description, price, productImage, discountType, discountAmount } = props;
 
   const [ratingValue, setRatingValue] = useState(rating || 0);
 
@@ -39,7 +39,21 @@ function Product(props) {
             value={ratingValue}
           />
           <div className="d-flex flex-row mt-1  align-items-center justify-content-between">
-            <p className="primary-color p-0 m-0 small"><strong>QR {price}</strong></p>
+            {
+              discountType ? 
+              <p className="primary-color p-0 m-0 small d-flex align-items-center">
+              <strong>
+                QR {parseFloat(discountType=='flat'?price-discountAmount:(((100-parseFloat(discountAmount))/100)*parseFloat(price))).toFixed(2)} 
+              </strong>
+              <small className="extra-small"> 
+               &nbsp;&nbsp;(<span className="text-muted "><s>QR {price}</s></span>
+                 <span className="text-success"> {(discountType=='flat')?'QR ':''}{discountAmount}{(discountType=='flat')?'':'%'} off</span>)
+              </small>
+            </p>:
+            <p className="primary-color p-0 m-0 small">
+            <strong>QR {price}</strong>
+            </p>
+            }
             {/* <div className="d-flex align-items-center justify-content-center">
               {/* Cart icon */}
               {/* <button className="btn-cart d-flex align-items-center justify-content-center">
