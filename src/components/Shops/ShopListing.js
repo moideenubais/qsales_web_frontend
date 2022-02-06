@@ -171,6 +171,7 @@ const ShopListing = (props) => {
                               price={price?.unit_price}
                               discountAmount={discount_amount}
                               discountType={discount_type}
+                              className="product-card-extention"
                             />
                           </Link>
                         );

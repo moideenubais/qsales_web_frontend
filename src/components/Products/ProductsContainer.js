@@ -16,13 +16,15 @@ function ProductsContainer(props) {
 
   useEffect(() => {
     if (!datas) return;
-    const query = { user_type: "user", category_id: datas._id };
+    const query = { user_type: "user", category_id: datas._id,limit:8,page:0 };
     if (!datas._id) {
       query[datas.type] = true;
       delete datas.category_id;
     }
-
-    propsGetData(ActionTypes.GET_PRODUCTS, "/product", query).then((res) => {
+    if(datas.duration) {
+      delete datas.category_id;
+    }
+    propsGetData(ActionTypes.GET_PRODUCTS,datas.duration?`/flash/${datas._id}`:"/product", query).then((res) => {
       if (res.error) return;
       setproductsData(res.payload.data.products);
     });
@@ -37,32 +39,21 @@ function ProductsContainer(props) {
     { width: 1750, itemsToShow: 7 },
   ];
 
-  const getTime=()=>{
-    const {$H:h1,$m:m1,$s:s1}=dayjs().endOf('day');
-    const {$H:h2,$m:m2,$s:s2}=dayjs();
-    return {h:h1-h2,m:m1-m2,s:s1-s2};
-  }
-  const [remainingTime,setRemainingTime]=useState(getTime());
-  useEffect(()=>{
-    setInterval(()=>{
-      const time=getTime();
-      setRemainingTime(time);
-    },1000)
-  },[])
-  
-  const {h,m,s}=remainingTime;
+
   return (
     <>
       {productsData ? (
         <div className="col-12">
           <div className="col-12 mx-auto pt-2 ">
             {/* Product Container */}
-            <div className="p-4 bg-white">
+            <div className="p-3 bg-white">
               {/* Title of Product Container */}
-              <div className="pb-4 d-flex flex-row justify-content-between">
-                <h4 className="p-0 m-0">{datas.i18nResourceBundle.name}</h4>
-                {datas.type=='todays_deal' && <h5 className="text-muted small"><DealTime h={h} m={m} s={s} /> </h5> }
-                {datas._id ?<a style={{textDecoration:"none"}} href={`/category/${datas._id}`}>View All</a>:""}
+              <div className="pb-4 d-flex flex-row justify-content-between flex-wrap">
+                <h4 className="p-0 m-0 products-container-title" >{datas?.i18nResourceBundle?.name || datas?.name}</h4>
+                {datas?.type=='todays_deal' && <h5 className="text-muted small"><DealTime daily={true} /> </h5> }
+                {datas?.duration && <h5 className="text-muted small"><DealTime endDate={datas?.duration?.to} /> </h5> }
+                {datas?.duration?<a style={{textDecoration:"none"}} href={`/deal/${datas._id}`}>View All</a>:""}
+                {(datas?._id && !datas?.duration) ?<a style={{textDecoration:"none"}} href={`/category/${datas._id}`}>View All</a>:""}
               </div>
               {/* List of product */}
               <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap card-group">
@@ -79,16 +70,9 @@ function ProductsContainer(props) {
                       },
                       index
                     ) => {
-                      return (
-                        <Link
-                          key={_id}
-                          className="text-decoration-none h-100"
-                          to={{
-                            pathname: `product/${_id}`,
-                            query: { id: _id },
-                          }}
-                        >
+                      return (      
                           <Product
+                            _id={_id}
                             key={index}
                             productName={name}
                             rating={rating}
@@ -98,10 +82,10 @@ function ProductsContainer(props) {
                             discountType={price?.discount_type}
                             discountAmount={price?.discount_amount}
                           />
-                        </Link>
                       );
                     }
                   )}
+                  
                 </Carousel>
               </div>
             </div>

@@ -6,13 +6,13 @@ import { ActionTypes } from "../../redux/contants/action-types";
 import CarouselHome from "../CarouselHome";
 
 const otherCategories = [
-  {
-    i18nResourceBundle: {
-      languageCode: "en",
-      name: "Flash Deals",
-    },
-    type: "flash_deal",
-  },
+  // {
+  //   i18nResourceBundle: {
+  //     languageCode: "en",
+  //     name: "Flash Deals",
+  //   },
+  //   type: "flash_deal",
+  // },
   {
     i18nResourceBundle: {
       languageCode: "en",
@@ -30,19 +30,24 @@ const otherCategories = [
 ];
 
 function ProductsListHolder(props) {
-  const { getData: propsGetData, categoryReducer } = props;
+  const { getData: propsGetData, categoryReducer,flashDealReducer } = props;
 
   const [allCategories, setAllCategories] = useState(otherCategories);
 
   const { categories = [] } = categoryReducer?.data || {};
+  const { flashs = [] } = flashDealReducer?.data || {};
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY, "/category");
+    propsGetData(ActionTypes.GET_ALL_FLASHDEAL, "/flash");
   }, [propsGetData]);
 
   useEffect(() => {
-    setAllCategories(otherCategories.concat(categories));
-  }, [categories]);
+    if(categories && flashs){
+      setAllCategories(flashs.concat(otherCategories.concat(categories)));
+    }
+    
+  }, [categories,flashs]);
 
   return (
     <>
@@ -62,6 +67,7 @@ function ProductsListHolder(props) {
 
 const mapStateToProps = (state) => ({
   categoryReducer: state.getAllCategoriesReducer,
+  flashDealReducer:state.getAllFlashDealsReducer
 });
 
 export default connect(mapStateToProps, {

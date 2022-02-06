@@ -367,15 +367,19 @@ function ProductDescription(props) {
                   <div className="">
                     <p className="medium fw-normal mb-1">Now at</p>
                     {selectedAttribute?.discount_type ? (
-                     <h5 className="primary-color p-0 m-0 ">
-                          QR{" "}
-                          {parseFloat(
-                            selectedAttribute?.discount_type == "flat"
-                              ? selectedAttribute.unit_price - selectedAttribute?.discount_amount
-                              : ((100 - parseFloat(selectedAttribute?.discount_amount)) / 100) *
-                                  parseFloat(selectedAttribute.unit_price)
-                          ).toFixed(2)}
-                     
+                      <h5 className="primary-color p-0 m-0 ">
+                        QR{" "}
+                        {parseFloat(
+                          selectedAttribute?.discount_type == "flat"
+                            ? selectedAttribute.unit_price -
+                                selectedAttribute?.discount_amount
+                            : ((100 -
+                                parseFloat(
+                                  selectedAttribute?.discount_amount
+                                )) /
+                                100) *
+                                parseFloat(selectedAttribute.unit_price)
+                        ).toFixed(2)}
                         <small>
                           &nbsp;&nbsp;
                           <span className="text-muted ">
@@ -383,16 +387,20 @@ function ProductDescription(props) {
                           </span>
                           <span className="text-success">
                             {" "}
-                            {selectedAttribute?.discount_type == "flat" ? "QR " : ""}
+                            {selectedAttribute?.discount_type == "flat"
+                              ? "QR "
+                              : ""}
                             {selectedAttribute?.discount_amount}
-                            {selectedAttribute?.discount_type == "flat" ? "" : "%"} off
+                            {selectedAttribute?.discount_type == "flat"
+                              ? ""
+                              : "%"}{" "}
+                            off
                           </span>
-                          
                         </small>
                       </h5>
                     ) : (
                       <h5 className="primary-color p-0 m-0 ">
-                      QR {selectedAttribute.unit_price}
+                        QR {selectedAttribute.unit_price}
                       </h5>
                     )}
                     {/* <h5 className="primary-color p-0 m-0 ">
@@ -430,7 +438,23 @@ function ProductDescription(props) {
                     )}
                   </div>
                 </div>
-                {/* <p className="return-policy">3 days return policy</p> */}
+                <p className="">
+                  <span className="text-muted">Shipping: </span>
+                  <span className="text-success">
+                    {productDetails.shipping_config === "flat_rate"
+                      ? `QR ${productDetails.shipping_cost}`
+                      : "Free Delivery"}
+                  </span>
+                </p>
+                {productDetails?.minimum_purchase_quantity && (
+                  <p>
+                    <span className="text-muted">Minimum Purchase: </span>
+                    <span className="text-success">
+                      {productDetails?.minimum_purchase_quantity}
+                    </span>
+                  </p>
+                )}
+
                 <hr className="my-4" />
                 <div className="d-flex flex-row ">
                   <button
@@ -597,20 +621,13 @@ function ProductDescription(props) {
                         description,
                         price,
                         product_image_small_url,
-                        _id
+                        _id,
                       },
                       index
                     ) => {
                       return (
-                        <Link
-                          key={_id}
-                          className="text-decoration-none h-100"
-                          to={{
-                            pathname: `${_id}`,
-                            query: { id: _id },
-                          }}
-                        >
                           <Product
+                            _id={_id}
                             key={index}
                             productName={name}
                             rating={rating}
@@ -620,7 +637,6 @@ function ProductDescription(props) {
                             discountType={price?.discount_type}
                             discountAmount={price?.discount_amount}
                           />
-                        </Link>
                       );
                     }
                   )}

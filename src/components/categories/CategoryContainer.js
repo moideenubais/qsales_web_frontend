@@ -95,7 +95,7 @@ function CategoryContainer(props) {
 
               {/* List of product */}
               <div className="col-12 bg-white d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
-                {console.log(products)}
+
                 {products.map(
                   (
                     {
@@ -111,14 +111,8 @@ function CategoryContainer(props) {
                     index
                   ) => {
                     return (
-                      <Link
-                        className="text-decoration-none"
-                        to={{
-                          pathname: `/product/${_id}`,
-                          query: { id: _id },
-                        }}
-                      >
                         <Product
+                          _id={_id}
                           key={index}
                           productName={name}
                           rating={rating}
@@ -127,8 +121,8 @@ function CategoryContainer(props) {
                           price={price?.unit_price}
                           discountAmount={discount_amount}
                           discountType={discount_type}
+                          classes="product-card-extention"
                         />
-                      </Link>
                     );
                   }
                 )}

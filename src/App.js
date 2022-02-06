@@ -18,7 +18,7 @@ const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const ShopPage = lazy(() => import("./pages/ShopPage"));
 const BrandPage = lazy(() => import("./pages/BrandPage"));
 const Policy=lazy(()=>import('./components/Terms/Index'))
-
+const DealPage = lazy(() => import("./pages/DealPage"));
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
@@ -97,6 +97,10 @@ function App() {
              <Route
               path="/policy/:type"
               component={WaitingComponent(Policy)}
+            />
+             <Route
+              path="/deal/:dealID"
+              component={WaitingComponent(DealPage)}
             />
             <Route>
               <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">

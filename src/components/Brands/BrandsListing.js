@@ -159,14 +159,8 @@ const BrandsListing = (props) => {
                         index
                       ) => {
                         return (
-                          <Link
-                            className="text-decoration-none"
-                            to={{
-                              pathname: `/product/${_id}`,
-                              query: { id: _id },
-                            }}
-                          >
                             <Product
+                              _id={_id}
                               key={index}
                               productName={name}
                               rating={rating}
@@ -175,8 +169,8 @@ const BrandsListing = (props) => {
                               price={price?.unit_price}
                               discountAmount={discount_amount}
                               discountType={discount_type}
+                              className="product-card-extention"
                             />
-                          </Link>
                         );
                       }
                     )}
