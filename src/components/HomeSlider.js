@@ -71,7 +71,7 @@ function CarouselHome(props) {
             <div className="slide">
             <Link to={{pathname:ad?.url?ad?.url:''}} >
               <img
-                src={`${imageBaseUrl}${ad?.ad_url}`}
+                src={`${ad?.ad_url}`}
                 className="w-100 "
                 alt={ad?.name}
               />

@@ -272,7 +272,7 @@ function Header(props) {
                           >
                             <img
                               alt="img"
-                              src={`${process.env.REACT_APP_IMAGE_URL}/${item.imageUrl}`}
+                              src={`${item.imageUrl}`}
                               width={40}
                               height={40}
                               style={{ borderRadius: 20 }}

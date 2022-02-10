@@ -70,7 +70,7 @@ function CarouselHome(props) {
             {adsReducer?.data?.ads?.map((ad, index) => (
               <div key={index} className="ad-container">
               <img
-                src={`${imageBaseUrl}${ad?.ad_url}`}
+                src={`${ad?.ad_url}`}
                 className="w-100 ads-img"
                 style={{ height: "46px" }}
                 alt={ad?.name}

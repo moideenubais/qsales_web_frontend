@@ -58,7 +58,7 @@ const BrandsContainer = (props) => {
                             <div className=" product p-3 rounded mx-1">
                               <div className="d-flex justify-content-center">
                                 <img
-                                  src={`${process.env.REACT_APP_IMAGE_URL}/${shop?.logo_url}`}
+                                  src={`${shop?.logo_url}`}
                                   alt="shop"
                                   className="img-fluid product-image"
                                 />

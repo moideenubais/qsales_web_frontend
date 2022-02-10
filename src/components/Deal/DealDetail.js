@@ -9,7 +9,7 @@ const DealDetail = () => {
     const [deal,setDeal]=useState(null);
 
     useEffect(()=>{
-        axios.get(`/flash/${dealID}`).then(res=>{
+        axios.get(`/flash/${dealID}?user_type=user`).then(res=>{
             setDeal(res.data);
         })
     },[])
@@ -28,11 +28,11 @@ const DealDetail = () => {
             <div className="text-center mb-4">
                 <img className="banner-cover" src={`${process.env.REACT_APP_IMAGE_URL}/${deal.banner_url}`} />    
             </div>
-            <div className="time-container d-flex justify-content-center align-items-center">
+            <div className="time-container d-flex justify-content-center align-items-center mb-2">
             <DealTime endDate={deal?.duration?.to} />
             </div>
-            <div className="col-12 bg-white d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
-            {/* {deal?.products?.map(
+            <div className="p-4 col-12 bg-white d-flex flex-row  justify-content-center flex-wrap flex-md-wrap">
+            {deal?.products?.map(
                   (
                     {
                       name,
@@ -47,14 +47,8 @@ const DealDetail = () => {
                     index
                   ) => {
                     return (
-                      <Link
-                        className="text-decoration-none"
-                        to={{
-                          pathname: `/product/${_id}`,
-                          query: { id: _id },
-                        }}
-                      >
                         <Product
+                          _id={_id}
                           key={index}
                           productName={name}
                           rating={rating}
@@ -65,10 +59,9 @@ const DealDetail = () => {
                           discountType={discount_type}
                           classes="product-card-extention"
                         />
-                      </Link>
                     );
                   }
-                )} */}
+                )}
             </div>
         </div>
     )

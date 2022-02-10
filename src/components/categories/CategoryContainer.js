@@ -119,8 +119,8 @@ function CategoryContainer(props) {
                           description={description}
                           productImage={product_image_small_url}
                           price={price?.unit_price}
-                          discountAmount={discount_amount}
-                          discountType={discount_type}
+                          discountAmount={price?.discount_amount}
+                          discountType={price?.discount_type}
                           classes="product-card-extention"
                         />
                     );

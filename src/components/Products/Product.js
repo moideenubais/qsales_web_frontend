@@ -33,7 +33,7 @@ function Product(props) {
       >
       <div className="d-flex justify-content-center">
               <img
-                src={`${process.env.REACT_APP_IMAGE_URL}/${productImage}`}
+                src={`${productImage}`}
                 alt="product"
                 className="card-img-top img-fluid product-image"
               />
@@ -75,7 +75,7 @@ function Product(props) {
                     ).toFixed(2)}&nbsp;&nbsp;
                   </strong>
                 </p>
-                <div>
+                <div style={{whiteSpace: "nowrap"}}>
                 <small className="extra-small"> 
                    <span className="text-muted ">
                      <s>QR {price}</s>

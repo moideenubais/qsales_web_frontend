@@ -68,7 +68,7 @@ function ProductDescription(props) {
     setProductDetails(data || {});
     setSelectedImage(
       data.product_image_big_url
-        ? `${imageBaseUrl}${data.product_image_big_url[0]}`
+        ? `${data.product_image_big_url[0]}`
         : ""
     );
     setRatingValue(data.rating);
@@ -301,13 +301,13 @@ function ProductDescription(props) {
                   >
                     {productDetails.product_image_big_url?.map((imgUrl) => (
                       <img
-                        src={`${imageBaseUrl}${imgUrl}`}
+                        src={`${imgUrl}`}
                         height="80"
                         width="80"
                         alt=""
                         className="rounded-3 border"
                         onClick={() =>
-                          setSelectedImage(`${imageBaseUrl}${imgUrl}`)
+                          setSelectedImage(`${imgUrl}`)
                         }
                       />
                     ))}
