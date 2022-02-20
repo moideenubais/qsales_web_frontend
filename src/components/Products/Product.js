@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import ReactStars from "react-stars";
 
 function Product(props) {
@@ -15,6 +15,8 @@ function Product(props) {
     classes=""
   } = props;
 
+  const history=useHistory();
+
   const [ratingValue, setRatingValue] = useState(rating || 0);
 
   const ratingChanged = (newRating) => {
@@ -26,10 +28,10 @@ function Product(props) {
       <Link
         key={_id}
         className={`text-decoration-none h-100 product mx-1 ${classes}`}
-        to={{
-          pathname: `product/${_id}`,
+        onClick={e=>{history.push({
+          pathname: `/product/${_id}`,
           query: { id: _id },
-        }}
+        })}}
       >
       <div className="d-flex justify-content-center">
               <img
