@@ -116,12 +116,15 @@ export const ProductAmountContainer = styled.div`
 export const ProductAmount = styled.div`
   font-size: 18px;
   margin: 10px !important;
+  white-space: nowrap;
   ${mobile({ margin: "5px 15px !important" })}
 `;
 
 export const ProductPrice = styled.div`
   font-size: 24px;
   font-weight: 400;
+  text-align: center;
+  ${mobile({fontSize: "14px" })}
   
 `;
 

@@ -238,7 +238,7 @@ const CartComponent = (props) => {
                   <Product>
                     <ProductDetail>
                       <Image
-                        src={`${process.env.REACT_APP_IMAGE_URL}/${item.product?.product_image_small_url}`}
+                        src={`${item.product?.product_image_small_url}`}
                       />
                       <Details>
                         <ProductName>
