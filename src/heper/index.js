@@ -56,3 +56,21 @@ export const validatePasswords = ({ password, confirm_password }, setError) => {
   }
   return true;
 };
+
+export const getDiscountedPrice=(discount_type,discount_amount,unit_price)=>{
+  return parseFloat(
+    discount_type == "flat"
+      ? unit_price -
+          discount_amount
+      : ((100 -
+          parseFloat(
+            discount_amount
+          )) /
+          100) *
+          parseFloat(unit_price)
+  ).toFixed(2)
+}
+
+export const getParamValue=(a,b)=>{
+  return a || b
+}

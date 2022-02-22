@@ -67,6 +67,7 @@ function ProductsContainer(props) {
                         price,
                         product_image_small_url,
                         _id,
+                        flash
                       },
                       index
                     ) => {
@@ -79,8 +80,8 @@ function ProductsContainer(props) {
                             description={description}
                             productImage={product_image_small_url}
                             price={price?.unit_price}
-                            discountType={price?.discount_type}
-                            discountAmount={price?.discount_amount}
+                            discountAmount={flash?.discount_amount || price?.discount_amount}
+                            discountType={flash?.discount_type || price?.discount_type}
                           />
                       );
                     }

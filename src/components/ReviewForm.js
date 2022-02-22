@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import ReactStars from "react-stars";
 
 const ReviewForm = (props) => {
-    console.log("Review",props.order)
     const [ratings,setRatings]=useState(1);
     const [message,setMessage]=useState("");
 

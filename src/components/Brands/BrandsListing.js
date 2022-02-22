@@ -154,7 +154,8 @@ const BrandsListing = (props) => {
                           product_image_small_url,
                           _id,
                           discount_type,
-                          discount_amount
+                          discount_amount,
+                          flash
                         },
                         index
                       ) => {
@@ -167,8 +168,8 @@ const BrandsListing = (props) => {
                               description={description}
                               productImage={product_image_small_url}
                               price={price?.unit_price}
-                              discountAmount={discount_amount}
-                              discountType={discount_type}
+                              discountAmount={flash?.discount_amount || price?.discount_amount}
+                              discountType={flash?.discount_type || price?.discount_type}
                               className="product-card-extention"
                             />
                         );

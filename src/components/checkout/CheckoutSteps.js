@@ -358,23 +358,25 @@ function CheckoutSteps(props) {
         {cartItems.length > 0 &&
           cartItems.map((item, index) => (
             <div className="d-flex flex-column p-3 border-bottom">
-              <div className="d-flex flex-row justify-content-between">
-                <span className="col-9">
+              <span className="mb-2">
                   {item.product?.i18nResourceBundle.name}
-                </span>
-                <CheckoutPagePriceWrapper className="col-3">
+              </span>
+              <div className="d-flex flex-row flex-wrap justify-content-between">
+                
+                <CheckoutPageSmallWrapper>
+                x {item.quantity}
+                </CheckoutPageSmallWrapper>
+                <CheckoutPagePriceWrapper className="col-md-5 col-xl-4">
                   {t("riyalText")} {item.product?.varient.unit_price}
                 </CheckoutPagePriceWrapper>
               </div>
-              <CheckoutPageSmallWrapper>
-                x {item.quantity}
-              </CheckoutPageSmallWrapper>
+              
             </div>
           ))}
         <div className={`d-flex flex-column p-3 border-bottom`}>
           <div className="d-flex flex-row justify-content-between">
-            <span className="col-8">{t("subTotal")}</span>
-            <CheckoutPagePriceWrapper className="col-3">
+            <span className="col-md-7 col-xl-8">{t("subTotal")}</span>
+            <CheckoutPagePriceWrapper className="col-md-5 col-xl-4">
               {t("riyalText")} {calcSubTotal()}
             </CheckoutPagePriceWrapper>
           </div>

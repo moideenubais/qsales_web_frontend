@@ -41,8 +41,7 @@ const DealDetail = () => {
                       price,
                       product_image_small_url,
                       _id,
-                      discount_type,
-                      discount_amount
+                      flash
                     },
                     index
                   ) => {
@@ -55,8 +54,8 @@ const DealDetail = () => {
                           description={description}
                           productImage={product_image_small_url}
                           price={price?.unit_price}
-                          discountAmount={discount_amount}
-                          discountType={discount_type}
+                          discountAmount={flash?.discount_amount || price?.discount_amount}
+                          discountType={flash?.discount_type || price?.discount_type}
                           classes="product-card-extention"
                         />
                     );

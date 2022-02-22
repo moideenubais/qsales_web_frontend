@@ -14,7 +14,6 @@ function FloatingButton() {
         if(buttonRef){
             ReactTooltip.show(buttonRef);
         }
-        console.log(buttonRef,"buttonRef");
     },[buttonRef])
     return (
         <React.Fragment>

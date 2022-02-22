@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
 const SummaryModal = ({summary}) => {
-    console.log("Summary",summary);
   return (
     <>
     <div className=" col-8 bg-transparent-full">

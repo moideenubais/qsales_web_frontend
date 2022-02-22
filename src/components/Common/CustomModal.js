@@ -2,7 +2,6 @@ import React from "react";
 import Parser from 'html-react-parser';
 
 const CustomModal = (props) => {
-  console.log("hahah")
   return (
     <div className="shadow-lg col-12 bg-transparent-full">
       <div className="signIn-model col-lg-8 col-md-5 col-sm-8 p-4 bg-white rounded shadow-lg border custom-modal">

@@ -12,6 +12,8 @@ import { getData, updateData, createData } from "../redux/actions";
 import { ActionTypes } from "../redux/contants/action-types";
 import {
   getCartInLocalStorage,
+  getDiscountedPrice,
+  getParamValue,
   isEmptyObj,
   saveCartToLocalStorage,
 } from "../heper";
@@ -131,7 +133,8 @@ function ProductDescription(props) {
             quantity: variant.quantity,
             variant_id: variant._id,
             discount_type:variant.discount_type,
-            discount_amount:variant.discount_amount
+            discount_amount:variant.discount_amount,
+            flash:productDetails.flash
           };
           attributeData.forEach(({ name, values }) => {
             returnData[name] = values[0].value;
@@ -148,7 +151,8 @@ function ProductDescription(props) {
             quantity: variant.quantity,
             variant_id: variant._id,
             discount_type:variant.discount_type,
-            discount_amount:variant.discount_amount
+            discount_amount:variant.discount_amount,
+            flash:productDetails.flash
           };
         }
       }
@@ -369,17 +373,11 @@ function ProductDescription(props) {
                     {selectedAttribute?.discount_type ? (
                       <h5 className="primary-color p-0 m-0 ">
                         QR{" "}
-                        {parseFloat(
-                          selectedAttribute?.discount_type == "flat"
-                            ? selectedAttribute.unit_price -
-                                selectedAttribute?.discount_amount
-                            : ((100 -
-                                parseFloat(
-                                  selectedAttribute?.discount_amount
-                                )) /
-                                100) *
-                                parseFloat(selectedAttribute.unit_price)
-                        ).toFixed(2)}
+                        {console.log("heheh",selectedAttribute)}
+                        {getDiscountedPrice(
+                          selectedAttribute?.flash?.discount_type || selectedAttribute?.discount_type,
+                          selectedAttribute?.flash?.discount_amount || selectedAttribute?.discount_amount,
+                          selectedAttribute.unit_price)}
                         <small>
                           &nbsp;&nbsp;
                           <span className="text-muted ">
@@ -387,11 +385,11 @@ function ProductDescription(props) {
                           </span>
                           <span className="text-success">
                             {" "}
-                            {selectedAttribute?.discount_type == "flat"
+                            {getParamValue(selectedAttribute?.flash?.discount_type,selectedAttribute?.discount_type) == "flat"
                               ? "QR "
                               : ""}
-                            {selectedAttribute?.discount_amount}
-                            {selectedAttribute?.discount_type == "flat"
+                            {selectedAttribute?.flash?.discount_amount || selectedAttribute?.discount_amount}
+                            {getParamValue(selectedAttribute?.flash?.discount_type,selectedAttribute?.discount_type) == "flat"
                               ? ""
                               : "%"}{" "}
                             off
@@ -622,6 +620,7 @@ function ProductDescription(props) {
                         price,
                         product_image_small_url,
                         _id,
+                        flash
                       },
                       index
                     ) => {
@@ -634,8 +633,8 @@ function ProductDescription(props) {
                             description={description}
                             productImage={product_image_small_url}
                             price={price?.unit_price}
-                            discountType={price?.discount_type}
-                            discountAmount={price?.discount_amount}
+                            discountAmount={flash?.discount_amount || price?.discount_amount}
+                            discountType={flash?.discount_type || price?.discount_type}
                           />
                       );
                     }
