@@ -50,7 +50,7 @@ function ProductsContainer(props) {
               {/* Title of Product Container */}
               <div className="pb-4 d-flex flex-row justify-content-between flex-wrap">
                 <h4 className="p-0 m-0 products-container-title" >{datas?.i18nResourceBundle?.name || datas?.name}</h4>
-                {datas?.type=='todays_deal' && <h5 className="text-muted small"><DealTime daily={true} /> </h5> }
+                {productsData?.length && datas?.type=='todays_deal' && <h5 className="text-muted small"><DealTime daily={true} /> </h5> }
                 {datas?.duration && <h5 className="text-muted small"><DealTime endDate={datas?.duration?.to} /> </h5> }
                 {datas?.duration?<a style={{textDecoration:"none"}} href={`/deal/${datas._id}`}>View All</a>:""}
                 {(datas?._id && !datas?.duration) ?<a style={{textDecoration:"none"}} href={`/category/${datas._id}`}>View All</a>:""}
