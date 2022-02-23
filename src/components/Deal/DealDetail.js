@@ -26,7 +26,7 @@ const DealDetail = () => {
     return (
         <div>
             <div className="text-center mb-4">
-                <img className="banner-cover" src={`${process.env.REACT_APP_IMAGE_URL}/${deal.banner_url}`} />    
+                <img className="banner-cover" src={`${deal.banner_url}`} />    
             </div>
             <div className="time-container d-flex justify-content-center align-items-center mb-2">
             <DealTime endDate={deal?.duration?.to} />
