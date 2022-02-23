@@ -1,13 +1,13 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { Link,useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-import SellerForm from "./components/SignIn/SellerForm";
-import Modal from "react-bootstrap/Modal";
 import SubscriptionForm from "./components/SubscriptionForm/SubscriptionForm";
 import Strings from "./Constants";
 import CustomModal from "./components/Common/CustomModal";
-import SummaryModal from "./components/SummaryModal";
+import SellerForm from "./components/SignIn/SellerForm";
+const Modal = React.lazy(() => import("react-bootstrap/Modal"));
+
+const SummaryModal = React.lazy(() => import("./components/SummaryModal"));
 
 function Footer() {
   const { t } = useTranslation();
@@ -31,6 +31,7 @@ function Footer() {
   return (
     <React.Fragment>
       {/* This is for displaying seller form*/}
+      <Suspense>
       <Modal
         show={show}
         onHide={() => setShow(false)}
@@ -41,6 +42,9 @@ function Footer() {
       >
         <SellerForm closeButton onSubmit={() => setShow(false)} />
       </Modal>
+      </Suspense>
+      
+      <Suspense>
       {
         orderSummary &&
          <Modal
@@ -55,6 +59,7 @@ function Footer() {
         <SummaryModal closeButton summary={location?.state?.orderSummary} />
         </Modal>
       }
+      </Suspense>
       <div className="col-md-12 bg-light border py-5 mt-4">
         <div className="col-9 mx-auto  pb-4">
           <div className="row">
