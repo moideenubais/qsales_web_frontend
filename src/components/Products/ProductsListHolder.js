@@ -35,7 +35,7 @@ function ProductsListHolder(props) {
   const [allCategories, setAllCategories] = useState(otherCategories);
 
   const { categories = [] } = categoryReducer?.data || {};
-  const { flashs = [] } = flashDealReducer?.data || {};
+  let { flashs = [] } = flashDealReducer?.data || {};
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY, "/category");
@@ -44,6 +44,8 @@ function ProductsListHolder(props) {
 
   useEffect(() => {
     if(categories && flashs){
+      let date= Date.now();
+      flashs=flashs.filter(flash=>(date > Date.parse(flash?.duration.from) && Date.parse(flash?.duration.to) > date ));
       setAllCategories(flashs.concat(otherCategories.concat(categories)));
     }
     
