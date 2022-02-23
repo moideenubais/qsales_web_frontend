@@ -40,7 +40,7 @@ function Product(props) {
                 className="card-img-top img-fluid product-image"
               />
       </div>
-        <div className="p-2 d-flex  flex-column justify-content-between" style={{height:window.innerWidth < 768?"inherit":"fit-content"}}>
+        <div className="p-2 d-flex  flex-column " style={{height:window.innerWidth < 768?"inherit":"fit-content"}}>
             <div className=" product-description">
               <h6
                 className={`product-title p-0 m-0 mb-1 text-dark card-title ${
