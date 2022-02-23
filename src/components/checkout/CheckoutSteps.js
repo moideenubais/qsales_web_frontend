@@ -63,15 +63,19 @@ function CheckoutSteps(props) {
   });
 
   const [location, setLocation] = useState({ latitude: "", longitude: "" });
-  useEffect(() => {
+ 
+  const handleGetLocation=()=>{
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(handleLocation);
     }
-  }, []);
+  }
   const handleLocation = (postion) => {
     setLocation({
       latitude: postion.coords.latitude,
       longitude: postion.coords.longitude,
+    });
+    toast.success("Current Location Added",{ 
+      className:"my-toast"
     });
   };
   const [unAuthenticatedUser, setUnAuthenticatedUser] = useState({
@@ -605,8 +609,20 @@ function CheckoutSteps(props) {
                   />
                 </div>
               ))}
+              {
+                !isAuthenticated && 
+                <div className="d-flex flex-row justify-content-end small gap-2">
+                  <button
+                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
+                  onClick={handleGetLocation}
+                >
+                  Allow Location
+                </button>
+                </div>
+              }
             <div className="d-flex flex-row justify-content-end small gap-2">
               {isAuthenticated && (
+                <>
                 <button
                   className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={() => {
@@ -623,6 +639,13 @@ function CheckoutSteps(props) {
                 >
                   {t("addNew")}
                 </button>
+                <button
+                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
+                  onClick={handleGetLocation}
+                >
+                  Allow Location
+                </button>
+                </>
               )}
               {/* {addresses.length ? (
                 <button
