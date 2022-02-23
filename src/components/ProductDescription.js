@@ -373,7 +373,6 @@ function ProductDescription(props) {
                     {selectedAttribute?.discount_type ? (
                       <h5 className="primary-color p-0 m-0 ">
                         QR{" "}
-                        {console.log("heheh",selectedAttribute)}
                         {getDiscountedPrice(
                           selectedAttribute?.flash?.discount_type || selectedAttribute?.discount_type,
                           selectedAttribute?.flash?.discount_amount || selectedAttribute?.discount_amount,
@@ -440,7 +439,11 @@ function ProductDescription(props) {
                   <span className="text-muted">Shipping: </span>
                   <span className="text-success">
                     {productDetails.shipping_config === "flat_rate"
-                      ? `QR ${productDetails.shipping_cost}`
+                      ? 
+                      `QR ${
+                        productDetails?.product_quantity_multiply ?
+                        (productDetails.shipping_cost * selectedQuantity):productDetails.shipping_cost
+                      }`
                       : "Free Delivery"}
                   </span>
                 </p>
@@ -635,6 +638,7 @@ function ProductDescription(props) {
                             price={price?.unit_price}
                             discountAmount={flash?.discount_amount || price?.discount_amount}
                             discountType={flash?.discount_type || price?.discount_type}
+                            // classes="product-card-extention"
                           />
                       );
                     }

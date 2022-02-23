@@ -11,7 +11,7 @@ import {
 import { logoutUser } from "../../redux/actions/auth.js";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router";
-import { getCartInLocalStorage } from "../../heper";
+import { getCartInLocalStorage, getDiscountedPrice } from "../../heper";
 import { useCartContext } from "../../context/cartContext";
 import SignIn from "../../components/Auth/SignIn";
 import SignUp from "../../components/Auth/SignUp";
@@ -40,7 +40,7 @@ function CheckoutSteps(props) {
     deleteData: propsDeleteData,
     userData,
   } = props;
-
+  console.log("Authenticated:",isAuthenticated)
   ///Login Logout States
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
@@ -116,7 +116,7 @@ function CheckoutSteps(props) {
     } else {
       getCartItems();
     }
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (user) {
@@ -180,7 +180,14 @@ function CheckoutSteps(props) {
   const calcSubTotal = () => {
     let subTotal = 0;
     cartItems.forEach((item) => {
-      subTotal += item.product?.varient.unit_price * item.quantity;
+      subTotal +=
+        getDiscountedPrice(
+          item.product?.flash?.discount_type ||
+            item.product?.varient?.discount_type,
+          item.product?.flash?.discount_amount ||
+            item.product?.varient?.discount_amount,
+          item.product?.varient?.unit_price
+        ) * item.quantity;
     });
     return subTotal;
   };
@@ -291,7 +298,10 @@ function CheckoutSteps(props) {
     if (orderData.delivery_note === "") {
       delete orderData.delivery_note;
     }
-    if (orderData.location.longitude === "" || orderData.location.latitude === "") {
+    if (
+      orderData.location.longitude === "" ||
+      orderData.location.latitude === ""
+    ) {
       delete orderData.location;
     }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
@@ -303,7 +313,7 @@ function CheckoutSteps(props) {
         propsUpdateData("UPDATE_CART", `/user/cart`, {
           clear: true,
         }).then((result) => {
-          history.push("/",{orderSummary:res.payload.data});
+          history.push("/", { orderSummary: res.payload.data });
         });
         toast.success("Order placed", {
           className: "my-toast",
@@ -359,18 +369,23 @@ function CheckoutSteps(props) {
           cartItems.map((item, index) => (
             <div className="d-flex flex-column p-3 border-bottom">
               <span className="mb-2">
-                  {item.product?.i18nResourceBundle.name}
+                {item.product?.i18nResourceBundle.name}
               </span>
               <div className="d-flex flex-row flex-wrap justify-content-between">
-                
                 <CheckoutPageSmallWrapper>
-                x {item.quantity}
+                  x {item.quantity}
                 </CheckoutPageSmallWrapper>
                 <CheckoutPagePriceWrapper className="col-md-5 col-xl-4">
-                  {t("riyalText")} {item.product?.varient.unit_price}
+                  {t("riyalText")}{" "}
+                  {getDiscountedPrice(
+                    item.product?.flash?.discount_type ||
+                      item.product?.varient?.discount_type,
+                    item.product?.flash?.discount_amount ||
+                      item.product?.varient?.discount_amount,
+                    item.product?.varient?.unit_price
+                  )}
                 </CheckoutPagePriceWrapper>
               </div>
-              
             </div>
           ))}
         <div className={`d-flex flex-column p-3 border-bottom`}>
@@ -390,31 +405,48 @@ function CheckoutSteps(props) {
     <React.Fragment>
       <div className="row" style={{ backgroundColor: "white" }}>
         <div>
-          {!isAuthenticated ?
-          <>
-           <div className="d-flex flex-column justify-content-center align-items-center">
-             <h2 className="text-muted py-2 pt-4">Hello, Returning Customer ?</h2>
-             <span className="text-muted pb-4">Login to Qsales2022.com or <a href="#"
-              onClick={()=>{setShowModal(true);setIsSignIn(false)}}
-              >Create an account</a>
-              </span>
-                  <button
-                    className="mr-3 btn  btn-sm btn-qs-primary fw-normal px-4 py-2  small"
-                    onClick={() => {setShowModal(true);setIsSignIn(true)}}
+          {!isAuthenticated ? (
+            <>
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <h2 className="text-muted py-2 pt-4">
+                  Hello, Returning Customer ?
+                </h2>
+                <span className="text-muted pb-4">
+                  Login to Qsales2022.com or{" "}
+                  <a
+                    href="#"
+                    onClick={() => {
+                      setShowModal(true);
+                      setIsSignIn(false);
+                    }}
                   >
-                    {t("login")}
-                  </button>
-                  <h4 className="seperator mt-4"><span className="px-2 text-muted">OR</span></h4>
-                  <h2 className="text-muted py-2">Checkout as a Guest</h2>
+                    Create an account
+                  </a>
+                </span>
+                <button
+                  className="mr-3 btn  btn-sm btn-qs-primary fw-normal px-4 py-2  small"
+                  onClick={() => {
+                    setShowModal(true);
+                    setIsSignIn(true);
+                  }}
+                >
+                  {t("login")}
+                </button>
+                <h4 className="seperator mt-4">
+                  <span className="px-2 text-muted">OR</span>
+                </h4>
+                <h2 className="text-muted py-2">Checkout as a Guest</h2>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="col-12 mb-3">
+                <div className="d-flex justify-content-center mt-3">
+                  <h2>Checkout</h2>
                 </div>
-          </>:
-          <>
-          <div className="col-12 mb-3">
-          <div className="d-flex justify-content-center mt-3">
-            <h2 >Checkout</h2>
-          </div>
-        </div>
-          </>}
+              </div>
+            </>
+          )}
         </div>
         <div
           className={`${
@@ -497,13 +529,15 @@ function CheckoutSteps(props) {
                   onChange={handleChangeForUnAuthenticatedUser}
                   placeholder={t("phone")}
                 />
-               
               </div>
             )}
           </div>
-
+        
           <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 align-items-start justify-content-start">
-            {addresses?.map((address, i) => (
+          {
+          isAuthenticated && 
+          <>
+          {addresses?.map((address, i) => (
               <div className="mb-3 border-bottom py-2 align-items-start justify-content-start">
                 <div className="align-items-start justify-content-start">
                   <input
@@ -553,6 +587,9 @@ function CheckoutSteps(props) {
                 </div>
               </div>
             ))}
+          </>
+          }
+            
             {!isAuthenticated &&
               ADDRESS_FIELDS.map(({ label, name }) => (
                 <div className="d-flex flex-column mt-2 ">

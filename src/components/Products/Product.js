@@ -48,8 +48,8 @@ function Product(props) {
                 }`}
               >
                 {productName.length > 10 && window.innerWidth < 768
-                  ? `${productName?.substring(0, 35)}${productName.length>35?"...":""}`
-                  : `${productName?.substring(0, 35)}${productName.length>35?"...":""}`}
+                  ? `${productName?.substring(0, 25)}${productName.length>25?"...":""}`
+                  : `${productName?.substring(0, 25)}${productName.length>25?"...":""}`}
               </h6>
               <p className="p-0 m-0 text-secondary fs-12">{description}</p>
             </div>

@@ -27,7 +27,7 @@ import {
   SmallButton,
   ButtonWrapper,
 } from "./styles";
-import { getCartInLocalStorage, removeCartFromLocalStorage,updateCartToLocalStorage } from "../../heper";
+import { getCartInLocalStorage, getDiscountedPrice, removeCartFromLocalStorage,updateCartToLocalStorage } from "../../heper";
 import { getData, updateData, createData } from "../../redux/actions/index";
 import { useCartContext } from "../../context/cartContext";
 import toast from "react-hot-toast";
@@ -269,7 +269,12 @@ const CartComponent = (props) => {
                         {/* <CartMinusIcon /> */}
                       </ProductAmountContainer>
                       <ProductPrice>
-                        {t("riyalText")} {item.product?.varient.unit_price}
+                        {t("riyalText")} {
+                         getDiscountedPrice(item.product?.flash?.discount_type || item.product?.varient?.discount_type,
+                          item.product?.flash?.discount_amount || item.product?.varient?.discount_amount,
+                          item.product?.varient?.unit_price
+                          )
+                      }
                       </ProductPrice>
                       <SmallButton
                         onClick={() => removeFromCart(item.varient_id)}
