@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import { getDiscountedPrice } from "../heper";
 
 const SummaryModal = ({summary}) => {
   return (
@@ -23,13 +24,15 @@ const SummaryModal = ({summary}) => {
                   <th className="m-2">price</th>
               </thead>
               <tbody>
-                  {
-                      console.log(summary.products)
-                  }
                   {summary.products?.map(product=>(<tr>
                       <td>{product.name}</td>
                       <td>{product.quantity}</td>
-                      <td>{product.cost}</td>
+                      <td>{
+                     getDiscountedPrice(
+                        product?.flash?.discount_type || product?.discount_type,
+                        product?.flash?.discount_amount || product?.discount,
+                        product.cost)
+                      }</td>
                   </tr>))}
               </tbody>
           </table>
