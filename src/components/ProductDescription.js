@@ -35,6 +35,7 @@ function ProductDescription(props) {
     productDetailsReducer,
     user,
   } = props;
+  
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const { setCartInLocal } = useCartContext();
@@ -370,7 +371,7 @@ function ProductDescription(props) {
                 <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                   <div className="">
                     <p className="medium fw-normal mb-1">Now at</p>
-                    {selectedAttribute?.discount_type ? (
+                    {(selectedAttribute?.flash?.discount_type || selectedAttribute?.discount_type) ? (
                       <h5 className="primary-color p-0 m-0 ">
                         QR{" "}
                         {getDiscountedPrice(
