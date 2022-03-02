@@ -244,7 +244,7 @@ const CartComponent = (props) => {
                         <ProductName>
                           {item.product?.i18nResourceBundle.name}
                         </ProductName>
-                        {getAttributesValue(item.product?.varient)}
+                        {/* {getAttributesValue(item.product?.varient)} */}
                       </Details>
                     </ProductDetail>
                     <PriceDetail>
