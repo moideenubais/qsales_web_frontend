@@ -44,12 +44,12 @@ function Product(props) {
             <div className=" product-description">
               <h6
                 className={`product-title p-0 m-0 mb-1 text-dark card-title ${
-                  window.innerWidth > 768 ? "text-clip" : ""
+                  window.innerWidth > 768 ? "" : ""
                 }`}
               >
                 {productName.length > 10 && window.innerWidth < 768
                   ? `${productName?.substring(0, 25)}${productName.length>25?"...":""}`
-                  : `${productName?.substring(0, 25)}${productName.length>25?"...":""}`}
+                  : `${productName?.substring(0, 40)}${productName.length>40?"...":""}`}
               </h6>
               <p className="p-0 m-0 text-secondary fs-12">{description}</p>
             </div>

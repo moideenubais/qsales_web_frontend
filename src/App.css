@@ -150,11 +150,10 @@ body {
 }
 
 .product-image {
-  height: 120px;
+  height: 198px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
-
 .btn-cart {
   background: #fff;
   height: 30px !important;
@@ -574,9 +573,9 @@ li.label-item.page-item a {
 -moz-box-shadow: -10px 7px 19px -11px rgba(115,115,115,0.57);
 }
 .product-image {
-  height: 120px;
+  height: 198px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .footer-features div img{
@@ -670,8 +669,9 @@ button#dropdown-basic-button {
 }
 .product-card-extention{
   /* height:220px !important; */
-  min-height: 230px !important;
-  max-height: 240px !important;
+  min-height: 300px !important;
+  max-height: 319px !important;
+
 }
 /* Ticker Css for horizontal text animation */
 @-webkit-keyframes ticker {
@@ -786,6 +786,9 @@ button#dropdown-basic-button {
   margin-right: auto !important;
   margin-left:auto !important;
 }
+.product-title{
+  font-size: 0.8em;
+}
 @media (max-width: 1198px) {  
   .support-2nd{
     margin:0px !important;
@@ -817,9 +820,9 @@ button#dropdown-basic-button {
   height: 215px;
 }
 .product-image {
-  height: 120px;
-  width: 100%;
-  object-fit: cover;
+  height: 133px;
+    width: 100%;
+    object-fit: contain;
 }
 .footer-features div{
   margin-block: 5px !important;
@@ -864,13 +867,13 @@ button#dropdown-basic-button {
   display: flex;
   flex-direction: column;
   height: 100% !important;
-  max-height: 240px !important;
+  max-height: 249px !important;
   /* justify-content: space-between; */
   /* min-height: 245px; */
 }
 .product-card-extention{
-  height:fit-content !important;
-  max-height: 240px !important;
+  min-height: 240px !important;
+  max-height: 243px !important;
 }
 .products-container-title{
   max-width:250px;
