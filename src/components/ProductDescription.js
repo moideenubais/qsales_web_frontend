@@ -192,7 +192,7 @@ function ProductDescription(props) {
     saveCartToLocalStorage({
       product_id: productId,
       varient_id: selectedAttribute.variant_id,
-      quantity: selectedQuantity,
+      quantity:parseInt(selectedQuantity),
     });
     const cart = getCartInLocalStorage();
     setCartInLocal(cart);

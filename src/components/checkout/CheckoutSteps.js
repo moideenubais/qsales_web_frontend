@@ -663,7 +663,7 @@ function CheckoutSteps(props) {
           </div>
 
           <div className="d-flex flex-column col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-            <label className="w-100">{t("deliveryNote")}</label>
+            <label className="w-100">{"Add a note"}</label>
 
             <input
               className="p-2 mb-2 overflow-hidden"
