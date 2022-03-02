@@ -116,20 +116,20 @@ const CartComponent = (props) => {
     return subTotal;
   };
 
-  if (loading) {
-    return (
-      <div
-        style={{
-          height: "65vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div className="spinner" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div
+  //       style={{
+  //         height: "65vh",
+  //         display: "flex",
+  //         alignItems: "center",
+  //         justifyContent: "center",
+  //       }}
+  //     >
+  //       {/* <div className="spinner" /> */}
+  //     </div>
+  //   );
+  // }
 
   const removeFromCart = (varient_id) => {
     // debugger;

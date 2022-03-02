@@ -255,7 +255,7 @@ function ProductDescription(props) {
   },[location,initialLoading])
   return (
     <>
-      {initialLoading && (
+      {/* {initialLoading && (
         <div
           style={{
             height: "65vh",
@@ -266,7 +266,7 @@ function ProductDescription(props) {
         >
           <div className="spinner" />
         </div>
-      )}
+      )} */}
       {productDetails && !initialLoading && (
         <>
           <div className="col-12 py-5">

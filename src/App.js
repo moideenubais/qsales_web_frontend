@@ -50,7 +50,7 @@ function WaitingComponent(Component) {
             justifyContent: "center",
           }}
         >
-          <div className="spinner" />
+          {/* <div className="spinner" /> */}
         </div>
       }
     >
