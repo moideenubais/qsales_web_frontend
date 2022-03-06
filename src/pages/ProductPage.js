@@ -10,7 +10,10 @@ function ProductPage() {
   return (
     <div>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <Layout>
         <ProductDescription />
       </Layout>

@@ -9,7 +9,10 @@ const DealPage = () => {
     return (
        <>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <DealDetail />
       <Footer />
       <FloatingButton />

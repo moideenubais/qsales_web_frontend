@@ -18,7 +18,7 @@ function CarouselHome(props) {
     propsGetData(ActionTypes.GET_ADS, "/ad");
   }, [propsGetData]);
   return (
-    <div className="col-md-9 col-lg-9 mx-auto col-sm-12">
+    <div className="col-md-9 col-lg-9 mx-auto col-sm-12 my-2">
       {showBannerAds && (
         <div className="col-12 pointer home-slider">
           {/* <span

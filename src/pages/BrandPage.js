@@ -13,7 +13,10 @@ const BrandPage = () => {
   return (
     <React.Fragment>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <Layout>
         <BrandsListing brandId={brandId} />
       </Layout>

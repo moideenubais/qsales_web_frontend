@@ -26,6 +26,8 @@ import ReactSelect from "react-select";
 import { useCallback } from "react";
 import OrderDetail from "./components/Auth/OrderDetail";
 import TopBar from "./components/TopBar";
+import { Accordion } from "react-bootstrap";
+import MobileNavigation from "./components/MobileNavigation";
 
 const passwordRegex =
   "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
@@ -203,37 +205,46 @@ function Header(props) {
 
   const [showOrderModal, setOrderModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const setOrderModalShow = useCallback((order) => {
-    setSelectedOrder(order);
-    setOrderModal(true);
-  },[setSelectedOrder,setOrderModal])
+  const setOrderModalShow = useCallback(
+    (order) => {
+      setSelectedOrder(order);
+      setOrderModal(true);
+    },
+    [setSelectedOrder, setOrderModal]
+  );
 
-  useEffect(()=>{
-    if(isSignIn || showOrderModal) {
-    setOrderModal(false);
-    setShowProfile(false);
-    
-  }
-  },[history?.location?.pathname])
+  useEffect(() => {
+    if (isSignIn || showOrderModal) {
+      setOrderModal(false);
+      setShowProfile(false);
+    }
+  }, [history?.location?.pathname]);
 
-  useEffect(()=>{
+  useEffect(() => {
     document.addEventListener("click", (e) => {
       var parent = document.querySelector("#main-search-content");
       if (parent?.contains(e.target)) {
-      }else{
+      } else {
         // setSearchText("");
-        setSuggestionActive(false)
+        setSuggestionActive(false);
       }
     });
-  },[])
+  }, []);
 
+  const openNav = () => {
+    document.getElementById("mySidenav").style.width = "250px";
+  };
+
+  const closeNav = () => {
+    document.getElementById("mySidenav").style.width = "0";
+  };
   return (
     <>
-    <TopBar switchLanguage={switchLanguage} />
+      <TopBar switchLanguage={switchLanguage} />
       <header className="col-12 col-md-12 col-lg-12 bg-primary">
         <div className="col-md-9  mx-auto py-1">
           <div className="row">
-            <div className="col-lg-7 col-md-6 d-flex flex-row align-items-center justify-content-between">
+            <div className="col-lg-7 col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-md-between justify-content-sm-start">
               <div className="">
                 <Link className="text-decoration-none" to={{ pathname: `/` }}>
                   {/* <h6 className="p-0 px-3 m-0 text-white">Qsales</h6> */}
@@ -245,7 +256,10 @@ function Header(props) {
                   />
                 </Link>
               </div>
-              <div className="p-0 w-75 dropdown-content" id="main-search-content">
+              <div
+                className="p-0 w-75 dropdown-content"
+                id="main-search-content"
+              >
                 <input
                   ref={searchRef}
                   type="text"
@@ -255,7 +269,7 @@ function Header(props) {
                   }`}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
-                  onFocusCapture={()=>setSearchText("")}
+                  onFocusCapture={() => setSearchText("")}
                 />
                 <div
                   style={{
@@ -294,37 +308,137 @@ function Header(props) {
                   )}
                 </div>
               </div>
+              {window.innerWidth <= 786 && (
+                <>
+                  <div
+                    className="d-flex flex-row align-items-center px-1 pointer"
+                    onClick={() => {
+                      history.push("/cart");
+                    }}
+                  >
+                    <div style={{ position: "relative" }}>
+                      <img
+                        src="../assets/images/cartWhite.svg"
+                        alt="cartIcon"
+                      />
+                      <span
+                        className="small cart-badge"
+                        style={{
+                          paddingBottom: "14px !important",
+                          position: "absolute",
+                          left: 20,
+                          color: "rgb(255, 224, 73)",
+                        }}
+                      >
+                        {Object.keys(cartInLocal)?.length}
+                      </span>
+                    </div>
+                  </div>
+                  <p
+                    // style="font-size:30px;cursor:pointer"
+                    className="sidebar-toggle-btn px-1 ml-4"
+                    onClick={openNav}
+                  >
+                    &#9776;
+                  </p>
+                  <div id="mySidenav" class="sidenav">
+                    <div>
+                      <a
+                        href="javascript:void(0)"
+                        class="closebtn"
+                        onClick={closeNav}
+                      >
+                        &times;
+                      </a>
+                    </div>
+                    <div class="nav-sidebar-content">
+                      <div className="d-flex flex-row justify-content-between nav-sidebar-profile p-3">
+                        {user?.name ? (
+                          <div className="d-flex flex-row align-items-center  border-right">
+                            <p
+                              className="text-white small p-0 m-0 me-2 nowrap"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setShowProfile(true);
+                                closeNav();
+                              }}
+                            >
+                              {user.name || "Profile"}
+                            </p>
+                            <img
+                              src="../assets/images/user.svg"
+                              alt="userIcon"
+                            />
+                          </div>
+                        ) : (
+                          <div className="d-flex flex-row align-items-center border-right">
+                            <p
+                              className="text-white small p-0 m-0 mr-2 me-2 nowrap"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setShowModal(true);
+                                closeNav();
+                              }}
+                            >
+                              Sign In
+                            </p>
+                            <img
+                              src="../assets/images/user.svg"
+                              alt="userIcon"
+                            />
+                          </div>
+                        )}
+                        {user?.name && (
+                          <div className="px-3 pointer text-white">
+                            <p
+                              className="nowrap"
+                              onClick={() => props.logoutUser()}
+                            >
+                              Sign Out
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <hr className="bg-white my-2" />
+                      <div className="p-3 mobile-navigation">
+                        <MobileNavigation />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
-            <div className="col-lg-5 col-md-6 d-flex flex-row align-items-center justify-content-end header-btn-group">
-              <div className="d-flex flex-row align-items-center justify-content-center p-0">
-                {user?.name ? (
-                  <div className="d-flex flex-row align-items-center px-3 border-right">
-                    <p
-                      className="text-white small p-0 m-0 me-2 nowrap"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        setShowProfile(true);
-                      }}
-                    >
-                      {user.name || "Profile"}
-                    </p>
-                    <img src="../assets/images/user.svg" alt="userIcon" />
-                  </div>
-                ) : (
-                  <div className="d-flex flex-row align-items-center px-3 border-right">
-                    <p
-                      className="text-white small p-0 m-0 mr-2 me-2 nowrap"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        setShowModal(true);
-                      }}
-                    >
-                      Sign In
-                    </p>
-                    <img src="../assets/images/user.svg" alt="userIcon" />
-                  </div>
-                )}
-               {/* <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
+            {window.innerWidth > 786 && (
+              <div className="col-lg-5 col-md-6 d-flex flex-row align-items-center justify-content-end header-btn-group">
+                <div className="d-flex flex-row align-items-center justify-content-center p-0">
+                  {user?.name ? (
+                    <div className="d-flex flex-row align-items-center px-3 border-right">
+                      <p
+                        className="text-white small p-0 m-0 me-2 nowrap"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setShowProfile(true);
+                        }}
+                      >
+                        {user.name || "Profile"}
+                      </p>
+                      <img src="../assets/images/user.svg" alt="userIcon" />
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-row align-items-center px-3 border-right">
+                      <p
+                        className="text-white small p-0 m-0 mr-2 me-2 nowrap"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setShowModal(true);
+                        }}
+                      >
+                        Sign In
+                      </p>
+                      <img src="../assets/images/user.svg" alt="userIcon" />
+                    </div>
+                  )}
+                  {/* <div className="d-flex flex-row align-items-center pointer px-3 lang-change language-selector">
                   <ReactSelect
                     value={languages.find((lan) => lan.value == i18n.language)}
                     options={languages}
@@ -340,42 +454,48 @@ function Header(props) {
                     }}
                   />
                 </div>  */}
-                <div
-                  className="d-flex flex-row align-items-center px-3 pointer"
-                  onClick={() => {
-                    history.push("/cart");
-                  }}
-                >
-                  <p
-                    className="text-white small p-0 m-0 mr-2 me-2"
-                    style={{ cursor: "pointer" }}
+                  <div
+                    className="d-flex flex-row align-items-center px-3 pointer"
+                    onClick={() => {
+                      history.push("/cart");
+                    }}
                   >
-                    {t("cart")}
-                  </p>
-                  <div style={{ position: "relative" }}>
-                    <img src="../assets/images/cartWhite.svg" alt="cartIcon" />
-                    <span
-                      className="small cart-badge"
-                      style={{
-                        paddingBottom: "14px !important",
-                        position: "absolute",
-                        left: 20,
-                        color:"rgb(255, 224, 73)"
-                      }}
-                    >
-                      {Object.keys(cartInLocal)?.length}
-                    </span>
+                    {window.innerWidth > 768 && (
+                      <p
+                        className="text-white small p-0 m-0 mr-2 me-2"
+                        style={{ cursor: "pointer" }}
+                      >
+                        {t("cart")}
+                      </p>
+                    )}
+                    <div style={{ position: "relative" }}>
+                      <img
+                        src="../assets/images/cartWhite.svg"
+                        alt="cartIcon"
+                      />
+                      <span
+                        className="small cart-badge"
+                        style={{
+                          paddingBottom: "14px !important",
+                          position: "absolute",
+                          left: 20,
+                          color: "rgb(255, 224, 73)",
+                        }}
+                      >
+                        {Object.keys(cartInLocal)?.length}
+                      </span>
+                    </div>
                   </div>
+                  {user?.name && (
+                    <div className="px-3 pointer text-white">
+                      <p className="nowrap" onClick={() => props.logoutUser()}>
+                        Sign Out
+                      </p>
+                    </div>
+                  )}
                 </div>
-                {user?.name && (
-                  <div className="px-3 pointer text-white">
-                    <p className="nowrap" onClick={() => props.logoutUser()}>
-                      Sign Out
-                    </p>
-                  </div>
-                )}
               </div>
-            </div>
+            )}
           </div>
         </div>
       </header>

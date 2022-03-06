@@ -10,7 +10,10 @@ function CheckoutPage() {
   return (
     <React.Fragment>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <CheckoutSteps />
       <Footer />
       <FloatingButton />

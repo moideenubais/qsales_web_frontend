@@ -9,7 +9,10 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <CartComponent />
       <Footer />
       <FloatingButton />

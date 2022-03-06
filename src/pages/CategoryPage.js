@@ -13,7 +13,10 @@ function CategoryPage() {
   return (
     <React.Fragment>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <Layout>
         <CategoryListHolder categoryId={categoryId} />
       </Layout>

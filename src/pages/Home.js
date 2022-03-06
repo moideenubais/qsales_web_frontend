@@ -46,7 +46,11 @@ function Home() {
       {/* <ScrollToTop /> */}
       {/* <CarouselHome /> */}
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
+      
       <HomeSlider />
   
       {/* <CategoriesList /> */}

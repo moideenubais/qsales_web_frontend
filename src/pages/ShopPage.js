@@ -13,7 +13,10 @@ const ShopPage = () => {
   return (
     <React.Fragment>
       <Header />
-      <Navigation />
+      {
+        window.innerWidth > 786 &&
+        <Navigation />
+      }
       <Layout>
         <ShopListing shopId={shopId} />
       </Layout>
