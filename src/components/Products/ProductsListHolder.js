@@ -23,7 +23,7 @@ const otherCategories = [
   {
     i18nResourceBundle: {
       languageCode: "en",
-      name: "Today’s Deal",
+      name: "Deals",
     },
     type: "todays_deal",
   },
