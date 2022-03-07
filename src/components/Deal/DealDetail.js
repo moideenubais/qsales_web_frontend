@@ -28,9 +28,9 @@ const DealDetail = () => {
             <div className="text-center mb-4">
                 <img className="banner-cover" src={`${deal.banner_url}`} />    
             </div>
-            <div className="time-container d-flex justify-content-center align-items-center mb-2">
+            {/* <div className="time-container d-flex justify-content-center align-items-center mb-2">
             <DealTime endDate={deal?.duration?.to} />
-            </div>
+            </div> */}
             <div className="p-4 col-12 bg-white d-flex flex-row  justify-content-center flex-wrap flex-md-wrap">
             {deal?.products?.map(
                   (
