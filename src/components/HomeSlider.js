@@ -58,28 +58,30 @@ function CarouselHome(props) {
             ))}
           </Carousel> */}
           <Slider
-           dots={true}
-          arrows={true}
-          slidesToShow={1}
-          adaptiveHeight={true}
-          slidesToScroll={1}
-          autoplay={true}
-          autoplaySpeed={2000}
-            
+            dots={true}
+            arrows={true}
+            slidesToShow={1}
+            adaptiveHeight={true}
+            slidesToScroll={1}
+            autoplay={true}
+            autoplaySpeed={2000}
           >
             {adsReducer?.data?.ads?.map((ad, index) => (
-            <div className="slide">
-            <Link to={{pathname:ad?.url?ad?.url:''}} >
-              <img
-                src={`${ad?.ad_url}`}
-                className="w-100 "
-                alt={ad?.name}
-              />
-            </Link>
+              <div className="slide">
+                <Link
+                  onClick={() =>
+                    (window.location.href = ad?.url ? ad?.url : "")
+                  }
+                >
+                  <img
+                    src={`${ad?.ad_url}`}
+                    className="w-100 "
+                    alt={ad?.name}
+                  />
+                </Link>
               </div>
             ))}
           </Slider>
-          
         </div>
       )}
     </div>
