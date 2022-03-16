@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import React, { lazy, Suspense } from "react";
 import i18n from "i18next";
 import { useTranslation, initReactI18next } from "react-i18next";
@@ -17,7 +22,7 @@ const CartPage = lazy(() => import("./pages/CartPage"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const ShopPage = lazy(() => import("./pages/ShopPage"));
 const BrandPage = lazy(() => import("./pages/BrandPage"));
-const Policy=lazy(()=>import('./components/Terms/Index'))
+const Policy = lazy(() => import("./components/Terms/Index"));
 const DealPage = lazy(() => import("./pages/DealPage"));
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -66,49 +71,36 @@ function App() {
   //   document?.getElementsByTagName("html")[0]?.setAttribute("dir", dir);
   //   },[i18n.language])
 
-
- 
   return (
     <div className="App">
-        <Router >
-          <Switch>
-            <Route exact path="/" component={WaitingComponent(Home)} />
-            <Route
-              path="/product/:productId"
-              component={WaitingComponent(ProductPage)}
-            />
-            <Route
-              path="/checkout"
-              component={WaitingComponent(CheckoutPage)}
-            />
-            <Route path="/cart" component={WaitingComponent(CartPage)} />
-            <Route
-              path="/category/:categoryId"
-              component={WaitingComponent(CategoryPage)}
-            />
-            <Route
-              path="/shop/:shopId"
-              component={WaitingComponent(ShopPage)}
-            />
-            <Route
-              path="/brand/:brandId"
-              component={WaitingComponent(BrandPage)}
-            />
-             <Route
-              path="/policy/:type"
-              component={WaitingComponent(Policy)}
-            />
-             <Route
-              path="/deal/:dealID"
-              component={WaitingComponent(DealPage)}
-            />
-            <Route>
-              <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">
-                404 Not Found!
-              </div>
-            </Route>
-          </Switch>
-        </Router>
+      <Router>
+        <ScrollToTop />
+        <Switch>
+          <Route exact path="/" component={WaitingComponent(Home)} />
+          <Route
+            path="/product/:productId"
+            component={WaitingComponent(ProductPage)}
+          />
+          <Route path="/checkout" component={WaitingComponent(CheckoutPage)} />
+          <Route path="/cart" component={WaitingComponent(CartPage)} />
+          <Route
+            path="/category/:categoryId"
+            component={WaitingComponent(CategoryPage)}
+          />
+          <Route path="/shop/:shopId" component={WaitingComponent(ShopPage)} />
+          <Route
+            path="/brand/:brandId"
+            component={WaitingComponent(BrandPage)}
+          />
+          <Route path="/policy/:type" component={WaitingComponent(Policy)} />
+          <Route path="/deal/:dealID" component={WaitingComponent(DealPage)} />
+          <Route>
+            <div className="container-fluid p-5 mx-auto display-1 d-flex align-items-center justify-content-center">
+              404 Not Found!
+            </div>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
