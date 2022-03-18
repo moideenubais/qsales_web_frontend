@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useHistory,useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
 import ReactStars from "react-stars";
 import Carousel from "react-elastic-carousel";
@@ -19,7 +19,7 @@ import {
 } from "../heper";
 import toast from "react-hot-toast";
 import { useCartContext } from "../context/cartContext";
-import Strings from '../Constants'
+import Strings from "../Constants";
 import Product from "./Products/Product";
 import axios from "axios";
 import ReviewForm from "./ReviewForm";
@@ -35,7 +35,7 @@ function ProductDescription(props) {
     productDetailsReducer,
     user,
   } = props;
-  
+
   const imageBaseUrl = process.env.REACT_APP_IMAGE_URL;
 
   const { setCartInLocal } = useCartContext();
@@ -70,9 +70,7 @@ function ProductDescription(props) {
     setInitialLoading(false);
     setProductDetails(data || {});
     setSelectedImage(
-      data.product_image_big_url
-        ? `${data.product_image_big_url[0]}`
-        : ""
+      data.product_image_big_url ? `${data.product_image_big_url[0]}` : ""
     );
     setRatingValue(data.rating);
 
@@ -114,6 +112,7 @@ function ProductDescription(props) {
     );
 
     productDetails.varients?.forEach((variant) => {
+      const firstVarient = productDetails.varients[0];
       let variantDep = {};
       if (!isEmptyObj(variant.attribute_value)) {
         variant.attribute_value.forEach(({ name, value }) => {
@@ -129,13 +128,14 @@ function ProductDescription(props) {
         });
 
         if (!isNotMatch) {
+          console.log("here1", variant.color.name);
           returnData = {
-            unit_price: variant.unit_price,
-            quantity: variant.quantity,
-            variant_id: variant._id,
-            discount_type:variant.discount_type,
-            discount_amount:variant.discount_amount,
-            flash:productDetails.flash
+            unit_price: firstVarient.unit_price,
+            quantity: firstVarient.quantity,
+            variant_id: firstVarient._id,
+            discount_type: firstVarient.discount_type,
+            discount_amount: firstVarient.discount_amount,
+            flash: productDetails.flash,
           };
           attributeData.forEach(({ name, values }) => {
             returnData[name] = values[0].value;
@@ -147,13 +147,15 @@ function ProductDescription(props) {
           return variantDep[name] && variantDep[name] !== values;
         });
         if (!isNotMatch) {
+          console.log("here2", variant.color.name);
+
           returnData = {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
             variant_id: variant._id,
-            discount_type:variant.discount_type,
-            discount_amount:variant.discount_amount,
-            flash:productDetails.flash
+            discount_type: variant.discount_type,
+            discount_amount: variant.discount_amount,
+            flash: productDetails.flash,
           };
         }
       }
@@ -172,33 +174,40 @@ function ProductDescription(props) {
     }
     if (colors && colors.length) attributeData.colors = colors;
     const initialValue = getPriceAndQuantity(attributeData, true);
+    console.log("attri", initialValue);
     setSelectedAttribute(initialValue);
     setAttributeArray(
       Object.entries(attributeData).map(([name, values]) => ({ name, values }))
     );
   }, [productDetails]);
-
+  console.log(productDetails);
   const ratingChanged = (newRating) => {
     setRatingValue(newRating);
   };
 
   const handleOnAttributeChagne = (name, value) => {
     const updateData = { ...selectedAttribute, [name]: value };
-    setSelectedAttribute({ ...updateData, ...getPriceAndQuantity(updateData) });
+    console.log("update", updateData);
+
+    setSelectedAttribute({
+      ...updateData,
+      ...getPriceAndQuantity(updateData),
+    });
   };
 
   const addToCart = (isBuyNow = false) => {
+    console.log("addtocart", selectedAttribute);
     if (selectedQuantity <= 0) return;
     saveCartToLocalStorage({
       product_id: productId,
       varient_id: selectedAttribute.variant_id,
-      quantity:parseInt(selectedQuantity),
+      quantity: parseInt(selectedQuantity),
     });
     const cart = getCartInLocalStorage();
     setCartInLocal(cart);
     if (!user?._id) {
-      toast.success("Added To Cart",{ 
-        className:"my-toast"
+      toast.success("Added To Cart", {
+        className: "my-toast",
       });
 
       if (isBuyNow) {
@@ -210,31 +219,33 @@ function ProductDescription(props) {
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
     }).then((res) => {
-      if (!res.error){
-        toast.success("Added To Cart",{ 
-          className:"my-toast"
+      if (!res.error) {
+        toast.success("Added To Cart", {
+          className: "my-toast",
         });
         if (isBuyNow) {
           history.push("/checkout");
         }
-      } 
-      else
-        toast.error("Something went wrong", { 
-          className:"my-toast"
+      } else
+        toast.error("Something went wrong", {
+          className: "my-toast",
         });
     });
   };
 
-  const [similarProdcuts,setSimilarProducts]=useState([])
+  const [similarProdcuts, setSimilarProducts] = useState([]);
 
-  useEffect(()=>{
-    if(productDetails?.category_id){
-      axios.get(`/product?category_id=${productDetails?.category_id}&limit=4&user_type=user`
-      ).then(res=>{
-        setSimilarProducts(res?.data?.products || [])
-      })
+  useEffect(() => {
+    if (productDetails?.category_id) {
+      axios
+        .get(
+          `/product?category_id=${productDetails?.category_id}&limit=4&user_type=user`
+        )
+        .then((res) => {
+          setSimilarProducts(res?.data?.products || []);
+        });
     }
-  },[productDetails?.category_id])
+  }, [productDetails?.category_id]);
   const breakPoints = [
     { width: 1, itemsToShow: 2 },
     { width: 550, itemsToShow: 3, itemsToScroll: 2, pagination: false },
@@ -243,16 +254,15 @@ function ProductDescription(props) {
     // { width: 1450, itemsToShow: 6 },
     // { width: 1750, itemsToShow: 7 },
   ];
-  useEffect(()=>{
-    document?.getElementById("navigation")?.scrollIntoView()
-  },[location])
+  useEffect(() => {
+    document?.getElementById("navigation")?.scrollIntoView();
+  }, [location]);
 
-  useLayoutEffect(()=>{
-    if(location?.state?.order && !initialLoading)
-    {
+  useLayoutEffect(() => {
+    if (location?.state?.order && !initialLoading) {
       document.getElementById("review-form").scrollIntoView();
     }
-  },[location,initialLoading])
+  }, [location, initialLoading]);
   return (
     <>
       {/* {initialLoading && (
@@ -311,9 +321,7 @@ function ProductDescription(props) {
                         width="80"
                         alt=""
                         className="rounded-3 border"
-                        onClick={() =>
-                          setSelectedImage(`${imgUrl}`)
-                        }
+                        onClick={() => setSelectedImage(`${imgUrl}`)}
                       />
                     ))}
                   </Carousel>
@@ -371,13 +379,17 @@ function ProductDescription(props) {
                 <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                   <div className="">
                     <p className="medium fw-normal mb-1">Now at</p>
-                    {(selectedAttribute?.flash?.discount_type || selectedAttribute?.discount_type) ? (
+                    {selectedAttribute?.flash?.discount_type ||
+                    selectedAttribute?.discount_type ? (
                       <h5 className="primary-color p-0 m-0 ">
                         QR{" "}
                         {getDiscountedPrice(
-                          selectedAttribute?.flash?.discount_type || selectedAttribute?.discount_type,
-                          selectedAttribute?.flash?.discount_amount || selectedAttribute?.discount_amount,
-                          selectedAttribute.unit_price)}
+                          selectedAttribute?.flash?.discount_type ||
+                            selectedAttribute?.discount_type,
+                          selectedAttribute?.flash?.discount_amount ||
+                            selectedAttribute?.discount_amount,
+                          selectedAttribute.unit_price
+                        )}
                         <small>
                           &nbsp;&nbsp;
                           <span className="text-muted ">
@@ -385,11 +397,18 @@ function ProductDescription(props) {
                           </span>
                           <span className="text-success">
                             {" "}
-                            {getParamValue(selectedAttribute?.flash?.discount_type,selectedAttribute?.discount_type) == "flat"
+                            {getParamValue(
+                              selectedAttribute?.flash?.discount_type,
+                              selectedAttribute?.discount_type
+                            ) == "flat"
                               ? "QR "
                               : ""}
-                            {selectedAttribute?.flash?.discount_amount || selectedAttribute?.discount_amount}
-                            {getParamValue(selectedAttribute?.flash?.discount_type,selectedAttribute?.discount_type) == "flat"
+                            {selectedAttribute?.flash?.discount_amount ||
+                              selectedAttribute?.discount_amount}
+                            {getParamValue(
+                              selectedAttribute?.flash?.discount_type,
+                              selectedAttribute?.discount_type
+                            ) == "flat"
                               ? ""
                               : "%"}{" "}
                             off
@@ -440,11 +459,11 @@ function ProductDescription(props) {
                   <span className="text-muted">Shipping: </span>
                   <span className="text-success">
                     {productDetails.shipping_config === "flat_rate"
-                      ? 
-                      `QR ${
-                        productDetails?.product_quantity_multiply ?
-                        (productDetails.shipping_cost * selectedQuantity):productDetails.shipping_cost
-                      }`
+                      ? `QR ${
+                          productDetails?.product_quantity_multiply
+                            ? productDetails.shipping_cost * selectedQuantity
+                            : productDetails.shipping_cost
+                        }`
                       : "Free Delivery"}
                   </span>
                 </p>
@@ -624,23 +643,27 @@ function ProductDescription(props) {
                         price,
                         product_image_small_url,
                         _id,
-                        flash
+                        flash,
                       },
                       index
                     ) => {
                       return (
-                          <Product
-                            _id={_id}
-                            key={index}
-                            productName={name}
-                            rating={rating}
-                            description={description}
-                            productImage={product_image_small_url}
-                            price={price?.unit_price}
-                            discountAmount={flash?.discount_amount || price?.discount_amount}
-                            discountType={flash?.discount_type || price?.discount_type}
-                            // classes="product-card-extention"
-                          />
+                        <Product
+                          _id={_id}
+                          key={index}
+                          productName={name}
+                          rating={rating}
+                          description={description}
+                          productImage={product_image_small_url}
+                          price={price?.unit_price}
+                          discountAmount={
+                            flash?.discount_amount || price?.discount_amount
+                          }
+                          discountType={
+                            flash?.discount_type || price?.discount_type
+                          }
+                          // classes="product-card-extention"
+                        />
                       );
                     }
                   )}
