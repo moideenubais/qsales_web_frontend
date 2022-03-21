@@ -16,15 +16,24 @@ function ProductsContainer(props) {
 
   useEffect(() => {
     if (!datas) return;
-    const query = { user_type: "user", category_id: datas._id,limit:8,page:0 };
+    const query = {
+      user_type: "user",
+      category_id: datas._id,
+      limit: 8,
+      page: 0,
+    };
     if (!datas._id) {
       query[datas.type] = true;
       delete datas.category_id;
     }
-    if(datas.duration) {
+    if (datas.duration) {
       delete datas.category_id;
     }
-    propsGetData(ActionTypes.GET_PRODUCTS,datas.duration?`/flash/${datas._id}`:"/product", query).then((res) => {
+    propsGetData(
+      ActionTypes.GET_PRODUCTS,
+      datas.duration ? `/flash/${datas._id}` : "/product",
+      query
+    ).then((res) => {
       if (res.error) return;
       setproductsData(res.payload.data.products);
     });
@@ -39,7 +48,6 @@ function ProductsContainer(props) {
     { width: 1750, itemsToShow: 7 },
   ];
 
-
   return (
     <>
       {productsData ? (
@@ -49,11 +57,31 @@ function ProductsContainer(props) {
             <div className="p-3 bg-white">
               {/* Title of Product Container */}
               <div className="pb-4 d-flex flex-row justify-content-between flex-wrap">
-                <h4 className="p-0 m-0 products-container-title" >{datas?.i18nResourceBundle?.name || datas?.name}</h4>
+                <h4 className="p-0 m-0 products-container-title">
+                  {datas?.i18nResourceBundle?.name || datas?.name}
+                </h4>
                 {/* {productsData?.length && datas?.type=='todays_deal' && <h5 className="text-muted small"><DealTime daily={true} /> </h5> } */}
                 {/* {datas?.duration && <h5 className="text-muted small"><DealTime endDate={datas?.duration?.to} /> </h5> } */}
-                {datas?.duration?<a style={{textDecoration:"none"}} href={`/deal/${datas._id}`}>View All</a>:""}
-                {(datas?._id && !datas?.duration) ?<a style={{textDecoration:"none"}} href={`/category/${datas._id}`}>View All</a>:""}
+                {datas?.duration ? (
+                  <a
+                    style={{ textDecoration: "none" }}
+                    href={`/deal/${datas._id}`}
+                  >
+                    View All
+                  </a>
+                ) : (
+                  ""
+                )}
+                {datas?._id && !datas?.duration ? (
+                  <a
+                    style={{ textDecoration: "none" }}
+                    href={`/category/${datas._id}`}
+                  >
+                    View All
+                  </a>
+                ) : (
+                  ""
+                )}
               </div>
               {/* List of product */}
               <div className="d-flex flex-row justify-content-between flex-wrap flex-md-nowrap card-group">
@@ -67,26 +95,35 @@ function ProductsContainer(props) {
                         price,
                         product_image_small_url,
                         _id,
-                        flash
+                        flash,
                       },
                       index
                     ) => {
-                      return (      
-                          <Product
-                            _id={_id}
-                            key={index}
-                            productName={name}
-                            rating={rating}
-                            description={description}
-                            productImage={product_image_small_url}
-                            price={price?.unit_price}
-                            discountAmount={flash?.discount_amount || price?.discount_amount}
-                            discountType={flash?.discount_type || price?.discount_type}
-                          />
+                      console.log(
+                        "yoyo",
+                        name.toLowerCase().split(" ").join("-") +
+                          "product_id:" +
+                          _id
+                      );
+                      return (
+                        <Product
+                          _id={_id}
+                          key={index}
+                          productName={name}
+                          rating={rating}
+                          description={description}
+                          productImage={product_image_small_url}
+                          price={price?.unit_price}
+                          discountAmount={
+                            flash?.discount_amount || price?.discount_amount
+                          }
+                          discountType={
+                            flash?.discount_type || price?.discount_type
+                          }
+                        />
                       );
                     }
                   )}
-                  
                 </Carousel>
               </div>
             </div>

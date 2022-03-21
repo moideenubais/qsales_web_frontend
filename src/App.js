@@ -78,7 +78,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={WaitingComponent(Home)} />
           <Route
-            path="/product/:productId"
+            path="/product/:productUrl"
             component={WaitingComponent(ProductPage)}
           />
           <Route path="/checkout" component={WaitingComponent(CheckoutPage)} />

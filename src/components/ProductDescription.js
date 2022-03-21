@@ -27,7 +27,8 @@ import ReviewForm from "./ReviewForm";
 function ProductDescription(props) {
   const history = useHistory();
   const location = useLocation();
-  const { productId } = useParams();
+  const { productUrl } = useParams();
+  const productId = productUrl.slice(productUrl.indexOf("-product-id-") + 12);
   const {
     getData: propsGetData,
     updateData: propsUpdateData,
@@ -128,7 +129,7 @@ function ProductDescription(props) {
         });
 
         if (!isNotMatch) {
-          console.log("here1", variant.color.name);
+          // console.log("here1", variant?.color?.name);
           returnData = {
             unit_price: firstVarient.unit_price,
             quantity: firstVarient.quantity,
@@ -147,7 +148,7 @@ function ProductDescription(props) {
           return variantDep[name] && variantDep[name] !== values;
         });
         if (!isNotMatch) {
-          console.log("here2", variant.color.name);
+          // console.log("here2", variant.color.name);
 
           returnData = {
             unit_price: variant.unit_price,
