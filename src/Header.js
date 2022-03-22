@@ -279,10 +279,20 @@ function Header(props) {
                   {suggestionActive ? (
                     searchResponse.length > 0 ? (
                       searchResponse.map((item) => {
+                        console.log(item);
+                        const { name, _id } = item;
                         return (
                           <a
                             className="dropdown-list-item pointer"
-                            onClick={() => history.push(`/product/${item._id}`)}
+                            onClick={() =>
+                              history.push(
+                                `/product/${
+                                  name.toLowerCase().split(" ").join("-") +
+                                  "-product-id-" +
+                                  _id
+                                }`
+                              )
+                            }
                           >
                             <img
                               alt="img"
