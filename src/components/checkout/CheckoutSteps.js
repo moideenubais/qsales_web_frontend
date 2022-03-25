@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -40,7 +40,6 @@ function CheckoutSteps(props) {
     deleteData: propsDeleteData,
     userData,
   } = props;
-  console.log("Authenticated:",isAuthenticated)
   ///Login Logout States
   const [showModal, setShowModal] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
@@ -56,6 +55,8 @@ function CheckoutSteps(props) {
   const [paymentMethod, setPaymentMethod] = React.useState("cod");
   const [errors, setErrors] = React.useState({});
   const [cartItems, setCartItems] = useState([]);
+  const [disablePlaceOrder, setDisablePlaceOrder] = useState(false);
+  const placeOrderButtonRef = useRef(null);
   const isDesktop = useMediaQuery("(min-width: 500px)");
   const [orderContent, setOrderContent] = React.useState({
     delivery_note: "", // [OPTIONAL]
@@ -63,19 +64,19 @@ function CheckoutSteps(props) {
   });
 
   const [location, setLocation] = useState({ latitude: "", longitude: "" });
- 
-  const handleGetLocation=()=>{
+
+  const handleGetLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(handleLocation);
     }
-  }
+  };
   const handleLocation = (postion) => {
     setLocation({
       latitude: postion.coords.latitude,
       longitude: postion.coords.longitude,
     });
-    toast.success("Current Location Added",{ 
-      className:"my-toast"
+    toast.success("Current Location Added", {
+      className: "my-toast",
     });
   };
   const [unAuthenticatedUser, setUnAuthenticatedUser] = useState({
@@ -196,7 +197,25 @@ function CheckoutSteps(props) {
     return subTotal;
   };
 
-  const placeOrder = () => {
+  const placeOrder = (e) => {
+    if (disablePlaceOrder) return;
+
+    setDisablePlaceOrder(true);
+    // console.log(
+    //   "disabled",
+    //   placeOrderButtonRef?.current?.getAttribute("disabled")
+    // );
+    // if (placeOrderButtonRef?.current?.getAttribute("disabled")) {
+    //   console.log(
+    //     "disabled",
+    //     placeOrderButtonRef?.current?.getAttribute("disabled")
+    //   );
+    //   return;
+    // }
+    // if (placeOrderButtonRef.current) {
+    //   placeOrderButtonRef.current.setAttribute("disabled", "disabled");
+    // }
+
     const errorsData = {};
     let orderData = {};
     if (isAuthenticated) {
@@ -326,6 +345,8 @@ function CheckoutSteps(props) {
         setCartInLocal({});
       }
     });
+    // placeOrderButtonRef.current.removeAttribute("disabled");
+    // setDisablePlaceOrder(false);
   };
 
   const handleAddressChange = ({ target }, changeIndex = 0) => {
@@ -536,64 +557,63 @@ function CheckoutSteps(props) {
               </div>
             )}
           </div>
-        
+
           <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 align-items-start justify-content-start">
-          {
-          isAuthenticated && 
-          <>
-          {addresses?.map((address, i) => (
-              <div className="mb-3 border-bottom py-2 align-items-start justify-content-start">
-                <div className="align-items-start justify-content-start">
-                  <input
-                    className="form-check-input p-2 mt-1 me-3 ms-2 mb-2 align-self-start "
-                    type="radio"
-                    onChange={() => setSelectedAddressIndex(i)}
-                    name="flexRadioDefault"
-                    checked={selectedAddressIndex === i}
-                    id="flexRadioDefault1"
-                  />
-                  {ADDRESS_FIELDS.map(({ label, name }) => (
-                    <div className="d-flex">
-                      <label className="p-2 w-25">{label}</label>
+            {isAuthenticated && (
+              <>
+                {addresses?.map((address, i) => (
+                  <div className="mb-3 border-bottom py-2 align-items-start justify-content-start">
+                    <div className="align-items-start justify-content-start">
                       <input
-                        className="p-2 ml-5 w-75 mb-2"
-                        name={name}
-                        disabled={editable !== i}
-                        onChange={({ target }) =>
-                          handleAddressChange({ target }, i)
-                        }
-                        onBlur={() => updateAddress(i)}
-                        value={address[name] || ""}
-                        placeholder={`Enter your ${name.replace("_", " ")}`}
+                        className="form-check-input p-2 mt-1 me-3 ms-2 mb-2 align-self-start "
+                        type="radio"
+                        onChange={() => setSelectedAddressIndex(i)}
+                        name="flexRadioDefault"
+                        checked={selectedAddressIndex === i}
+                        id="flexRadioDefault1"
                       />
+                      {ADDRESS_FIELDS.map(({ label, name }) => (
+                        <div className="d-flex">
+                          <label className="p-2 w-25">{label}</label>
+                          <input
+                            className="p-2 ml-5 w-75 mb-2"
+                            name={name}
+                            disabled={editable !== i}
+                            onChange={({ target }) =>
+                              handleAddressChange({ target }, i)
+                            }
+                            onBlur={() => updateAddress(i)}
+                            value={address[name] || ""}
+                            placeholder={`Enter your ${name.replace("_", " ")}`}
+                          />
+                        </div>
+                      ))}
+                      <div className="d-flex gap-3 ms-2">
+                        <p
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          className="p-0 primary-color gap-1"
+                          onClick={() => {
+                            setEditable(i);
+                          }}
+                        >
+                          {t("edit")}
+                        </p>
+                        <p
+                          style={{ cursor: "pointer" }}
+                          className="p-0 m-0 primary-color "
+                          onClick={() => deletAddress(i)}
+                        >
+                          {t("delete")}
+                        </p>
+                      </div>
                     </div>
-                  ))}
-                  <div className="d-flex gap-3 ms-2">
-                    <p
-                      style={{
-                        cursor: "pointer",
-                      }}
-                      className="p-0 primary-color gap-1"
-                      onClick={() => {
-                        setEditable(i);
-                      }}
-                    >
-                      {t("edit")}
-                    </p>
-                    <p
-                      style={{ cursor: "pointer" }}
-                      className="p-0 m-0 primary-color "
-                      onClick={() => deletAddress(i)}
-                    >
-                      {t("delete")}
-                    </p>
                   </div>
-                </div>
-              </div>
-            ))}
-          </>
-          }
-            
+                ))}
+              </>
+            )}
+
             {!isAuthenticated &&
               ADDRESS_FIELDS.map(({ label, name }) => (
                 <div className="d-flex flex-column mt-2 ">
@@ -609,42 +629,41 @@ function CheckoutSteps(props) {
                   />
                 </div>
               ))}
-              {
-                !isAuthenticated && 
-                <div className="d-flex flex-row justify-content-end small gap-2">
-                  <button
+            {!isAuthenticated && (
+              <div className="d-flex flex-row justify-content-end small gap-2">
+                <button
                   className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
                   onClick={handleGetLocation}
                 >
                   Allow Location
                 </button>
-                </div>
-              }
+              </div>
+            )}
             <div className="d-flex flex-row justify-content-end small gap-2">
               {isAuthenticated && (
                 <>
-                <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
-                  onClick={() => {
-                    setAddresses([
-                      ...addresses,
-                      {
-                        building_no: "",
-                        street_no: "",
-                        zone_no: "",
-                      },
-                    ]);
-                    setEditable(addresses.length);
-                  }}
-                >
-                  {t("addNew")}
-                </button>
-                <button
-                  className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
-                  onClick={handleGetLocation}
-                >
-                  Allow Location
-                </button>
+                  <button
+                    className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
+                    onClick={() => {
+                      setAddresses([
+                        ...addresses,
+                        {
+                          building_no: "",
+                          street_no: "",
+                          zone_no: "",
+                        },
+                      ]);
+                      setEditable(addresses.length);
+                    }}
+                  >
+                    {t("addNew")}
+                  </button>
+                  <button
+                    className="mr-3 btn btn-sm btn-qs-primary fw-normal p-2 m-1 small"
+                    onClick={handleGetLocation}
+                  >
+                    Allow Location
+                  </button>
                 </>
               )}
               {/* {addresses.length ? (
@@ -748,7 +767,8 @@ function CheckoutSteps(props) {
               className={`${
                 !isDesktop ? "w-50" : "w-25"
               } mr-3 btn  btn-sm btn-qs-primary fw-normal p-2 small`}
-              onClick={placeOrder}
+              onClick={(e) => placeOrder(e)}
+              disabled={disablePlaceOrder}
             >
               {t("placeOrder")}
             </button>

@@ -30,7 +30,7 @@ const otherCategories = [
 ];
 
 function ProductsListHolder(props) {
-  const { getData: propsGetData, categoryReducer,flashDealReducer } = props;
+  const { getData: propsGetData, categoryReducer, flashDealReducer } = props;
 
   const [allCategories, setAllCategories] = useState(otherCategories);
 
@@ -43,21 +43,31 @@ function ProductsListHolder(props) {
   }, [propsGetData]);
 
   useEffect(() => {
-    if(categories && flashs){
-      let date= Date.now();
-      flashs=flashs.filter(flash=>(date > Date.parse(flash?.duration.from) && Date.parse(flash?.duration.to) > date ));
-      setAllCategories(flashs.concat(otherCategories.concat(categories)));
+    if (
+      JSON.stringify(allCategories) ===
+      JSON.stringify(flashs.concat(otherCategories.concat(categories)))
+    )
+      return;
+
+    if (categories && flashs) {
+      let date = Date.now();
+      flashs = flashs.filter(
+        (flash) =>
+          date > Date.parse(flash?.duration.from) &&
+          Date.parse(flash?.duration.to) > date
+      );
     }
-    
-  }, [categories,flashs]);
+    console.log("updating state");
+    setAllCategories(flashs.concat(otherCategories.concat(categories)));
+  }, [categories, flashs]);
 
   return (
     <>
       {allCategories?.map((data, index) => {
         return (
           <>
-          <ProductsContainer key={index} title={data.title} datas={data} />
-          {/* {(index+1)%4==0 ?
+            <ProductsContainer key={index} title={data.title} datas={data} />
+            {/* {(index+1)%4==0 ?
           <CarouselHome betweenCategories={true} />
           :""} */}
           </>
@@ -69,7 +79,7 @@ function ProductsListHolder(props) {
 
 const mapStateToProps = (state) => ({
   categoryReducer: state.getAllCategoriesReducer,
-  flashDealReducer:state.getAllFlashDealsReducer
+  flashDealReducer: state.getAllFlashDealsReducer,
 });
 
 export default connect(mapStateToProps, {
