@@ -201,20 +201,6 @@ function CheckoutSteps(props) {
     if (disablePlaceOrder) return;
 
     setDisablePlaceOrder(true);
-    // console.log(
-    //   "disabled",
-    //   placeOrderButtonRef?.current?.getAttribute("disabled")
-    // );
-    // if (placeOrderButtonRef?.current?.getAttribute("disabled")) {
-    //   console.log(
-    //     "disabled",
-    //     placeOrderButtonRef?.current?.getAttribute("disabled")
-    //   );
-    //   return;
-    // }
-    // if (placeOrderButtonRef.current) {
-    //   placeOrderButtonRef.current.setAttribute("disabled", "disabled");
-    // }
 
     const errorsData = {};
     let orderData = {};
@@ -345,8 +331,6 @@ function CheckoutSteps(props) {
         setCartInLocal({});
       }
     });
-    // placeOrderButtonRef.current.removeAttribute("disabled");
-    // setDisablePlaceOrder(false);
   };
 
   const handleAddressChange = ({ target }, changeIndex = 0) => {
