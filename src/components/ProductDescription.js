@@ -175,21 +175,21 @@ function ProductDescription(props) {
     }
     if (colors && colors.length) attributeData.colors = colors;
     const initialValue = getPriceAndQuantity(attributeData, true);
-    console.log("attri", initialValue);
+
     setSelectedAttribute(initialValue);
+
     setAttributeArray(
       Object.entries(attributeData).map(([name, values]) => ({ name, values }))
     );
   }, [productDetails]);
-  console.log(productDetails);
+
   const ratingChanged = (newRating) => {
     setRatingValue(newRating);
   };
 
   const handleOnAttributeChagne = (name, value) => {
     const updateData = { ...selectedAttribute, [name]: value };
-    console.log("update", updateData);
-
+    console.log(selectedAttribute);
     setSelectedAttribute({
       ...updateData,
       ...getPriceAndQuantity(updateData),
@@ -197,7 +197,6 @@ function ProductDescription(props) {
   };
 
   const addToCart = (isBuyNow = false) => {
-    console.log("addtocart", selectedAttribute);
     if (selectedQuantity <= 0) return;
     saveCartToLocalStorage({
       product_id: productId,
@@ -358,24 +357,30 @@ function ProductDescription(props) {
                   />
                 </div>
 
-                {attributeArray.map(({ name, values }) => (
-                  <div className="d-flex mb-2 mt-2 justify-content-between">
-                    <p className="medium fw-normal text-dark me-5">{name} :</p>
-                    <select
-                      className="py-2 px-3 form-select"
-                      style={{ width: "60%" }}
-                      aria-label="Default select example"
-                      onChange={(e) =>
-                        handleOnAttributeChagne(name, e.target.value)
-                      }
-                      value={selectedAttribute[name]}
-                    >
-                      {values.map(({ value: v, name: n }) => (
-                        <option value={v}>{n || v}</option>
-                      ))}
-                    </select>
-                  </div>
-                ))}
+                {attributeArray.map((item) => {
+                  const { name, values } = item;
+
+                  return (
+                    <div className="d-flex mb-2 mt-2 justify-content-between">
+                      <p className="medium fw-normal text-dark me-5">
+                        {name} :
+                      </p>
+                      <select
+                        className="py-2 px-3 form-select"
+                        style={{ width: "60%" }}
+                        aria-label="Default select example"
+                        onChange={(e) =>
+                          handleOnAttributeChagne(name, e.target.value)
+                        }
+                        value={selectedAttribute[name]}
+                      >
+                        {values.map(({ value: v, name: n }) => (
+                          <option value={v}>{n || v}</option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
 
                 <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                   <div className="">

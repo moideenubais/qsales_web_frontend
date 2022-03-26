@@ -99,12 +99,6 @@ function ProductsContainer(props) {
                       },
                       index
                     ) => {
-                      console.log(
-                        "yoyo",
-                        name.toLowerCase().split(" ").join("-") +
-                          "product_id:" +
-                          _id
-                      );
                       return (
                         <Product
                           _id={_id}
