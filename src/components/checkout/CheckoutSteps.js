@@ -197,6 +197,8 @@ function CheckoutSteps(props) {
     return subTotal;
   };
 
+  let isDeliveryFree = calcSubTotal() >= 35;
+
   const placeOrder = (e) => {
     if (disablePlaceOrder) return;
 
@@ -397,11 +399,23 @@ function CheckoutSteps(props) {
               </div>
             </div>
           ))}
+        {!isDeliveryFree && (
+          <div className={`d-flex flex-column p-3 border-bottom`}>
+            <div className="d-flex flex-row justify-content-between">
+              <span className="col-md-7 col-xl-8">{t("shippingCharges")}</span>
+              <CheckoutPagePriceWrapper className="col-md-5 col-xl-4">
+                {t("riyalText")} {10}
+              </CheckoutPagePriceWrapper>
+            </div>
+            {/* <span style={{ height: 25 }}></span> */}
+          </div>
+        )}
         <div className={`d-flex flex-column p-3 border-bottom`}>
           <div className="d-flex flex-row justify-content-between">
             <span className="col-md-7 col-xl-8">{t("subTotal")}</span>
             <CheckoutPagePriceWrapper className="col-md-5 col-xl-4">
-              {t("riyalText")} {calcSubTotal()}
+              {t("riyalText")}{" "}
+              {isDeliveryFree ? calcSubTotal() : calcSubTotal() + 10}
             </CheckoutPagePriceWrapper>
           </div>
           {/* <span style={{ height: 25 }}></span> */}

@@ -61,6 +61,7 @@ export const englishTranslations = {
   firstName: "First Name",
   lastName: "Last Name",
   quantity: "Quantity",
+  shippingCharges: "Shipping Charges",
 };
 
 export const arabicTranslations = {
@@ -126,4 +127,5 @@ export const arabicTranslations = {
   firstName: "",
   lastName: "",
   quantity: "",
+  shippingCharges: "Shipping Charges",
 };
