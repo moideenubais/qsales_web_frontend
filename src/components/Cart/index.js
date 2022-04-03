@@ -27,7 +27,12 @@ import {
   SmallButton,
   ButtonWrapper,
 } from "./styles";
-import { getCartInLocalStorage, getDiscountedPrice, removeCartFromLocalStorage,updateCartToLocalStorage } from "../../heper";
+import {
+  getCartInLocalStorage,
+  getDiscountedPrice,
+  removeCartFromLocalStorage,
+  updateCartToLocalStorage,
+} from "../../heper";
 import { getData, updateData, createData } from "../../redux/actions/index";
 import { useCartContext } from "../../context/cartContext";
 import toast from "react-hot-toast";
@@ -116,20 +121,20 @@ const CartComponent = (props) => {
     return subTotal;
   };
 
-  // if (loading) {
-  //   return (
-  //     <div
-  //       style={{
-  //         height: "65vh",
-  //         display: "flex",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       }}
-  //     >
-  //       {/* <div className="spinner" /> */}
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "65vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div className="spinner" />
+      </div>
+    );
+  }
 
   const removeFromCart = (varient_id) => {
     // debugger;
@@ -160,26 +165,22 @@ const CartComponent = (props) => {
     const clear = !Object.values(cart).length;
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
-      clear
-    }).then((res) => {
-
-    });
+      clear,
+    }).then((res) => {});
   };
 
   const decreaseItemInCart = (item) => {
     updateCartToLocalStorage({
       product_id: item.product_id,
       varient_id: item.varient_id,
-      quantity: item.quantity <=1?1:--item.quantity,
+      quantity: item.quantity <= 1 ? 1 : --item.quantity,
     });
     const cart = getCartInLocalStorage();
     setCartInLocal(cart);
 
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
-    }).then((res) => {
-
-    });
+    }).then((res) => {});
   };
 
   const handleCheckout = () => {
@@ -233,59 +234,63 @@ const CartComponent = (props) => {
           <>
             {cartItems.map((item, i) => (
               <>
-              <Bottom>
-                <Info>
-                  <Product>
-                    <ProductDetail>
-                      <Image
-                        src={`${item.product?.product_image_small_url}`}
-                      />
-                      <Details>
-                        <ProductName>
-                          {item.product?.i18nResourceBundle.name}
-                        </ProductName>
-                        {/* {getAttributesValue(item.product?.varient)} */}
-                      </Details>
-                    </ProductDetail>
-                    <PriceDetail>
-                      <ProductAmountContainer>
-                        {/* <CartPlusIcon /> */}
-                        <ProductAmount>
-                          <div className="cart-buttons">
-                          <button className="btn btn-qs-primary rounded-0 p-2 mx-2"
-                          onClick={() =>decreaseItemInCart(item)}
-                          >
-                            -
-                          </button>
-                          {item.quantity}
-                          <button className="btn btn-qs-primary rounded-0 p-2 mx-2"
-                          onClick={() =>increaseItemInCart(item)}
-                          >
-                            +
-                          </button>
-                          </div>
-                          {/* {t("quantity")}:  */}
-                        </ProductAmount>
-                        {/* <CartMinusIcon /> */}
-                      </ProductAmountContainer>
-                      <ProductPrice>
-                        {t("riyalText")} {
-                         getDiscountedPrice(item.product?.flash?.discount_type || item.product?.varient?.discount_type,
-                          item.product?.flash?.discount_amount || item.product?.varient?.discount_amount,
-                          item.product?.varient?.unit_price
-                          )
-                      }
-                      </ProductPrice>
-                      <SmallButton
-                        onClick={() => removeFromCart(item.varient_id)}
-                      >
-                        {t("remove")}
-                      </SmallButton>
-                    </PriceDetail>
-                  </Product>
-                </Info>
-              </Bottom>
-              <hr className="mb-2 w-90 mx-auto" />
+                <Bottom>
+                  <Info>
+                    <Product>
+                      <ProductDetail>
+                        <Image
+                          src={`${item.product?.product_image_small_url}`}
+                        />
+                        <Details>
+                          <ProductName>
+                            {item.product?.i18nResourceBundle.name}
+                          </ProductName>
+                          {/* {getAttributesValue(item.product?.varient)} */}
+                        </Details>
+                      </ProductDetail>
+                      <PriceDetail>
+                        <ProductAmountContainer>
+                          {/* <CartPlusIcon /> */}
+                          <ProductAmount>
+                            <div className="cart-buttons">
+                              <button
+                                className="btn btn-qs-primary rounded-0 p-2 mx-2"
+                                onClick={() => decreaseItemInCart(item)}
+                              >
+                                -
+                              </button>
+                              {item.quantity}
+                              <button
+                                className="btn btn-qs-primary rounded-0 p-2 mx-2"
+                                onClick={() => increaseItemInCart(item)}
+                              >
+                                +
+                              </button>
+                            </div>
+                            {/* {t("quantity")}:  */}
+                          </ProductAmount>
+                          {/* <CartMinusIcon /> */}
+                        </ProductAmountContainer>
+                        <ProductPrice>
+                          {t("riyalText")}{" "}
+                          {getDiscountedPrice(
+                            item.product?.flash?.discount_type ||
+                              item.product?.varient?.discount_type,
+                            item.product?.flash?.discount_amount ||
+                              item.product?.varient?.discount_amount,
+                            item.product?.varient?.unit_price
+                          )}
+                        </ProductPrice>
+                        <SmallButton
+                          onClick={() => removeFromCart(item.varient_id)}
+                        >
+                          {t("remove")}
+                        </SmallButton>
+                      </PriceDetail>
+                    </Product>
+                  </Info>
+                </Bottom>
+                <hr className="mb-2 w-90 mx-auto" />
               </>
             ))}
           </>
