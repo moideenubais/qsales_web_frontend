@@ -207,7 +207,7 @@ const CartComponent = (props) => {
       </>
     );
   };
-
+  console.log(cartItems)
   return (
     <Container>
       <Wrapper>
@@ -245,6 +245,7 @@ const CartComponent = (props) => {
                           <ProductName>
                             {item.product?.i18nResourceBundle.name}
                           </ProductName>
+                          {<p>{item.product.varient.color.name}</p>}
                           {/* {getAttributesValue(item.product?.varient)} */}
                         </Details>
                       </ProductDetail>

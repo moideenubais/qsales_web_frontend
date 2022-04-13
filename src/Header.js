@@ -279,7 +279,6 @@ function Header(props) {
                   {suggestionActive ? (
                     searchResponse.length > 0 ? (
                       searchResponse.map((item) => {
-                        console.log(item);
                         const { name, _id } = item;
                         return (
                           <a

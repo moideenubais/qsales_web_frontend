@@ -12,6 +12,7 @@ export const clearCartInLocalStorage = () => {
 
 export const saveCartToLocalStorage = (data) => {
   let updateData = { [data.varient_id]: data };
+  console.log('updateData',updateData)
   const oldData = getCartInLocalStorage();
   if (!isEmptyObj(oldData)) {
     if (oldData[data.varient_id]) {
