@@ -75,7 +75,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <ScrollToTop />
+        {/* <ScrollToTop /> */}
         <Switch>
           <Route exact path="/" component={WaitingComponent(Home)} />
           <Route
