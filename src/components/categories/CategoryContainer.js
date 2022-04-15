@@ -155,7 +155,6 @@ function CategoryContainer(props) {
 
                 {/* List of product */}
                 <div className="col-12 bg-white d-flex flex-row justify-content-xs-between justify-content-start flex-wrap flex-md-wrap">
-                  {console.log("Products", products)}
                   {products.map(
                     (
                       {

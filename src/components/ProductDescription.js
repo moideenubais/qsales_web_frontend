@@ -92,7 +92,6 @@ function ProductDescription(props) {
       });
     }
   }, [user]);
-
   useEffect(() => {
     setOrderData({
       ...orderData,
@@ -111,7 +110,6 @@ function ProductDescription(props) {
     const attributeData = Object.entries(attributeObject).map(
       ([name, values]) => ({ name, values })
     );
-
     productDetails.varients?.forEach((variant) => {
       const firstVarient = productDetails.varients[0];
       let variantDep = {};
@@ -127,13 +125,11 @@ function ProductDescription(props) {
         const isNotMatch = attributeData.some(({ name, values }) => {
           return variantDep[name] && variantDep[name] !== values[0].value;
         });
-
         if (!isNotMatch) {
-          // console.log("here1", variant?.color?.name);
           returnData = {
             unit_price: firstVarient.unit_price,
             quantity: firstVarient.quantity,
-            variant_id: firstVarient._id,
+            // variant_id: firstVarient._id,
             discount_type: firstVarient.discount_type,
             discount_amount: firstVarient.discount_amount,
             flash: productDetails.flash,
@@ -148,12 +144,10 @@ function ProductDescription(props) {
           return variantDep[name] && variantDep[name] !== values;
         });
         if (!isNotMatch) {
-          // console.log("here2", variant.color.name);
-
           returnData = {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
-            variant_id: variant._id,
+            // variant_id: variant._id,
             discount_type: variant.discount_type,
             discount_amount: variant.discount_amount,
             flash: productDetails.flash,
@@ -182,14 +176,15 @@ function ProductDescription(props) {
       Object.entries(attributeData).map(([name, values]) => ({ name, values }))
     );
   }, [productDetails]);
-
   const ratingChanged = (newRating) => {
     setRatingValue(newRating);
   };
 
   const handleOnAttributeChagne = (name, value) => {
-    const updateData = { ...selectedAttribute, [name]: value };
-    console.log(selectedAttribute);
+    var found_names = productDetails?.varients?.filter(function(obj) {
+      return (obj.color.name === value);
+  });
+    const updateData = { [name]: value,'variant_id': found_names[0]?._id };
     setSelectedAttribute({
       ...updateData,
       ...getPriceAndQuantity(updateData),
@@ -357,30 +352,29 @@ function ProductDescription(props) {
                   />
                 </div>
 
-                {attributeArray.map((item) => {
-                  const { name, values } = item;
-
-                  return (
+               
+                  {/* const { name, values } = item; */}
+                    
                     <div className="d-flex mb-2 mt-2 justify-content-between">
                       <p className="medium fw-normal text-dark me-5">
-                        {name} :
+                        colors :
                       </p>
                       <select
                         className="py-2 px-3 form-select"
                         style={{ width: "60%" }}
                         aria-label="Default select example"
                         onChange={(e) =>
-                          handleOnAttributeChagne(name, e.target.value)
+                          handleOnAttributeChagne('colors', e.target.value)
                         }
-                        value={selectedAttribute[name]}
+                        value={selectedAttribute['colors']}
                       >
-                        {values.map(({ value: v, name: n }) => (
-                          <option value={v}>{n || v}</option>
+                         {productDetails?.varients?.map((res) => (
+                          <option value={res?.color?.name}>{res?.color?.name}</option>
                         ))}
                       </select>
                     </div>
-                  );
-                })}
+                  {/* );
+                })} */}
 
                 <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                   <div className="">

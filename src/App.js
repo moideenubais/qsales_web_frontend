@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory,
+  useHistory,useLocation
 } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
 import i18n from "i18next";
@@ -66,6 +66,7 @@ function WaitingComponent(Component) {
 
 function App() {
   const { t } = useTranslation();
+
   // React.useEffect(() => {
   //   let dir=i18n.language=="en"?"ltr":"rtl";
   //   document?.getElementsByTagName("html")[0]?.setAttribute("dir", dir);
@@ -74,7 +75,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <ScrollToTop />
+        {/* <ScrollToTop /> */}
         <Switch>
           <Route exact path="/" component={WaitingComponent(Home)} />
           <Route

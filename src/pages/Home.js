@@ -22,12 +22,12 @@ function Home() {
   // const [rendered,setRendered]=React.useState(false);
   React.useLayoutEffect(()=>{
 
-    setTimeout(()=>{
-      window.scrollTo({
-        top: 100,
-        behavior: 'smooth'
-      })
-    },0)
+    // setTimeout(()=>{
+    //   window.scrollTo({
+    //     top: 100,
+    //     behavior: 'smooth'
+    //   })
+    // },0)
     // document.body.scrollTop = 0;
     //   // document?.getElementById("top-bar")?.scrollIntoView()
     // if(rendered){

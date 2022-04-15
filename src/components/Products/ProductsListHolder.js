@@ -57,7 +57,6 @@ function ProductsListHolder(props) {
           Date.parse(flash?.duration.to) > date
       );
     }
-    console.log("updating state");
     setAllCategories(flashs.concat(otherCategories.concat(categories)));
   }, [categories, flashs]);
 
