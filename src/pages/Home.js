@@ -56,7 +56,7 @@ function Home() {
       {/* <CategoriesList /> */}
       <ProductsListHolder />
       <BrandsContainer />
-      <ShopContainer />
+      {/* <ShopContainer /> */}
       <Footer />
       <FloatingButton />
     </div>

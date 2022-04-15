@@ -1,8 +1,7 @@
-
-const Strings={
-    whatsappUrl:"https://api.whatsapp.com/send?phone=+974 7732 2358",
-    contactNumber:"+974 7732 2358",
-    privacyPolicy:`<nobr><nowrap>
+const Strings = {
+    whatsappUrl: "https://api.whatsapp.com/send?phone=+974 7732 2358",
+    contactNumber: "+974 7732 2358",
+    privacyPolicy: `<nobr><nowrap>
     <div class="pos" id="_0:0" style="top:0">
     </div>
     <div class="pos" id="_100:101" style="top:101;left:100">
@@ -31,142 +30,497 @@ const Strings={
     </div>
     <div class="pos" id="_100:362" style="top:362;left:100">
     <span id="_15.9" style=" font-family:Arial; font-size:15.9px; color:#000000">
-    Our website address is: https://qsales2022.com .</span>
+    Qsales (“Qsales” “we” or “us” or “our”) is an e-commerce company based in Doha, Qatar<br/>
+respects the privacy of our users (“user” or “you”).<br/>
+This Privacy Policy explains how we collect, use, disclose, and safeguard your information when<br/>
+you visit our website qsales2022.com , including any other media form, media channel, mobile<br/>
+website, or mobile application related or connected thereto (collectively, the “Site”). Please read<br/>
+this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not<br/>
+access the site.<br/>
+We reserve the right to make changes to this Privacy Policy at any time and for any reason. Any<br/>
+changes or modifications will be effective immediately upon posting the updated Privacy Policy<br/>
+on the Site.<br/>
+You are encouraged to periodically review this Privacy Policy to stay informed of updates. You<br/>
+will be deemed to have been made aware of, will be subject to, and will be deemed to have<br/>
+accepted the changes in any revised Privacy Policy by your continued use of the Site after such<br/>
+revised Privacy Policy is posted.<br/>
+.</span>
     </div>
     <div class="pos" id="_100:424" style="top:424;left:100">
     <span id="_23.4" style=" font-family:Arial; font-size:23.4px; color:#000000">
     What personal data we collect and why we collect it</span>
     </div>
-    <div class="pos" id="_100:462" style="top:462;left:100">
-    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    The personal information that you are asked to provide, and the reasons why you </span>
-    </div>
-    <div class="pos" id="_100:498" style="top:498;left:100">
-    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    are asked to provide it, will be made clear to you at the point we ask you to provide </span>
-    </div>
-    <div class="pos" id="_100:534" style="top:534;left:100">
-    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    your personal information.</span>
-    </div>
     <div class="pos" id="_100:589" style="top:589;left:100">
     <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
-    Media</span>
+    Comments</span>
     </div>
     <div class="pos" id="_100:621" style="top:621;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    If you upload images to the website, you should avoid uploading images with </span>
+    When visitors leave comments on the site we collect the data shown in the comments form, and<br/>
+also the visitor’s IP address and browser user agent string to help spam detection.
+ </span>
     </div>
-    <div class="pos" id="_100:657" style="top:657;left:100">
+    <div class="pos" id="_100:621" style="top:621;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    embedded location data (EXIF GPS) included. Visitors to the website can download </span>
+    An anonymized string created from your email address (also called a hash) may be provided to<br/>
+the Gravatar service to see if you are using it. The Gravatar service privacy policy is available<br/>
+here: https://automattic.com/privacy/. After approval of your comment, your profile picture is<br/>
+visible to the public in the context of your comment.
+ </span>
     </div>
-    <div class="pos" id="_100:693" style="top:693;left:100">
+    
+
+    <div class="pos" id="_100:589" style="top:589;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Personal Data</span>
+    </div>
+    <div class="pos" id="_100:621" style="top:621;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    and extract any location data from images on the website.</span>
+    Personally identifiable information, such as your name, shipping address, email address, and<br/>
+telephone number, and demographic information, such as your age, gender, hometown, and<br/>
+interests, that you voluntarily give to us when you register with the qsales2022.com or our mobile<br/>
+application, or when you choose to participate in various activities related to the Site<br/>
+
+ </span>
     </div>
+    <div class="pos" id="_100:621" style="top:621;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    qsales2022.com or our mobile application, such as online chat and message boards.<br/>
+     You are
+    under no obligation to provide us with personal information of any kind, however your <br/>
+    refusal to do so may prevent you from using certain features of the Site qsales2022.com and our mobile<br/>
+    application
+ </span>
+    </div>
+    
+
     <div class="pos" id="_100:748" style="top:748;left:100">
     <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
-    Contact forms</span>
+    Derivative Data</span>
     </div>
     <div class="pos" id="_100:779" style="top:779;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    If you contact us directly, we may receive additional information about you such as </span>
+    Information our servers automatically collect when you access the Site, such as your IP address,</span>
     </div>
     <div class="pos" id="_100:815" style="top:815;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    your name, email address, phone number, the contents of the message and/or </span>
+    your browser type, your operating system, your access times, and the pages you have viewed
+</span>
     </div>
     <div class="pos" id="_100:851" style="top:851;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    attachments you may send us, and any other information you may choose to </span>
+    directly before and after accessing the Site. If you are using our mobile application, this
+    </span>
     </div>
     <div class="pos" id="_100:887" style="top:887;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    provide.</span>
+    information may also include your device name and type, your operating system, your phone
+</span>
     </div>
-    <div class="pos" id="_100:943" style="top:943;left:100">
+    <div class="pos" id="_100:887" style="top:887;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    number, your country, your likes and replies to a post, and other interactions with the application
+
+</span>
+    </div>
+    <div class="pos" id="_100:887" style="top:887;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    and other users via server log files, as well as any other information you choose to provide.
+    </span>
+    </div>
+
+
+
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
     <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
-    Embedded content from other websites</span>
+    Financial Data
+</span>
     </div>
-    <div class="pos" id="_100:974" style="top:974;left:100">
+    <div class="pos" id="_100:779" style="top:779;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    Articles and listings on this site may include embedded content (e.g. videos, images, </span>
+    Financial information, such as data related to your payment method (e.g. valid credit card
+        </span>
     </div>
-    <div class="pos" id="_100:1010" style="top:1010;left:100">
+    <div class="pos" id="_100:815" style="top:815;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    articles, etc.). Embedded content from other websites behaves in the exact same </span>
+    number, card brand, expiration date) that we may collect when you purchase, order, return,
+    </span>
     </div>
-    <div class="pos" id="_100:1046" style="top:1046;left:100">
+    <div class="pos" id="_100:851" style="top:851;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    way as if the visitor has visited the other website.</span>
+    exchange, or request information about our services from the Site qsales2022.com or our mobile
+    </span>
     </div>
-    <div class="pos" id="_0:0" style="top:1170">
-    </div>
-    <div class="pos" id="_100:1271" style="top:1271;left:100">
+    <div class="pos" id="_100:887" style="top:887;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    These websites may collect data about you, use cookies, embed additional </span>
+    application. We store only very limited, if any, financial information that we collect. Otherwise, all
+    </span>
     </div>
-    <div class="pos" id="_100:1307" style="top:1307;left:100">
+    <div class="pos" id="_100:887" style="top:887;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    third-party tracking, and monitor your interaction with that embedded content,</span>
+    financial information is stored by our payment processor, and you are encouraged to review their
+
+</span>
     </div>
-    <div class="pos" id="_100:1343" style="top:1343;left:100">
+
+    <div class="pos" id="_100:887" style="top:887;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    including tracking your interaction with the embedded content if you have an account </span>
+    privacy policy and contact them directly for responses to your questions.
+
+</span>
     </div>
-    <div class="pos" id="_100:1379" style="top:1379;left:100">
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Data From Social Networks
+
+</span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    and are logged in to that website.</span>
+    User information from social networking sites, such as Apple’s Game Center, Facebook,<br/>
+Google+, Instagram, Pinterest, Twitter, including your name, your social network username,<br/>
+location, gender, birth date, email address, profile picture, and public data for contacts, if you<br/>
+connect your account to such social networks. If you are using our mobile application, this<br/>
+information may also include the contact information of anyone you invite to use and/or join our<br/>
+mobile application.<br/>
+        </span>
     </div>
+
+
+    
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Mobile Device Data
+
+</span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    Device information, such as your mobile device ID, model, and manufacturer, and information<br/>
+about the location of your device, if you access the Site from a mobile device<br/>
+        </span>
+    </div>
+
+
+       
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Third-Party Data
+
+</span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    Information from third parties, such as personal information or network friends, if you connect<br/>
+    your account to the third party and grant the Site permission to access this information.<br/>
+        </span>
+    </div>
+
+
+
+
+        
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Data From Contests, Giveaways, and Surveys
+</span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    Personal and other information you may provide when entering contests or giveaways and/or<br/>
+    responding to surveys.<br/>
+    Geo-Location Information: We may request access or permission to and track location-based<br/>
+information from your mobile device, either continuously or while you are using our mobile<br/>
+application, to provide location-based services. If you wish to change our access or permissions,<br/>
+you may do so in your device’s settings.
+<br/>
+Push Notifications. We may request to send you push notifications regarding your account or the<br/>
+Application. If you wish to opt-out from receiving these types of communications, you may turn<br/>
+them off in your device’s settings
+
+        </span>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <div class="pos" id="_100:1441" style="top:1441;left:100">
     <span id="_22.7" style=" font-family:Arial; font-size:22.7px; color:#000000">
-    How we use your information</span>
+    USE OF YOUR INFORMATION</span>
     </div>
     <div class="pos" id="_100:1479" style="top:1479;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    We use the information we collect in various ways, including to:</span>
+    Having accurate information about you permits us to provide you with a smooth, efficient, and <br/>
+customized experience. Specifically, we may use information collected about you via the Site<br/>
+qsales2022.com to:<br/>
+Administer sweepstakes, promotions, and contests.<br/>
+Compile anonymous statistical data and analysis for use internally or with third parties.<br/>
+Create and manage your account.<br/>
+Deliver targeted advertising, coupons, newsletters, and other information regarding promotions<br/>
+and the Site qsales2022.com to you.<br/>
+Email you regarding your account or order.<br/>
+Enable user-to-user communications.<br/>
+Fulfill and manage purchases, orders, payments, and other transactions related to the Site<br/>
+qsales2022.com.<br/>
+Generate a personal profile about you to make future visits to the Site qsales2022.com more<br/>
+personalized.<br/>
+Increase the efficiency and operation of the Site qsales2022.com and our mobile application.<br/>
+Monitor and analyze usage and trends to improve your experience with the Site qsales2022.com<br/>
+& our mobile application.<br/>
+Notify you of updates to the Site qsales2022.com & our mobile applications.<br/>
+Offer new products, services and/or recommendations to you.<br/>
+Perform other business activities as needed.<br/>
+Prevent fraudulent transactions, monitor against theft, and protect against criminal activity<br/>
+
+Process payments and refunds.<br/>
+Request feedback and contact you about your use of the Site qsales2022.com and our mobile<br/>
+application.<br/>
+Resolve disputes and troubleshoot problems.<br/>
+Respond to product and customer service requests.<br/>
+Send you a newsletter.<br/>
+Solicit support for the Site qsales2022.com & our mobile application.
+</span><br/>
     </div>
-    <div class="pos" id="_125:1525" style="top:1525;left:125">
-    <span id="_19.3" style=" font-family:Times New Roman; font-size:19.3px; color:#000000">
-    &#160;<span id="_16.0" style=" font-family:Arial; font-size:16.0px"> Provide, operate, and maintain our website</span></span>
+
+
+
+
+
+
+
+         
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:18.3px; color:#000000">
+    DISCLOSURE OF YOUR INFORMATION
+
+</span>
     </div>
-    <div class="pos" id="_125:1547" style="top:1547;left:125">
-    <span id="_19.3" style=" font-family:Times New Roman; font-size:19.3px; color:#000000">
-    &#160;<span id="_16.0" style=" font-family:Arial; font-size:16.0px"> Improve, personalize, and expand our website</span></span>
-    </div>
-    <div class="pos" id="_125:1569" style="top:1569;left:125">
-    <span id="_19.3" style=" font-family:Times New Roman; font-size:19.3px; color:#000000">
-    &#160;<span id="_16.0" style=" font-family:Arial; font-size:16.0px"> Understand and analyze how you use our website</span></span>
-    </div>
-    <div class="pos" id="_125:1591" style="top:1591;left:125">
-    <span id="_19.3" style=" font-family:Times New Roman; font-size:19.3px; color:#000000">
-    &#160;<span id="_16.0" style=" font-family:Arial; font-size:16.0px"> Develop new products, services, features, and functionality</span></span>
-    </div>
-    <div class="pos" id="_125:1613" style="top:1613;left:125">
-    <span id="_19.3" style=" font-family:Times New Roman; font-size:19.3px; color:#000000">
-    &#160;<span id="_16.0" style=" font-family:Arial; font-size:16.0px"> Communicate with you, either directly or through one of our partners, </span></span>
-    </div>
-    <div class="pos" id="_150:1642" style="top:1642;left:150">
+    <div class="pos" id="_100:779" style="top:779;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    including for customer service, to provide you with updates and other </span>
+    We may share information we have collected about you in certain situations. Your information <br/>
+may be disclosed as follows:
+
+
+        </span>
     </div>
-    <div class="pos" id="_150:1664" style="top:1664;left:150">
+
+
+
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    By Law or to Protect Rights
+
+</span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    information relating to the website, and for marketing and promotional </span>
+    If we believe the release of information about you is necessary to respond to legal process, to<br/>
+    investigate or remedy potential violations of our policies, or to protect the rights, property, and<br/>
+    safety of others, we may share your information as permitted or required by any applicable law,<br/>
+    rule, or regulation. This includes exchanging information with other entities for fraud protection<br/>
+    and credit risk reduction.
+    
+
+        </span>
     </div>
-    <div class="pos" id="_150:1686" style="top:1686;left:150">
+
+
+
+    
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Third-Party Service Providers
+</span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    purposes</span>
+    We may share your information with third parties that perform services for us or on our behalf,<br/>
+including payment processing, data analysis, email delivery, hosting services, customer service,<br/>
+and marketing assistance.
+    
+
+        </span>
     </div>
-    <div class="pos" id="_125:1701" style="top:1701;left:125">
-    <span id="_19.9" style=" font-family:Times New Roman; font-size:19.9px; color:#000000">
-    &#160;<span id="_16.5" style=" font-family:Arial; font-size:16.5px"> Send you emails</span></span>
+
+
+    
+    
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Marketing Communications
+    </span>
     </div>
-    <div class="pos" id="_125:1723" style="top:1723;left:125">
-    <span id="_19.9" style=" font-family:Times New Roman; font-size:19.9px; color:#000000">
-    &#160;<span id="_16.5" style=" font-family:Arial; font-size:16.5px"> Find and prevent fraud</span></span>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    With your consent, or with an opportunity for you to withdraw consent, we may share your<br/>
+    information with third parties for marketing purposes, as permitted by law.
+    
+
+        </span>
     </div>
+
+
+    
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Interactions with Other Users
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If you interact with other users of the Site qsales2022.com or our mobile application, those users<br/>
+    may see your name, profile photo, and descriptions of your activity, including sending invitations<br/>
+    to other users, chatting with other users, liking posts, following blogs.<br/>
+    
+        </span>
+    </div>
+
+
+
+
+    
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Online Postings    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    When you post comments, contributions or other content to the Site qsales2022.com or our<br/>
+mobile applications, your posts may be viewed by all users and may be publicly distributed<br/>
+outside the Site and our mobile application in perpetuity.
+
+
+        </span>
+    </div>
+
+    
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Third-Party Advertisers
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may use third-party advertising companies to serve ads when you visit the Site<br/>
+    qsales2022.com. These companies may use information about your visits to the Site<br/>
+    qsales2022.com and other websites that are contained in web cookies in order to provide<br/>
+    advertisements about goods and services of interest to you.
+
+        </span>
+    </div>
+
+      
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Affiliates
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may share your information with our affiliates, in which case we will require those affiliates to<br/>
+    honor this Privacy Policy. Affiliates include our parent company and any subsidiaries, joint<br/>
+    venture partners or other companies that we control or that are under common control with us.<br/>
+    
+        </span>
+    </div>
+
+
+      
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Business Partners
+
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may share your information with our business partners to offer you certain products, services
+    or promotions.    
+        </span>
+    </div>
+
+
+        
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Other Third Parties
+
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may share your information with advertisers and investors for the purpose of conducting<br/>
+    general business analysis. We may also share your information with such third parties for<br/>
+    marketing purposes, as permitted by law        </span>
+    </div>
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.3" style="font-weight:bold; font-family:Arial; font-size:17.3px; color:#000000">
+    Sale or Bankruptcy
+
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If we reorganize or sell all or a portion of our assets, undergo a merger, or are acquired by<br/>
+another entity, we may transfer your information to the successor entity. If we go out of business<br/>
+or enter bankruptcy, your information would be an asset transferred or acquired by a third party.<br/>
+You acknowledge that such transfers may occur and that the transferee may decline honor<br/>
+commitments we made in this Privacy Policy.<br/>
+We are not responsible for the actions of third parties with whom you share personal or sensitive<br/>
+data, and we have no authority to manage or control third-party solicitations. If you no longer<br/>
+wish to receive correspondence, emails or other communications from third parties, you are<br/>
+responsible for contacting the third party directly.
+
+    </span>
+    </div>
+
+
+
+
+
+
+
+
+
     <div class="pos" id="_100:1779" style="top:1779;left:100">
     <span id="_23.4" style=" font-family:Arial; font-size:23.4px; color:#000000">
     Legal Requirements</span>
@@ -419,36 +773,320 @@ const Strings={
     </div>
     <div class="pos" id="_100:4782" style="top:4782;left:100">
     <span id="_23.0" style=" font-family:Arial; font-size:23.0px; color:#000000">
-    Third Party Privacy Policies</span>
+    TRACKING TECHNOLOGIES</span>
     </div>
-    <div class="pos" id="_100:4820" style="top:4820;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    Qsales 2022&#146;s Privacy Policy does not apply to other advertisers or websites. Thus, </span>
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_23.0" style=" font-family:Arial; font-size:23.0px; color:#000000">
+    Cookies and Web Beacons
+
+    </span>
     </div>
-    <div class="pos" id="_100:4856" style="top:4856;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    we are advising you to consult the respective Privacy Policies of these third-party ad </span>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may use cookies, web beacons, tracking pixels, and other tracking technologies on the Site<br/>
+    qsales2022.com or our mobile application to help customize the Site qsales2022.com and<br/>
+    improve your experience. When you access the Site qsales2022.com , your personal information<br/>
+    is not collected through the use of tracking technology. Most browsers are set to accept cookies<br/>
+    by default. You can remove or reject cookies, but be aware that such action could affect the<br/>
+    availability and functionality of the Site qsales2022.com . You may not decline web beacons.<br/>
+    However, they can be rendered ineffective by declining all cookies or by modifying your web<br/>
+    browser’s settings to notify you each time a cookie is tendered, permitting you to accept or<br/>
+    decline cookies on an individual basis.<br/><br/>
+    By using the Site, you agree to be bound by our Cookie Policy.  <br/>
+
+    </span>
     </div>
-    <div class="pos" id="_100:4892" style="top:4892;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    servers for more detailed information. It may include their practices and instructions </span>
+
+
+
+
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Internet-Based Advertising
+    </span>
     </div>
-    <div class="pos" id="_100:4928" style="top:4928;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    about how to opt-out of certain options.</span>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    Additionally, we may use third-party software to serve ads on the Site qsales2022.com ,<br/>
+implement email marketing campaigns, and manage other interactive marketing initiatives. This<br/>
+third-party software may use cookies or similar tracking technology to help manage and optimize<br/>
+your online experience with us.
+ <br/>
+
+    </span>
     </div>
-    <div class="pos" id="_100:4981" style="top:4981;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    You can choose to disable cookies through your individual browser options. To know </span>
+
+    
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Website Analytics
+    </span>
     </div>
-    <div class="pos" id="_100:5016" style="top:5016;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    more detailed information about cookie management with specific web browsers, it </span>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may also partner with selected third-party vendors, such as Adobe Analytics, Clicktale,<br/>
+    Clicky, Cloudfare, Crazy Egg, Flurry Analytics, Google Analytics, Heap Analytics, Inspectlet,,<br/>
+    Kissmetrics, Mixpanel, Piwik, and others, to allow tracking technologies and remarketing services,<br/>
+    on the Site qsales2022.com through the use of first party cookies and third-party cookies, to,,<br/>
+    among other things, analyze and track users’ use of the Site qsales2022.com , determine the,<br/>
+    popularity of certain content and better understand online activity. By accessing the Site,<br/>
+    qsales2022.com , you consent to the collection and use of your information by these third-party,<br/>
+    vendors. You are encouraged to review their privacy policy and contact them directly for,<br/>
+    responses to your questions. We do not transfer personal information to these third-party,<br/>
+    vendors.,<br/>
+    You should be aware that getting a new computer, installing a new browser, upgrading an,<br/>
+    existing browser, or erasing or otherwise altering your browser’s cookies files may also clear,<br/>
+    certain cookies, plug-ins, or settings.
+
+    </span>
     </div>
-    <div class="pos" id="_100:5052" style="top:5052;left:100">
-    <span id="_16.3" style=" font-family:Arial; font-size:16.3px; color:#000000">
-    can be found at the browsers&#146; respective websites. What Are Cookies?</span>
+
+
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    THIRD-PARTY WEBSITES    </span>
     </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We may also partner with selected third-party vendors, such as Adobe Analytics, Clicktale,<br/>
+    Clicky, Cloudfare, Crazy Egg, Flurry Analytics, Google Analytics, Heap Analytics, Inspectlet,,<br/>
+    Kissmetrics, Mixpanel, Piwik, and others, to allow tracking technologies and remarketing services,<br/>
+    on the Site qsales2022.com through the use of first party cookies and third-party cookies, to,,<br/>
+    among other things, analyze and track users’ use of the Site qsales2022.com , determine the,<br/>
+    popularity of certain content and better understand online activity. By accessing the Site,<br/>
+    qsales2022.com , you consent to the collection and use of your information by these third-party,<br/>
+    vendors. You are encouraged to review their privacy policy and contact them directly for,<br/>
+    responses to your questions. We do not transfer personal information to these third-party,<br/>
+    vendors.,<br/>
+    You should be aware that getting a new computer, installing a new browser, upgrading an,<br/>
+    existing browser, or erasing or otherwise altering your browser’s cookies files may also clear,<br/>
+    certain cookies, plug-ins, or settings.
+
+    </span>
+    </div>
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    SECURITY OF YOUR INFORMATION
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    We use administrative, technical, and physical security measures to help protect your personal<br/>
+    information. While we have taken reasonable steps to secure the personal information you<br/>
+    provide to us, please be aware that despite our efforts, no security measures are perfect or<br/>
+impenetrable, and no method of data transmission can be guaranteed against any interception or<br/>
+other type of misuse. Any information disclosed online is vulnerable to interception and misuse<br/>
+by unauthorized parties. Therefore, we cannot guarantee complete security if you provide<br/>
+personal information.
+
+
+    </span>
+    </div>
+
+
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    OPTIONS REGARDING YOUR INFORMATION    </span>
+    </div>
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Account Information    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    You may at any time review or change the information in your account or terminate your account
+    by:<br/>
+    Logging into your account settings and updating your account<br/>
+    or by contacting us using the contact information provided below.<br/>
+    Upon your request to terminate your account, we will deactivate or delete your account and<br/>
+    information from our active databases. However, some information may be retained in our files to<br/>
+    prevent fraud, troubleshoot problems, assist with any investigations, enforce our Terms of Use<br/>
+    and/or comply with legal requirements.
+    
+
+    </span>
+    </div>
+
+
+
+
+
+
+    
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Emails and Communications
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    You may at any time review or change the information in your account or terminate your account
+    by:<br/>
+    If you no longer wish to receive correspondence, emails, or other communications from us, you<br/>
+may opt-out by:<br/>
+Noting your preferences at the time you register your account with the Site qsales2022.com<br/>
+Logging into your account settings and updating your preferences.<br/>
+Contacting us using the contact information provided below<br/>
+If you no longer wish to receive correspondence, emails, or other communications from third<br/>
+parties, you are responsible for contacting the third party directly.<br/>
+
+    </span>
+    </div>
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Media
+    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If you upload images to the website, you should avoid uploading images with embedded location<br/>
+    data (EXIF GPS) included. Visitors to the website can download and extract any location data<br/>
+    from images on the website
+
+    </span>
+    </div>
+
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:23.6px; color:#000000">
+    Contact forms
+    </span>
+    </div>
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Cookies    </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If you leave a comment on our site you may opt-in to saving your name, email address and<br/>
+    website in cookies. These are for your convenience so that you do not have to fill in your details<br/>
+    again when you leave another comment. These cookies will last for one year<br/>
+    If you have an account and you log in to this site, we will set a temporary cookie to determine if<br/>
+your browser accepts cookies. This cookie contains no personal data and is discarded when you<br/>
+close your browser.<br/>
+When you log in, we will also set up several cookies to save your login information and your<br/>
+screen display choices. Login cookies last for two days, and screen options cookies last for a<br/>
+year. If you select “Remember Me”, your login will persist for two weeks. If you log out of your<br/>
+account, the login cookies will be removed.<br/>
+If you edit or publish an article, an additional cookie will be saved in your browser. This cookie<br/>
+includes no personal data and simply indicates the post ID of the article you just edited. It expires<br/>
+after 1 day.
+
+    </span>
+    </div>
+
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Embedded content from other websites
+        </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    Articles on this site may include embedded content (e.g. videos, images, articles, etc.).<br/>
+Embedded content from other websites behaves in the exact same way as if the visitor has<br/>
+visited the other website.<br/>
+These websites may collect data about you, use cookies, embed additional third-party tracking,<br/>
+and monitor your interaction with that embedded content, including tracking your interaction with<br/>
+the embedded content if you have an account and are logged in to that website.
+
+    </span>
+    </div>
+
+    
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    How long we retain your data        </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If you leave a comment, the comment and its metadata are retained indefinitely. This is so we<br/>
+can recognize and approve any follow-up comments automatically instead of holding them in a<br/>
+moderation queue.<br/>
+For users that register on our website (if any), we also store the personal information they<br/>
+provide in their user profile. All users can see, edit, or delete their personal information at any<br/>
+time (except they cannot change their username). Website administrators can also see and edit
+that information.
+
+
+    </span>
+    </div>
+
+
+
+
+    
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    What rights you have over your data 
+         </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If you have an account on this site, or have left comments, you can request to receive an<br/>
+    exported file of the personal data we hold about you, including any data you have provided to us.<br/>
+    You can also request that we erase any personal data we hold about you. This does not include<br/>
+    any data we are obliged to keep for administrative, legal, or security purposes.<br/>
+    
+
+
+    </span>
+    </div>
+
+
+
+
+
+
+      
+    <div class="pos" id="_100:748" style="top:748;left:100">
+    <span id="_17.6" style="font-weight:bold; font-family:Arial; font-size:17.6px; color:#000000">
+    Log Files         </span>
+    </div>
+    <div class="pos" id="_100:779" style="top:779;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    qsales2022.com follows a standard procedure of using log files. These files log visitors when<br/>
+they visit websites. All hosting companies do this and a part of hosting services’ analytics. The<br/>
+information collected by log files include internet protocol (IP) addresses, browser type, Internet<br/>
+Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of<br/>
+clicks. These are not linked to any information that is personally identifiable. The purpose of the<br/>
+information is for analyzing trends, administering the site, tracking users’ movement on the<br/>
+website, and gathering demographic information.
+
+
+
+    </span>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="pos" id="_100:5115" style="top:5115;left:100">
     <span id="_23.0" style=" font-family:Arial; font-size:23.0px; color:#000000">
     Analytics</span>
@@ -687,21 +1325,37 @@ const Strings={
     </div>
     <div class="pos" id="_100:8061" style="top:8061;left:100">
     <span id="_22.6" style=" font-family:Arial; font-size:22.6px; color:#000000">
-    Consent</span>
+    Where we send your data</span>
     </div>
     <div class="pos" id="_0:0" style="top:8190">
     </div>
     <div class="pos" id="_100:8291" style="top:8291;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    By using our website, you hereby consent to our Privacy Policy and agree to its </span>
+    Visitor comments may be checked through an automated spam detection service. </span>
     </div>
-    <div class="pos" id="_100:8327" style="top:8327;left:100">
+    <div class="pos" id="_100:8291" style="top:8291;left:100">
     <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
-    terms.</span>
+    CONTACT US </span>
     </div>
+
+    <div class="pos" id="_100:8291" style="top:8291;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    If you have questions or comments about this Privacy Policy, please contact us at:
+ </span>
+    </div>
+    <div class="pos" id="_100:8291" style="top:8291;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    info@qsales2022.com
+    </span>
+    </div>
+    <div class="pos" id="_100:8291" style="top:8291;left:100">
+    <span id="_16.0" style=" font-family:Arial; font-size:16.0px; color:#000000">
+    +974 3122 3030    </span>
+    </div>
+
     </nowrap></nobr>
     `,
-    termsAndConditions:`
+    termsAndConditions: `
     <div class=WordSection1>
 
 <p class=MsoBodyText style='margin-top:4.0pt;margin-right:7.4pt;margin-bottom:
@@ -859,184 +1513,10 @@ party which may own the Marks.</p>
 <p class=MsoBodyText style='margin-top:.5pt;margin-right:0in;margin-bottom:
 0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:15.0pt'>&nbsp;</span></p>
 
-<h1>Amendment to User(s) Agreement</h1>
-
-<p class=MsoBodyText style='margin-top:8.9pt;margin-right:12.7pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>Qsales 2022 may
-change, modify, amend, or update this agreement from time to time without any
-prior notification to user(s) and the amended and restated terms and conditions
-of use shall be effective immediately on posting. You are advised to regularly
-check for any amendments or updates to the terms and conditions contained in
-this User Agreement. If You do not adhere to the changes, You must stop using
-the Platform. Your continuous use of the Platform will signify Your acceptance
-of the changed terms.</p>
-
-<p class=MsoBodyText style='margin-top:.25pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:15.0pt'>&nbsp;</span></p>
-
-<h1>User(s) Eligibility</h1>
-
-<p class=MsoBodyText style='margin-top:8.9pt;line-height:187%'>As a minor if
-You wish to purchase or sell an item on the Platform such purchase or sale
-should be only made by Your legal guardian or parents. Qsales 2022 advises its
-users that while accessing the Platform, they must follow/abide by the related
-laws, Qsales 2022 is not responsible for the possible consequences caused by
-Your behavior during use of Platform, Qsales 2022 may, in its sole discretion,
-reserve the right to terminate Your membership and refuse to provide You with
-access to the Platform at any time.</p>
-
-<p class=MsoBodyText style='margin-top:11.5pt;margin-right:5.4pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>We record buying
-and browsing activities of our users including but not limited to Your contact
-details and profiles and uses the same to provide value-added services to our
-users.</p>
-
-</div>
 
 <span style='font-size:11.0pt;line-height:186%;font-family:"Arial",sans-serif'><br
 clear=all style='page-break-before:always'>
 </span>
-
-<div class=WordSection4>
-
-<p class=MsoBodyText style='margin-top:4.0pt'>Please note our Platform is also
-not a risks proof Platform.</p>
-
-<p class=MsoBodyText style='margin-left:0in'><span style='font-size:13.0pt'>&nbsp;</span></p>
-
-<p class=MsoBodyText style='margin-top:.15pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:13.0pt'>&nbsp;</span></p>
-
-<h1>Registration and Your Account</h1>
-
-<p class=MsoBodyText style='margin-top:8.9pt;margin-right:7.4pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>To become a
-Registered User(s) there is a proper procedure which is for the convenience of
-user(s) so that they can easily log-in.</p>
-
-<p class=MsoBodyText style='margin-top:.35pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:10.0pt'>&nbsp;</span></p>
-
-<p class=MsoBodyText style='margin-right:8.1pt;line-height:186%'>User(s) can
-become a Registered User(s) by filling the registration form on the Platform by
-giving desired information (name, contact information etc.). Qsales 2022 will
-establish an account (“Account”) for the user(s) upon registration and assign a
-user alias (“User ID”) and password (“Password”) for log-in access to Your
-Account. If You use the Platform as Registered User, You are responsible for
-maintaining the confidentiality of Your User ID and Password. You are
-responsible for maintaining the confidentiality of Your personal and
-non-personal information and for restricting access to Your computer, computer
-system and computer network, and You are</p>
-
-<p class=MsoBodyText style='margin-top:.55pt;margin-right:7.4pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>responsible for
-all activities that occur under Your User ID and Password, email id and phone
-number as the case may be.</p>
-
-<p class=MsoBodyText style='margin-top:.35pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:10.0pt'>&nbsp;</span></p>
-
-<p class=MsoBodyText style='margin-top:.05pt;margin-right:9.4pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>Further, in case
-You register on behalf of a business entity, You represent. that business
-entity and (a) You have the authority to bind the entity to terms and condition
-of use and/or this Agreement: (b) the address You use when registering is the
-principal place of business of such business entity: and (c) You use the
-Platform for business purposes only (d) all other information submitted to
-Qsales 2022 during the registration process is true, accurate, current and
-complete.</p>
-
-<p class=MsoBodyText style='margin-top:11.55pt;margin-right:14.65pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>By becoming a Registered
-User, You consent to the inclusion of Your personal and non-personal data in
-our database and authorize Qsales 2022 to share such</p>
-
-<p class=MsoBodyText style='line-height:13.65pt'>information with other
-user(s). Qsales 2022 may refuse registration and deny the</p>
-
-<p class=MsoBodyText style='margin-left:0in'><span style='font-size:10.5pt'>&nbsp;</span></p>
-
-<p class=MsoBodyText style='margin-right:6.1pt;line-height:187%'>membership and
-associated User ID and Password to any user for whatever reason. Qsales 2022
-may suspend or terminate a registered membership or registered user</p>
-
-</div>
-
-<span style='font-size:11.0pt;line-height:187%;font-family:"Arial",sans-serif'><br
-clear=all style='page-break-before:always'>
-</span>
-
-<div class=WordSection5>
-
-<p class=MsoBodyText style='margin-top:4.0pt;margin-right:4.75pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>at any time
-without any prior notification in interest of Qsales 2022 or general interest
-of its visitors /other members without giving any reason thereof. We are not</p>
-
-<p class=MsoBodyText style='margin-right:13.4pt;line-height:186%'>responsible
-and, you yourself are responsible for the wrong data or information that you
-provide on this site.</p>
-
-<p class=MsoBodyText style='margin-top:.5pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:10.0pt'>&nbsp;</span></p>
-
-<p class=MsoBodyText style='margin-right:7.4pt;line-height:187%'>When You use
-the site, you agree that you will not use this site for any illegal purpose,
-and also, we are not responsible for such activities from Your side.</p>
-
-<p class=MsoBodyText style='margin-top:.35pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:10.0pt'>&nbsp;</span></p>
-
-<p class=MsoBodyText style='margin-right:4.05pt;line-height:187%'>You agree,
-inter alia, to: 1, Provide true, accurate, current and complete information
-about Yourself as prompted by Industry buying’s registration form or provided
-by You</p>
-
-<p class=MsoBodyText style='margin-right:11.35pt;line-height:187%'>2. Maintain
-and promptly update the personal and non-personal data to keep it true,
-accurate, current and complete. If You provide any information that is untrue,</p>
-
-<p class=MsoBodyText style='margin-right:10.75pt;line-height:186%'>inaccurate,
-not current or incomplete, Qsales 2022 has reasonable grounds to suspect that
-such information is untrue, inaccurate, not current or incomplete, or riot in
-accordance with the User Agreement. Qsales 2022 has the right to indefinitely
-suspend or terminate or block access of Your account on the Platform and refuse
-to provide You with access to the Platform.</p>
-
-<p class=MsoBodyText style='margin-top:.25pt;margin-right:0in;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:15.5pt'>&nbsp;</span></p>
-
-<h1>Charges</h1>
-
-<p class=MsoBodyText style='margin-top:8.9pt;margin-right:6.75pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>Qsales 2022 may
-charge a fee from the user(s) to provide access to feature/product/service on
-the Platform. Qsales 2022 reserves the right to change its Fee Policy from time
-to time. In particular, Qsales 2022 may at its sole discretion</p>
-
-<p class=MsoBodyText style='margin-top:.2pt;margin-right:5.4pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>introduce new
-services and modify some or all of the existing services offered on the
-Platform. In such an event Qsales 2022 reserves the right to introduce fees for
-the new services offered or amend/introduce fees for existing services, as the case
-may be. Changes to the Fee Policy shall be posted on the Platform and such
-changes shall automatically become effective immediately after they are posted
-on the</p>
-
-</div>
-
-<span style='font-size:11.0pt;line-height:186%;font-family:"Arial",sans-serif'><br
-clear=all style='page-break-before:always'>
-</span>
-
-<div class=WordSection6>
-
-<p class=MsoBodyText style='margin-top:4.0pt;margin-right:7.4pt;margin-bottom:
-0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>Platform. You
-Shall be solely responsible for compliance of all applicable laws including
-those in India for making payments to Qsales 2022.</p>
-
-<p class=MsoBodyText style='margin-left:0in'><span style='font-size:15.5pt'>&nbsp;</span></p>
 
 <h1>Use of Platform</h1>
 
@@ -1353,7 +1833,7 @@ information provided by you, for the purposes of the grievance/ complaint.</p>
 
 </div>
     `,
-    infringementPolicy:`
+    infringementPolicy: `
     <div class=WordSection1>
 
 <p class=MsoBodyText style='margin-top:4.0pt;margin-right:4.15pt;margin-bottom:
@@ -1474,7 +1954,7 @@ being infringed (Provide copyrighted <span style='letter-spacing:-.15pt'>images
 </span>or trademark certificates as attachments)</span></p>
 
 </div>
-    `
-}
+    `,
+};
 
-export default Strings
+export default Strings;
