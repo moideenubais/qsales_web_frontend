@@ -12,11 +12,11 @@ import TermsOfUse from "./TermsOfUse";
 
 const Index = () => {
   const { type } = useParams();
-  const location =useLocation();
+  // const location =useLocation();
 
-  React.useLayoutEffect(()=>{
-    document?.getElementById("navigation")?.scrollIntoView()
-  },[location])
+  // React.useLayoutEffect(()=>{
+  //   document?.getElementById("navigation")?.scrollIntoView()
+  // },[location])
   return (
     <>
       <Header />
