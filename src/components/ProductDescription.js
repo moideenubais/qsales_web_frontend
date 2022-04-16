@@ -105,7 +105,8 @@ function ProductDescription(props) {
     });
   }, [selectedAttribute, selectedQuantity]);
 
-  const getPriceAndQuantity = (attributeObject, initail = false) => {
+  const getPriceAndQuantity = (attributeObject, initail = false,variant_id) => {
+    console.log(variant_id)
     let returnData = {};
     const attributeData = Object.entries(attributeObject).map(
       ([name, values]) => ({ name, values })
@@ -129,7 +130,7 @@ function ProductDescription(props) {
           returnData = {
             unit_price: firstVarient.unit_price,
             quantity: firstVarient.quantity,
-            // variant_id: firstVarient._id,
+            variant_id: variant_id,
             discount_type: firstVarient.discount_type,
             discount_amount: firstVarient.discount_amount,
             flash: productDetails.flash,
@@ -147,7 +148,7 @@ function ProductDescription(props) {
           returnData = {
             unit_price: variant.unit_price,
             quantity: variant.quantity,
-            // variant_id: variant._id,
+            variant_id: variant_id,
             discount_type: variant.discount_type,
             discount_amount: variant.discount_amount,
             flash: productDetails.flash,
@@ -160,7 +161,7 @@ function ProductDescription(props) {
   };
 
   useEffect(() => {
-    const { attribute_array, colors } = productDetails;
+    const { attribute_array, colors, varients } = productDetails;
     let attributeData = [];
     if (attribute_array) {
       attribute_array.forEach(({ name, values }) => {
@@ -168,8 +169,7 @@ function ProductDescription(props) {
       });
     }
     if (colors && colors.length) attributeData.colors = colors;
-    const initialValue = getPriceAndQuantity(attributeData, true);
-
+    const initialValue = getPriceAndQuantity(attributeData, true,varients&&varients[0]?._id);
     setSelectedAttribute(initialValue);
 
     setAttributeArray(
@@ -181,13 +181,13 @@ function ProductDescription(props) {
   };
 
   const handleOnAttributeChagne = (name, value) => {
-    var found_names = productDetails?.varients?.filter(function(obj) {
+    var found_names = productDetails?.varients?.filter(function (obj) {
       return (obj.color.name === value);
-  });
-    const updateData = { [name]: value,'variant_id': found_names[0]?._id };
+    });
+    const updateData = { [name]: value, 'variant_id': found_names[0]?._id };
     setSelectedAttribute({
       ...updateData,
-      ...getPriceAndQuantity(updateData),
+      ...getPriceAndQuantity(updateData,null ,found_names[0]?._id),
     });
   };
 
@@ -352,42 +352,42 @@ function ProductDescription(props) {
                   />
                 </div>
 
-               
-                  {/* const { name, values } = item; */}
-                    
-                    <div className="d-flex mb-2 mt-2 justify-content-between">
-                      <p className="medium fw-normal text-dark me-5">
-                        colors :
-                      </p>
-                      <select
-                        className="py-2 px-3 form-select"
-                        style={{ width: "60%" }}
-                        aria-label="Default select example"
-                        onChange={(e) =>
-                          handleOnAttributeChagne('colors', e.target.value)
-                        }
-                        value={selectedAttribute['colors']}
-                      >
-                         {productDetails?.varients?.map((res) => (
-                          <option value={res?.color?.name}>{res?.color?.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                  {/* );
+
+                {/* const { name, values } = item; */}
+
+                <div className="d-flex mb-2 mt-2 justify-content-between">
+                  <p className="medium fw-normal text-dark me-5">
+                    colors :
+                  </p>
+                  <select
+                    className="py-2 px-3 form-select"
+                    style={{ width: "60%" }}
+                    aria-label="Default select example"
+                    onChange={(e) =>
+                      handleOnAttributeChagne('colors', e.target.value)
+                    }
+                    value={selectedAttribute['colors']}
+                  >
+                    {productDetails?.varients?.map((res) => (
+                      <option value={res?.color?.name}>{res?.color?.name}</option>
+                    ))}
+                  </select>
+                </div>
+                {/* );
                 })} */}
 
                 <div className="d-flex flex-row align-items-start justify-content-between mt-3">
                   <div className="">
                     <p className="medium fw-normal mb-1">Now at</p>
                     {selectedAttribute?.flash?.discount_type ||
-                    selectedAttribute?.discount_type ? (
+                      selectedAttribute?.discount_type ? (
                       <h5 className="primary-color p-0 m-0 ">
                         QR{" "}
                         {getDiscountedPrice(
                           selectedAttribute?.flash?.discount_type ||
-                            selectedAttribute?.discount_type,
+                          selectedAttribute?.discount_type,
                           selectedAttribute?.flash?.discount_amount ||
-                            selectedAttribute?.discount_amount,
+                          selectedAttribute?.discount_amount,
                           selectedAttribute.unit_price
                         )}
                         <small>
@@ -459,11 +459,10 @@ function ProductDescription(props) {
                   <span className="text-muted">Shipping: </span>
                   <span className="text-success">
                     {productDetails.shipping_config === "flat_rate"
-                      ? `QR ${
-                          productDetails?.product_quantity_multiply
-                            ? productDetails.shipping_cost * selectedQuantity
-                            : productDetails.shipping_cost
-                        }`
+                      ? `QR ${productDetails?.product_quantity_multiply
+                        ? productDetails.shipping_cost * selectedQuantity
+                        : productDetails.shipping_cost
+                      }`
                       : "Free Delivery"}
                   </span>
                 </p>
@@ -662,7 +661,7 @@ function ProductDescription(props) {
                           discountType={
                             flash?.discount_type || price?.discount_type
                           }
-                          // classes="product-card-extention"
+                        // classes="product-card-extention"
                         />
                       );
                     }

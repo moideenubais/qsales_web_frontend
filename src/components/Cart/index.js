@@ -58,7 +58,7 @@ const CartComponent = (props) => {
     });
   };
 
-  const getAttributesData = () => {};
+  const getAttributesData = () => { };
 
   useEffect(() => {
     if (!user?._id) return;
@@ -166,7 +166,7 @@ const CartComponent = (props) => {
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
       clear,
-    }).then((res) => {});
+    }).then((res) => { });
   };
 
   const decreaseItemInCart = (item) => {
@@ -180,7 +180,7 @@ const CartComponent = (props) => {
 
     propsUpdateData("UPDATE_CART", `/user/cart`, {
       cart: Object.values(cart),
-    }).then((res) => {});
+    }).then((res) => { });
   };
 
   const handleCheckout = () => {
@@ -230,6 +230,17 @@ const CartComponent = (props) => {
             <hr />
           </>
         )}
+        {cartItems.length == 0 ?
+          <div
+            style={{
+              height: "65vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div className="spinner" />
+          </div> : ""}
         {cartItems.length > 0 ? (
           <>
             {cartItems.map((item, i) => (
@@ -276,9 +287,9 @@ const CartComponent = (props) => {
                           {t("riyalText")}{" "}
                           {getDiscountedPrice(
                             item.product?.flash?.discount_type ||
-                              item.product?.varient?.discount_type,
+                            item.product?.varient?.discount_type,
                             item.product?.flash?.discount_amount ||
-                              item.product?.varient?.discount_amount,
+                            item.product?.varient?.discount_amount,
                             item.product?.varient?.unit_price
                           )}
                         </ProductPrice>
