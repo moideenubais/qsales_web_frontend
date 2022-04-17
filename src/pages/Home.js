@@ -45,7 +45,7 @@ function Home() {
   return (
     <div>
        <Helmet>
-        <title>Home - Qsales</title>
+        <title>Best Online Household Shopping Website in Qatar - Qsales</title>
 
       </Helmet>
       {/* <ScrollToTop /> */}
