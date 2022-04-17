@@ -80,6 +80,7 @@ function Footer() {
              
               <div className="pt-2">
                <small className="d-block text-muted">Email: contact@qsales2022.com/info@qsales2022.com</small>
+               <small className="d-block text-muted">Legal Name Address: Dearest Trading And Real Estate</small>
                <small className="d-block text-muted">Office Address: Office no. 8, Building 84,street 205,zone 56</small>
               </div>
             </div>
