@@ -1238,6 +1238,7 @@ Offerings.<br/><br/>
 
 </div>
 `,
+
 infringementPolicy:`
 <div class=WordSection1>
 <p class=MsoBodyText style='margin-top:4.0pt;margin-right:4.15pt;margin-bottom:
@@ -1333,7 +1334,101 @@ style='font-size:12.0pt;line-height:115%'>Details of the intellectual property
 being infringed (Provide copyrighted <span style='letter-spacing:-.15pt'>images
 </span>or trademark certificates as attachments)</span></p>
 </div>
-`
+`,
+refundPolicy:`
+<div class=WordSection1>
+
+<h1>Overview</h1>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:4.15pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>
+Return, refund and replacement policy depends on products. The duration of these are<br/>
+mentioned on product pages.<br/><br/>
+For return, refund or replacement, the complaint should be reported to us via any of our contact<br/>
+methods (website, contact phone number, email or social media) within 72 hours after delivery.<br/>
+To be eligible for a return, your item must be unused and in the same condition that you received<br/>
+it. It must also be in the original packaging.<br/><br/>
+Several types of goods are exempt from being returned. Perishable goods such as food, flowers,<br/>
+newspapers or magazines cannot be returned. We also do not accept products that are intimate<br/>
+or sanitary goods, hazardous materials, or flammable liquids or gases.<br/>
+Replacement, Exchange or Refund policy is applicable only for the products which have<br/>
+technical issues within warranty period. We can Replace, Exchange or Refund if the product is<br/>
+damaged. No refund or exchange will be given if product has no issues like – damage or<br/>
+technical issues.<br/><br/>
+Note- Any refund will be processed only for actual product price. Delivery charges and<br/>
+processing fee will not be refunded.<br/><br/>
+No warranty of any kind would be available on any products that are provided as part of<br/>
+promotional deals, special offers, bundle offers, clearance stock, or noted as free or super low<br/>
+price.<br/><br/>
+
+</p>
+
+<h1>CUSTOMER SATISFACTION (STANDARD RETURN POLICY)</h1>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+● Return for replacement or exchange with in: 7 days.<br/>
+● Return for refund within: 7 days.<br/><br/>
+
+</p>
+<h4>The following conditions are not acceptable for return, warranty and replacement.</h4>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+● Any physical damage.<br/>
+● In invoice not indicated warranty period.<br/>
+● Returned without original invoice.<br/><br/>
+</p>
+<p>Additional non-returnable items:</p>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+● Gift cards<br/>
+● Downloadable software products<br/>
+● Some health and personal care items<br/><br/>
+</p>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+To complete your return, we require a receipt or proof of purchase.<br/>
+Please do not send your purchase back to the manufacturer.<br/><br/>
+</p>
+<h3>HEALTH AND BEAUTY PRODUCTS WARRANTY POLICY.</h3>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+● Health and Beauty products don’t cover under warranty/replacement/refund.<br/>
+Only regular priced items may be refunded. Sale items cannot be refunded.<br/><br/></p>
+<h3>Shipping returns.</h3>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+You will be responsible for paying for your own shipping costs for returning your item. Shipping<br/>
+costs are non-refundable. If you receive a refund, the cost of return shipping will be deducted<br/>
+from your refund.<br/><br/>
+Depending on where you live, the time it may take for your exchanged product to reach you may
+vary.<br/><br/>
+If you are returning more expensive items, you may consider using a trackable shipping service<br/>
+or purchasing shipping insurance. We don’t guarantee that we will receive your returned item.<br/><br/>
+</p>
+<h3>Need help?</h3>
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:8.75pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:186%'>
+Contact us at info@qsales2022.com for questions related to refunds and returns.
+</p>
+</div>
+`,
+shippingPolicy:`
+<div class=WordSection1>
+
+<p class=MsoBodyText style='margin-top:8.9pt;margin-right:4.15pt;margin-bottom:
+0in;margin-left:5.0pt;margin-bottom:.0001pt;line-height:187%'>
+We ship orders only to locations inside Qatar.<br/>
+Qsales aims to deliver your orders within the next day. But orders to distant locations like Al Khor,<br/>
+Mesaieed, Dukhan, AL Ruwais, Shahaniya municipility may take longer. We may also charge a<br/>
+shipping charge (upto a maximum of QR 30) for these distant locations in some cases.<br/>
+Our delivery schedule runs from Saturday to Thrusday. Please remember we work half day on<br/>
+Friday, and so your orders placed on Fridays may be delayed.<br/><br/>
+Standdard shipping: Free delivery to all areas in Qatar for orders above QR 35.<br/>
+Qsales delivers Nationwide. Any order request with a shipping address located outside QATAR<br/>
+will not be fulfilled<br/><br/>
+</p>
+
+</div>
+`,
 }
 
 export default Strings

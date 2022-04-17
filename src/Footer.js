@@ -49,7 +49,6 @@ function Footer() {
         orderSummary &&
          <Modal
          show={orderSummary}
-         aria-labelledby="example-modal-sizes-title-md"
          size="md"
          aria-labelledby="Order Summary"
          centered
@@ -87,10 +86,10 @@ function Footer() {
             <div className="col-md-6 col-sm-9 mx-auto border-start border-4 px-2 mt-md-0 mt-sm-2  d-flex flex-column">
               <h6 className="fs-5 fw-bold mb-2">{t("downloadOurApp")}</h6>
               <p className="small text-secondary ">{t("getOffersOnApp")}</p>
-              <div className="mt-md-4">
+              {/* <div className="mt-md-4">
                 <img src="../assets/images/app-store.svg" className="" />
                 <img src="../assets/images/google-play.svg" className="ms-3" />
-              </div>
+              </div> */}
               <div className="py-2 my-1 d-flex flex-row">
                 <img width="45" height="45" src="../assets/images/support.png" />
                 <div>
@@ -199,16 +198,22 @@ function Footer() {
                 {t("sellWithUs")}
               </p>
             </Link>
-            <Link to="" className="small text-secondary text-decoration-none">
-              <p className="small text-decoration-none">
-                {t("warrantyPolicy")}
-              </p>
-            </Link>
+          
             <Link 
             to="/policy/terms-of-sale"
             // onClick={() =>setShowPrivacyModal("termsOfSale")} 
             className="small text-secondary text-decoration-none">
               <p className="small text-decoration-none">{t("termsOfSale")}</p>
+            </Link>
+            <Link 
+            to="/policy/shipping-policy"
+            className="small text-secondary text-decoration-none">
+              <p className="small text-decoration-none">{t("shippingPolicy")}</p>
+            </Link>
+            <Link 
+            to="/policy/refund-policy"
+            className="small text-secondary text-decoration-none">
+              <p className="small text-decoration-none">{t("refundPolicy")}</p>
             </Link>
           </div>
           <div className="col-4 d-flex justify-content-start mt-4">

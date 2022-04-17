@@ -11,6 +11,8 @@ export const englishTranslations = {
   termsOfUse: "Terms of use",
   sellWithUs: "Sell with us",
   warrantyPolicy: "Warranty Policy",
+  shippingPolicy: "Shipping Policy",
+  refundPolicy: "Refund & Return Policy",
   termsOfSale: "Terms of sale",
   copyRightText: "© 2021 Qsales. All Rights Reserved",
   yourCart: "YOUR CART",

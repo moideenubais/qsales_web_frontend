@@ -37,9 +37,13 @@ const Index = () => {
         {type === "privacy-policy" ? (
           <h1>Privacy Policy</h1>
         ) : type === "terms-of-use" ? (
-            <h1>Terms of Use</h1>
+          <h1>Terms of Use</h1>
         ) : type === "terms-of-sale" ? (
-            <h1>Terms of Sale</h1>
+          <h1>Terms of Sale</h1>
+        ) : type === "refund-policy" ? (
+          <h1>Refund And Return Policy</h1>
+        ) : type === "shipping-policy" ? (
+          <h1>Shipping Policy</h1>
         ) : (
           ""
         )}
@@ -49,10 +53,14 @@ const Index = () => {
         {type === "privacy-policy" ? (
           HTMLReactParser(Strings.privacyPolicy)
         ) : type === "terms-of-use" ? (
-            HTMLReactParser(Strings.termsAndConditions)
+          HTMLReactParser(Strings.termsAndConditions)
         ) : type === "terms-of-sale" ? (
-            HTMLReactParser(Strings.infringementPolicy)
-        ) : (
+          HTMLReactParser(Strings.infringementPolicy)
+        ) : type === "refund-policy" ? (
+          HTMLReactParser(Strings.refundPolicy)
+          ) : type === "shipping-policy" ? (
+            HTMLReactParser(Strings.shippingPolicy)
+          ) : (
           ""
         )}
       </div>
