@@ -20,17 +20,21 @@ const Index = () => {
   // },[location])
   return (
     <>
-      {/* <Helmet>
-                <title>{type === "privacy-policy" ? (
-          <h1>Privacy Policy - Qsales</h1>
+      <Helmet>
+        <title>{type === "privacy-policy" ? (
+        'Privacy Policy - Qsales'
         ) : type === "terms-of-use" ? (
-            <h1>Terms of Use - Qsales</h1>
+        'Terms of Use - Qsales'
         ) : type === "terms-of-sale" ? (
-            <h1>Terms of Sale - Qsales</h1>
+        'Terms of Sale - Qsales'
+        ) : type === "refund-policy" ? (
+        'Refund And Return Policy - Qsales'
+        ) : type === "shipping-policy" ? (
+        'Shipping Policy - Qsales'
         ) : (
-          ""
+          "Qsales"
         )}</title>
-            </Helmet> */}
+      </Helmet>
       <Header />
       <Navigation />
       <div className="bg-white p-2 col-sm-12 col-sm-12 col-md-8 mx-auto terms-container">
@@ -58,9 +62,9 @@ const Index = () => {
           HTMLReactParser(Strings.infringementPolicy)
         ) : type === "refund-policy" ? (
           HTMLReactParser(Strings.refundPolicy)
-          ) : type === "shipping-policy" ? (
-            HTMLReactParser(Strings.shippingPolicy)
-          ) : (
+        ) : type === "shipping-policy" ? (
+          HTMLReactParser(Strings.shippingPolicy)
+        ) : (
           ""
         )}
       </div>
