@@ -9,6 +9,7 @@ import FloatingButton from "../whatsappFloatingButton/FloatingButton";
 import InfringmentRights from "./InfringmentRights";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsOfUse from "./TermsOfUse";
+import { Helmet } from 'react-helmet';
 
 const Index = () => {
   const { type } = useParams();
@@ -19,6 +20,17 @@ const Index = () => {
   // },[location])
   return (
     <>
+      {/* <Helmet>
+                <title>{type === "privacy-policy" ? (
+          <h1>Privacy Policy - Qsales</h1>
+        ) : type === "terms-of-use" ? (
+            <h1>Terms of Use - Qsales</h1>
+        ) : type === "terms-of-sale" ? (
+            <h1>Terms of Sale - Qsales</h1>
+        ) : (
+          ""
+        )}</title>
+            </Helmet> */}
       <Header />
       <Navigation />
       <div className="bg-white p-2 col-sm-12 col-sm-12 col-md-8 mx-auto terms-container">

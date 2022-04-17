@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import jwtDecode from "jwt-decode";
 import { useDispatch } from "react-redux";
+import {Helmet} from "react-helmet";
 
 const SignIn = (props) => {
   const { loginUser, updateData,errors: userErrors, authReducer } = props;
@@ -77,6 +78,11 @@ const SignIn = (props) => {
   };
 
   return (
+    <>
+     <Helmet>
+                <title>Forget Password -Qsales</title>
+            </Helmet>
+  
     <div className="shadow-lg col-12 bg-transparent-full">
       <div className="signIn-model col-lg-3 col-md-5 col-sm-8 p-4 bg-white rounded shadow-lg border">
         <div className="my-2 d-flex flex-row justify-content-between">
@@ -172,6 +178,7 @@ const SignIn = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -6,12 +6,16 @@ import Navigation from "../components/Navigation";
 import Header from "../Header";
 import Footer from "../Footer";
 import FloatingButton from "../components/whatsappFloatingButton/FloatingButton";
-
+import { Helmet } from "react-helmet"
 function CategoryPage() {
   const { categoryId } = useParams();
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Category - Qsales</title>
+
+      </Helmet>
       <Header />
       {
         window.innerWidth > 786 &&

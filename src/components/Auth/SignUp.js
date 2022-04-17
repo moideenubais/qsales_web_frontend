@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { updateData, getData,createData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
 import { isEmptyObj, validatePasswords } from "../../heper";
+import {Helmet} from "react-helmet";
 
 import { connect } from "react-redux";
 
@@ -43,7 +44,11 @@ const SignUp = (props) => {
   };
 
   return (
-    <div className="shadow-lg col-12 bg-transparent-full">
+    <>
+         <Helmet>
+                <title>Sign Up - Qsales</title>
+            </Helmet>
+            <div className="shadow-lg col-12 bg-transparent-full">
       <div className="signIn-model col-lg-3 col-md-5 col-sm-8 p-4 bg-white rounded shadow-lg border">
         <div className="my-2 d-flex flex-row justify-content-between">
           <div className="">
@@ -150,6 +155,8 @@ const SignUp = (props) => {
         </div>
       </div>
     </div>
+    </>
+   
   );
 };
 

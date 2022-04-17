@@ -6,12 +6,16 @@ import Header from "../Header";
 import Footer from "../Footer";
 import ShopListing from '../components/Shops/ShopListing';
 import FloatingButton from '../components/whatsappFloatingButton/FloatingButton';
-
+import { Helmet } from 'react-helmet';
 const ShopPage = () => {
     const { shopId } = useParams();
 
   return (
     <React.Fragment>
+       <Helmet>
+        <title>Shop - Qsales</title>
+
+      </Helmet>
       <Header />
       {
         window.innerWidth > 786 &&

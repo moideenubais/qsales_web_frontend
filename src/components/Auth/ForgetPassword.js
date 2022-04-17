@@ -4,6 +4,7 @@ import { resetPassword } from "../../redux/actions/auth";
 import { updateData, getData,createData } from "../../redux/actions";
 import { ActionTypes } from "../../redux/contants/action-types";
 import { isEmptyObj, validatePasswords } from "../../heper";
+import {Helmet} from "react-helmet";
 
 import { connect } from "react-redux";
 
@@ -31,6 +32,10 @@ const ForgetPassword = (props) => {
     }, [setError]);
 
     return (
+      <>
+       <Helmet>
+                <title>Forget Password -Qsales</title>
+            </Helmet>
       <div className="shadow-lg col-12 bg-transparent-full">
         <div className="signIn-model col-lg-3 col-md-5 col-sm-8 p-4 p-4 bg-white rounded shadow-lg border">
           <div className="my-2 d-flex flex-row justify-content-between">
@@ -95,7 +100,7 @@ const ForgetPassword = (props) => {
             </p>
           </div>
         </div>
-      </div>
+      </div></>
     );
   };
 

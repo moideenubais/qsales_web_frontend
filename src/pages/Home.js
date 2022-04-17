@@ -10,6 +10,7 @@ import ProductsListHolder from "../components/Products/ProductsListHolder";
 import FloatingButton from "../components/whatsappFloatingButton/FloatingButton";
 import BrandsContainer from "../components/Brands/BrandsContainer";
 import HomeSlider from "../components/HomeSlider";
+import { Helmet } from 'react-helmet'
 import ShopContainer from "../components/Shops/ShopContainer";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/Common/ScrollToTop";
@@ -43,6 +44,10 @@ function Home() {
 
   return (
     <div>
+       <Helmet>
+        <title>Home - Qsales</title>
+
+      </Helmet>
       {/* <ScrollToTop /> */}
       {/* <CarouselHome /> */}
       <Header />

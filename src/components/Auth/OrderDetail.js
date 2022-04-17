@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const OrderDetail = (props) => {
 
-    const { products } = props.order;
-    return (
-        <div className="shadow-lg col-12 bg-transparent-full">
+  const { products } = props.order;
+  return (
+    <div className="shadow-lg col-12 bg-transparent-full">
       <div className="signIn-model col-lg-10 col-md-10 col-sm-10 p-4 bg-white rounded shadow-lg border">
         <div className="my-2 d-flex flex-row justify-content-between">
           <div className="">
@@ -24,30 +24,30 @@ const OrderDetail = (props) => {
         </div>
         <span className="py-2 text-muted">Status: {props.order.order_status}</span>
         <table className="table table-responsive table-striped table-bordered ">
-        <thead>
-                <th>Product Name</th>
-                <th>Quanitity</th>
-                {/* <th>Status</th> */}
-                <th>Review</th>
-        </thead>
-        <tbody>
+          <thead>
+            <th>Product Name</th>
+            <th>Quanitity</th>
+            {/* <th>Status</th> */}
+            <th>Review</th>
+          </thead>
+          <tbody>
             {
-                products.map(product=>(
+              products.map(product => (
                 <tr>
-                    <td>{product.name}</td>
-                    <td>{product.quantity}</td>
-                    <td>
-                        {props.order.order_status ==="completed" ?
-                        <Link to={{pathname:`/product/${product.product_id}`,state:{order:props.order}}}>Post a review</Link>
-                        :"Order not completed"}</td>
+                  <td>{product.name}</td>
+                  <td>{product.quantity}</td>
+                  <td>
+                    {props.order.order_status === "completed" ?
+                      <Link to={{ pathname: `/product/${product.product_id}`, state: { order: props.order } }}>Post a review</Link>
+                      : "Order not completed"}</td>
                 </tr>
-                ))
+              ))
             }
-        </tbody>
+          </tbody>
         </table>
       </div>
     </div>
-    )
+  )
 }
 
 export default OrderDetail

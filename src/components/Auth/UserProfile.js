@@ -9,6 +9,7 @@ import { getUser, setCurrentUser } from "../../redux/actions/auth";
 import jwtDecode from "jwt-decode";
 import toast from "react-hot-toast";
 import OrderDetail from "./OrderDetail";
+import {Helmet} from "react-helmet";
 
 const UserProfile = (props) => {
   const { user, errors: userErrors, orderReducer } = props;
@@ -68,6 +69,11 @@ const UserProfile = (props) => {
 
 
   return (
+    <>
+     <Helmet>
+                <title>Profile - Qsales</title>
+            </Helmet>
+    
     <div className="shadow-lg col-12 bg-transparent-full">
       <div className="signIn-model col-lg-5 col-md-7 col-sm-8 p-4 bg-white rounded shadow-lg border">
         <div className="my-2 d-flex flex-row justify-content-between">
@@ -165,6 +171,7 @@ const UserProfile = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
