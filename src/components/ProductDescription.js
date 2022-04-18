@@ -342,14 +342,14 @@ function ProductDescription(props) {
               )} */}
                 <div className="d-flex flex-row align-items-center mt-1 ">
                   <p className="medium fw-normal text-dark me-2">Ratings :</p>
-                  <ReactStars
+                  {/* <ReactStars
                     count={5}
                     value={ratingValue}
                     edit={false}
                     onChange={ratingChanged}
                     size={20}
                     color2={"#ffd700"}
-                  />
+                  /> */}
                 </div>
 
 

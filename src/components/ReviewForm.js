@@ -34,7 +34,7 @@ const ReviewForm = (props) => {
       <div className="card-header">Post Review</div>
       <div className="card-body m-1">
         <textarea className="w-100 p-2" value={message} onChange={e=>setMessage(e.target.value)} rows="4" placeholder="Optional" />
-        <ReactStars
+        {/* <ReactStars
           count={5}
           value={ratings}
           edit={true}
@@ -42,7 +42,7 @@ const ReviewForm = (props) => {
           size={20}
           color2={"#ffd700"}
           min={1}
-        />
+        /> */}
         <button className="btn btn-qs-primary p-2 float-end m-2"
         onClick={handleSubmit}
         >Submit</button>

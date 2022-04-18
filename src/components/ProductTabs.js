@@ -54,14 +54,14 @@ function ProductTabs(props) {
                       
                     </div>
                     <div class="card-footer d-flex flex-row justify-content-between p-1">
-                      <ReactStars
+                      {/* <ReactStars
                         style={{ marginLeft: "10px" }}
                         count={5}
                         value={rating}
                         edit={false}
                         size={20}
                         color2={"#ffd700"}
-                      />
+                      /> */}
                       <div>
                       {new Date(createdAt).toDateString()}
                       </div>

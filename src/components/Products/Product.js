@@ -69,7 +69,7 @@ function Product(props) {
             <p className="p-0 m-0 text-secondary fs-12">{description}</p>
           </div>
           <div className="d-flex flex-column">
-            <ReactStars
+            {/* <ReactStars
               className={"rating"}
               count={5}
               onChange={ratingChanged}
@@ -77,7 +77,7 @@ function Product(props) {
               color2={"#ffd700"}
               edit={false}
               value={ratingValue}
-            />
+            /> */}
             <div className="mt-1  align-items-center justify-content-between">
               {discountType && discountAmount ? (
                 <>
