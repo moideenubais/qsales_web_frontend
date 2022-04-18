@@ -106,7 +106,6 @@ function ProductDescription(props) {
   }, [selectedAttribute, selectedQuantity]);
 
   const getPriceAndQuantity = (attributeObject, initail = false,variant_id) => {
-    console.log(variant_id)
     let returnData = {};
     const attributeData = Object.entries(attributeObject).map(
       ([name, values]) => ({ name, values })
@@ -258,6 +257,8 @@ function ProductDescription(props) {
   //     document.getElementById("review-form").scrollIntoView();
   //   }
   // }, [location, initialLoading]);
+  
+
   return (
     <>
       {initialLoading && (
