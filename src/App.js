@@ -68,12 +68,12 @@ function App() {
   const { t } = useTranslation();
   const scrollToTop = () => window.scrollTo(0, 0);
 
-  React.useEffect(() => {
-    window.addEventListener("beforeunload", scrollToTop);
-    return () => {
-      window.removeEventListener("beforeunload", scrollToTop);
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   window.addEventListener("beforeunload", scrollToTop);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", scrollToTop);
+  //   };
+  // }, []);
   // React.useEffect(() => {
   //   let dir=i18n.language=="en"?"ltr":"rtl";
   //   document?.getElementsByTagName("html")[0]?.setAttribute("dir", dir);
