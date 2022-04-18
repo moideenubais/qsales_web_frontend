@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
 import ReactStars from "react-stars";
+import { UNSAFE_NavigationContext } from "react-router-dom";
 import Carousel from "react-elastic-carousel";
 import ProductTabs from "./ProductTabs";
 import Address from "./Address";
@@ -65,6 +66,7 @@ function ProductDescription(props) {
     propsGetData(ActionTypes.GET_PRODUCT_DETAILS, `/product/${productId}`);
   }, [productId, propsGetData]);
 
+
   useEffect(() => {
     const data = productDetailsReducer?.data;
     if (!data || data._id !== productId) return setInitialLoading(true);
@@ -105,7 +107,7 @@ function ProductDescription(props) {
     });
   }, [selectedAttribute, selectedQuantity]);
 
-  const getPriceAndQuantity = (attributeObject, initail = false,variant_id) => {
+  const getPriceAndQuantity = (attributeObject, initail = false, variant_id) => {
     let returnData = {};
     const attributeData = Object.entries(attributeObject).map(
       ([name, values]) => ({ name, values })
@@ -168,13 +170,23 @@ function ProductDescription(props) {
       });
     }
     if (colors && colors.length) attributeData.colors = colors;
-    const initialValue = getPriceAndQuantity(attributeData, true,varients&&varients[0]?._id);
+    const initialValue = getPriceAndQuantity(attributeData, true, varients && varients[0]?._id);
     setSelectedAttribute(initialValue);
 
     setAttributeArray(
       Object.entries(attributeData).map(([name, values]) => ({ name, values }))
     );
   }, [productDetails]);
+  React.useEffect(() => {
+    console.log('worked')
+    window.scrollTo(0, 0);
+  }, [])
+  const onBackButtonEvent = () => {
+    history.push("/")
+
+  }
+  window.addEventListener("popstate", onBackButtonEvent);
+
   const ratingChanged = (newRating) => {
     setRatingValue(newRating);
   };
@@ -186,7 +198,7 @@ function ProductDescription(props) {
     const updateData = { [name]: value, 'variant_id': found_names[0]?._id };
     setSelectedAttribute({
       ...updateData,
-      ...getPriceAndQuantity(updateData,null ,found_names[0]?._id),
+      ...getPriceAndQuantity(updateData, null, found_names[0]?._id),
     });
   };
 
@@ -243,21 +255,7 @@ function ProductDescription(props) {
   const breakPoints = [
     { width: 1, itemsToShow: 2 },
     { width: 550, itemsToShow: 3, itemsToScroll: 2, pagination: false },
-    // { width: 850, itemsToShow: 5 },
-    // { width: 1150, itemsToShow: 6, itemsToScroll: 2 },
-    // { width: 1450, itemsToShow: 6 },
-    // { width: 1750, itemsToShow: 7 },
   ];
-  // useEffect(() => {
-  //   document?.getElementById("navigation")?.scrollIntoView();
-  // }, [location]);
-
-  // useLayoutEffect(() => {
-  //   if (location?.state?.order && !initialLoading) {
-  //     document.getElementById("review-form").scrollIntoView();
-  //   }
-  // }, [location, initialLoading]);
-  
 
   return (
     <>

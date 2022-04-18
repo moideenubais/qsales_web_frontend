@@ -17,31 +17,11 @@ import ScrollToTop from "../components/Common/ScrollToTop";
 // import CategoriesList from '../components/CategoriesList';
 
 function Home() {
+  const scrollToTop = () => window.scrollTo(0, 0);
 
-  const location=useLocation();
-
-  // const [rendered,setRendered]=React.useState(false);
-  React.useLayoutEffect(()=>{
-
-    // setTimeout(()=>{
-    //   window.scrollTo({
-    //     top: 100,
-    //     behavior: 'smooth'
-    //   })
-    // },0)
-    // document.body.scrollTop = 0;
-    //   // document?.getElementById("top-bar")?.scrollIntoView()
-    // if(rendered){
-    //   window.scrollTo({
-    //     top: 100,
-    //     behavior: 'smooth'
-    //   })
-    // }
-    // else
-    // setRendered(true);
-   
-  },[location])
-
+  window.onpopstate = e => {
+    console.log('workeddddddddd')
+  }
   return (
     <div>
        <Helmet>
