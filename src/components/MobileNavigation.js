@@ -44,7 +44,7 @@ function MobileNavigation(props) {
            </ul>
           </Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey="2">
+        {/* <Accordion.Item eventKey="2">
           <Accordion.Header>All Shops</Accordion.Header>
           <Accordion.Body>
            <ul>
@@ -55,7 +55,7 @@ function MobileNavigation(props) {
               ))}
            </ul>
           </Accordion.Body>
-        </Accordion.Item>
+        </Accordion.Item> */}
       </Accordion>
     </>
   );
