@@ -254,7 +254,7 @@ function ProductDescription(props) {
   }, [productDetails?.category_id]);
   const breakPoints = [
     { width: 1, itemsToShow: 2 },
-    { width: 550, itemsToShow: 3, itemsToScroll: 2, pagination: false },
+    { width: 550, itemsToShow: 3,pagination: false },
   ];
 
   return (

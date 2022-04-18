@@ -31,6 +31,7 @@ function Product(props) {
         onClick={(e) => {
           history.push({
             pathname: `/product/${
+              // productName.toLowerCase().split(" ").join("-") +
               productName.toLowerCase().split(" ").join("-") +
               "-product-id-" +
               _id

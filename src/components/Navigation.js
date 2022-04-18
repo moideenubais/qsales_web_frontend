@@ -54,13 +54,13 @@ function Navigation(props) {
           </div>
           {/* Catagories DropDown */}
           <div className="nav-list p-2 small navdropdown">
-            <DropdownButton id="dropdown-basic-button" title="Shops">
+            {/* <DropdownButton id="dropdown-basic-button" title="Shops">
               {allShops?.map((shop) => (
                 <Dropdown.Item href={`/shop/${shop.value}`}>
                   {shop.name}
                 </Dropdown.Item>
               ))}
-            </DropdownButton>
+            </DropdownButton> */}
             <div className="dropdown-menu px-4">
               <select
                 className="py-1 px-3 form-select"
