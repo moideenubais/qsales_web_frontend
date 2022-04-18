@@ -254,7 +254,7 @@ function ProductDescription(props) {
   }, [productDetails?.category_id]);
   const breakPoints = [
     { width: 1, itemsToShow: 2 },
-    { width: 550, itemsToShow: 3,pagination: false },
+    { width: 550, itemsToShow: 3, pagination: false },
   ];
 
   return (
@@ -354,7 +354,7 @@ function ProductDescription(props) {
 
                 {/* const { name, values } = item; */}
 
-                <div className="d-flex mb-2 mt-2 justify-content-between">
+                {productDetails?.varients && productDetails?.varients[0]?.color && <div className="d-flex mb-2 mt-2 justify-content-between">
                   <p className="medium fw-normal text-dark me-5">
                     colors :
                   </p>
@@ -371,7 +371,7 @@ function ProductDescription(props) {
                       <option value={res?.color?.name}>{res?.color?.name}</option>
                     ))}
                   </select>
-                </div>
+                </div>}
                 {/* );
                 })} */}
 
