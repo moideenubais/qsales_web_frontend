@@ -690,7 +690,8 @@ function ProductDescription(props) {
                 onClick={() => {
                   propsCreateData("PLACE_ORDER", "order", orderData).then(
                     (res) => {
-                      if (res.error) toast.error("Error while creating order");
+                      if (res.error)
+                       toast.error(res.error.response.data.err);
                       else {
                         toast.success("Order placed", {
                           className: "my-toast",

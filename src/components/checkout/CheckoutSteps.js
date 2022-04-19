@@ -317,7 +317,7 @@ function CheckoutSteps(props) {
     }
     propsCreateData("PLACE_ORDER", "order", orderData).then((res) => {
       if (res.error)
-        toast.error("Error while creating order", {
+      toast.error(res.error.response.data.err, {
           className: "my-toast",
         });
       else {
