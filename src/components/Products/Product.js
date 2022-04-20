@@ -26,7 +26,6 @@ function Product(props) {
   return (
     <>
       <Link
-        target="_blank" rel="noopener noreferrer"
         key={_id}
         className={`text-decoration-none h-100 product mx-1 ${classes}`}
         // onClick={(e) => {
