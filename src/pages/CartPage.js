@@ -9,7 +9,7 @@ export default function CartPage() {
   return (
     <>
       <Helmet>
-      <title>Brand - Qsales</title>
+      <title>Cart - Qsales</title>
 
       </Helmet>
       <Header />

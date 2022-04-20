@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import ReactImageMagnify from "react-image-magnify";
 import ReactStars from "react-stars";
+import { Helmet } from "react-helmet";
 import { UNSAFE_NavigationContext } from "react-router-dom";
 import Carousel from "react-elastic-carousel";
 import ProductTabs from "./ProductTabs";
@@ -256,9 +257,10 @@ function ProductDescription(props) {
     { width: 1, itemsToShow: 2 },
     { width: 550, itemsToShow: 3, pagination: false },
   ];
-
+  console.log(productDetails?.i18nResourceBundle?.name)
   return (
     <>
+
       {initialLoading && (
         <div
           style={{
@@ -273,6 +275,10 @@ function ProductDescription(props) {
       )}
       {productDetails && !initialLoading && (
         <>
+          <Helmet>
+            <title>{`Product ${productDetails?.i18nResourceBundle?.name} - Qsales`}</title>
+
+          </Helmet>
           <div className="col-12 py-5">
             {/* Product Image */}
             <div className="row">
@@ -691,7 +697,7 @@ function ProductDescription(props) {
                   propsCreateData("PLACE_ORDER", "order", orderData).then(
                     (res) => {
                       if (res.error)
-                       toast.error(res.error.response.data.err);
+                        toast.error(res.error.response.data.err);
                       else {
                         toast.success("Order placed", {
                           className: "my-toast",
