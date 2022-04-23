@@ -62,7 +62,6 @@ const CartComponent = (props) => {
 
   useEffect(() => {
     if (!user?._id) return;
-
     setLoading(true);
     axios
       .get("/user/cart")
@@ -80,6 +79,7 @@ const CartComponent = (props) => {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     if (!user?._id) {
       const cart = getCartInLocalStorage();
       propsCreateData("GET_CART_DETAILS", "user/cartDetails", {
@@ -87,9 +87,11 @@ const CartComponent = (props) => {
       }).then((res) => {
         if (res.error) return;
         setCartItems(res.payload.data.cart);
+        setLoading(false);
       });
     } else {
       updateCartState();
+      setLoading(false);
     }
   }, []);
 
@@ -207,7 +209,6 @@ const CartComponent = (props) => {
       </>
     );
   };
-  console.log(cartItems)
   return (
     <Container>
       <Wrapper>
@@ -230,7 +231,7 @@ const CartComponent = (props) => {
             <hr />
           </>
         )}
-        {cartItems.length == 0 ?
+        {loading ?
           <div
             style={{
               height: "65vh",
