@@ -9,6 +9,7 @@ const reducers = combineReducers({
   getAllCategoriesReducer: commonReducer(ActionTypes.GET_CATEGORY),
   getCategoryDetailsReducer: commonReducer(ActionTypes.GET_CATEGORY_DETAILS),
   getAllProductsReducer: commonReducer(ActionTypes.GET_PRODUCTS),
+  getAllFeaturedProducts: commonReducer(ActionTypes.GET_FEATUREDPRODUCT),
   getAllBrandsReducer: commonReducer(ActionTypes.GET_BRANDS),
   getAllShopsReducer: commonReducer(ActionTypes.GET_SHOPS),
   getAllOrdersReducer: commonReducer(ActionTypes.GET_ORDERS),

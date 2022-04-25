@@ -39,6 +39,7 @@ function ProductsListHolder(props) {
 
   useEffect(() => {
     propsGetData(ActionTypes.GET_CATEGORY, "/category");
+    propsGetData(ActionTypes.GET_FEATUREDPRODUCT, "/product?featured=true");
     propsGetData(ActionTypes.GET_ALL_FLASHDEAL, "/flash");
   }, [propsGetData]);
 
@@ -59,7 +60,6 @@ function ProductsListHolder(props) {
     }
     setAllCategories(flashs.concat(otherCategories.concat(categories)));
   }, [categories, flashs]);
-
   return (
     <>
       {allCategories?.map((data, index) => {

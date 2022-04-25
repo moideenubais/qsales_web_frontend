@@ -13,7 +13,6 @@ function ProductsContainer(props) {
   const { getData: propsGetData, datas } = props;
 
   const [productsData, setproductsData] = useState([]);
-
   useEffect(() => {
     if (!datas) return;
     const query = {
@@ -29,6 +28,7 @@ function ProductsContainer(props) {
     if (datas.duration) {
       delete datas.category_id;
     }
+    console.log(datas._id)
     propsGetData(
       ActionTypes.GET_PRODUCTS,
       datas.duration ? `/flash/${datas._id}` : "/product",
@@ -47,7 +47,7 @@ function ProductsContainer(props) {
     { width: 1450, itemsToShow: 6 },
     { width: 1750, itemsToShow: 7 },
   ];
-
+  console.log(productsData)
   return (
     <>
       {productsData ? (
