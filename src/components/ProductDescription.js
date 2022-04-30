@@ -276,7 +276,7 @@ function ProductDescription(props) {
       {productDetails && !initialLoading && (
         <>
           <Helmet>
-            <title>{`Product ${productDetails?.i18nResourceBundle?.name} - Qsales`}</title>
+            <title>{`${productDetails?.i18nResourceBundle?.name} - Qsales`}</title>
 
           </Helmet>
           <div className="col-12 py-5">
