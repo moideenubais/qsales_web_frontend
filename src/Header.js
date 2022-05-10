@@ -286,7 +286,11 @@ function Header(props) {
                             onClick={() =>
                               history.push(
                                 `/product/${
-                                  name.toLowerCase().split(" ").join("-") +
+                                  name
+                                    .toLowerCase()
+                                    .split(" ")
+                                    .join("-")
+                                    .replace("/", "-") +
                                   "-product-id-" +
                                   _id
                                 }`

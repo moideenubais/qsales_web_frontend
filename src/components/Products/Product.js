@@ -33,14 +33,14 @@ function Product(props) {
         to={{
           pathname: `/product/${
             // productName.toLowerCase().split(" ").join("-") +
-            productName.toLowerCase().split(" ").join("-") +
+            productName.toLowerCase().split(" ").join("-").replace("/", "-") +
             "-product-id-" +
             _id
-            }`,
+          }`,
           query: { id: _id },
         }}
-      // });
-      // }}
+        // });
+        // }}
       >
         <div className="d-flex justify-content-center">
           <img
@@ -57,14 +57,17 @@ function Product(props) {
         >
           <div className=" product-description">
             <h6
-              className={`product-title p-0 m-0 mb-1 text-dark card-title ${window.innerWidth > 768 ? "" : ""
-                }`}
+              className={`product-title p-0 m-0 mb-1 text-dark card-title ${
+                window.innerWidth > 768 ? "" : ""
+              }`}
             >
               {productName.length > 10 && window.innerWidth < 768
-                ? `${productName?.substring(0, 25)}${productName.length > 25 ? "..." : ""
-                }`
-                : `${productName?.substring(0, 40)}${productName.length > 40 ? "..." : ""
-                }`}
+                ? `${productName?.substring(0, 25)}${
+                    productName.length > 25 ? "..." : ""
+                  }`
+                : `${productName?.substring(0, 40)}${
+                    productName.length > 40 ? "..." : ""
+                  }`}
             </h6>
             <p className="p-0 m-0 text-secondary fs-12">{description}</p>
           </div>
@@ -88,7 +91,7 @@ function Product(props) {
                         discountType == "flat"
                           ? price - discountAmount
                           : ((100 - parseFloat(discountAmount)) / 100) *
-                          parseFloat(price)
+                              parseFloat(price)
                       ).toFixed(2)}
                       &nbsp;&nbsp;
                     </strong>
